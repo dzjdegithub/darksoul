@@ -27,11 +27,8 @@ module ex_mem
     input [`RF_ADDR_WIDTH - 1 : 0] ex_rf_waddr,
     input [`XLEN - 1 : 0] ex_alu_res,
     input ex_is_load,
-    // input ex_mem_re,  这些信号暂时不用传递给mem阶段
-    // input ex_mem_we,
     input [1 : 0] ex_ls_addr_2low,  //将低两位传给mem阶段，与mask共同算出load指令的数据
     input [4 : 0] ex_l_mask,
-    // input [3 : 0] ex_s_mask,
     
     //mem
     output reg [`XLEN - 1 : 0] mem_pc,
@@ -40,11 +37,8 @@ module ex_mem
     output reg [`RF_ADDR_WIDTH - 1 : 0] mem_rf_waddr,
     output reg [`XLEN - 1 : 0] mem_alu_res,
     output reg mem_is_load,
-    // output mem_mem_re,   //mem阶段存储器的使能
-    // output mem_mem_we,
     output reg [1 : 0] mem_ls_addr_2low,
     output reg [4 : 0] mem_l_mask
-    // output [3 : 0] mem_s_mask,
 );
 
     wire ex_ready_go;
