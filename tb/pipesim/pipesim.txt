@@ -1,0 +1,88 @@
+load冒险
+F D E M W
+  F D E M W 
+    F D E M W
+      F D D E M W
+        F F D E M W
+        1 2 3 4 5 6
+
+
+
+
+
+
+t1 ; 
+if_valid = 0 组合逻辑
+if_ready_go = 0 
+if_id_valid = 0
+//next_pc不变 有stall就置零
+
+id_valid = 1
+id_ready_go = 0
+id_ex_valid = 0
+id_allowin = 0
+
+ex_valid = 1
+ex_ready_go = 1
+ex_mem_valid = 1
+ex_allowin = 1
+
+mem_valid = 1
+mem_ready_go = 1
+mem_wb_valid = 1
+mem_allowin = 1
+
+wb_valid = 1
+wb_ready_go = 1
+wb_allowin = 1
+
+t2
+if_valid = 1
+if_ready_go = 1
+if_id_valid = 1
+
+id_valid = 1
+id_ready_go = 1 //ready_go 
+
+       
+F D E M W
+  F D E M W
+    F D D E M W                    
+      F F F F D E M W
+              F D E M W
+      0 1 2 3 4 5
+
+
+
+t0 stall
+t1 stall
+t2 ex_valid bj
+
+F D E M W
+  F D E M W
+    F D D E M W
+      F F F D E M W
+            F D E M W
+      0 1 2 3 4 5
+
+
+跳转
+F D E M X
+  F F F D
+        F
+
+不跳转
+F D E M X
+  F F D 
+      F 
+        
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,62 @@
+C:/Users/dzj0489/Desktop/fffff/project/darksoul/tb/mul_tb.v {1 {vlog -work work -vopt -stats=none C:/Users/dzj0489/Desktop/fffff/project/darksoul/tb/mul_tb.v
+Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+-- Compiling module mul_tb
+
+Top level modules:
+	mul_tb
+
+} {} {}} C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/booth_encoder.v {1 {vlog -work work -vopt -stats=none C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/booth_encoder.v
+Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+-- Compiling module booth_encoder
+
+Top level modules:
+	booth_encoder
+
+} {} {}} C:/Users/dzj0489/Desktop/fffff/project/darksoul/tb/comp_tb.v {1 {vlog -work work -vopt -stats=none C:/Users/dzj0489/Desktop/fffff/project/darksoul/tb/comp_tb.v
+Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+-- Compiling module comp_tb
+
+Top level modules:
+	comp_tb
+
+} {} {}} C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/wallace_tree.v {1 {vlog -work work -vopt -stats=none C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/wallace_tree.v
+Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+-- Compiling module wallace_tree
+
+Top level modules:
+	wallace_tree
+
+} {} {}} C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/LCA.v {1 {vlog -work work -vopt -stats=none C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/LCA.v
+Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+-- Compiling module LCA
+-- Compiling module LCA_4
+
+Top level modules:
+	LCA
+
+} {} {}} C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/compressor.v {1 {vlog -work work -vopt -stats=none C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/compressor.v
+Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+-- Compiling module comp3_2
+-- Compiling module N_comp3_2
+-- Compiling module comp4_2
+-- Compiling module N_comp4_2
+
+Top level modules:
+	N_comp3_2
+	N_comp4_2
+
+} {} {}} C:/Users/dzj0489/Desktop/fffff/project/darksoul/tb/add.v {1 {vlog -work work -vopt -stats=none C:/Users/dzj0489/Desktop/fffff/project/darksoul/tb/add.v
+Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+-- Compiling module add
+
+Top level modules:
+	add
+
+} {} {}} C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/pp_gen.v {1 {vlog -work work -vopt -stats=none C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/pp_gen.v
+Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+-- Compiling module pp_gen
+
+Top level modules:
+	pp_gen
+
+} {} {}}

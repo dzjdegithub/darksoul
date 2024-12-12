@@ -1,0 +1,242 @@
+m255
+K4
+z2
+!s11f vlog 2020.4 2020.10, Oct 13 2020
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dE:/iverilog/project/darksoul/rtl/core
+vdecoder
+!s110 1730376315
+!i10b 1
+!s100 8Yi@H^V_DS8KW18hZAGbi3
+Z1 !s11b Dg1SIo80bB@j0V0VzS_@n1
+I6Xd=TGVjY>?QPnnLE0=Zk3
+R0
+w1730376315
+8E:\iverilog\project\darksoul\rtl\core\decoder.v
+FE:\iverilog\project\darksoul\rtl\core\decoder.v
+!i122 41
+L0 6 561
+Z2 VDg1SIo80bB@j0V0VzS_@n1
+Z3 OL;L;2020.4;71
+r1
+!s85 0
+31
+!s108 1730376315.000000
+!s107 defines.v|E:\iverilog\project\darksoul\rtl\core\decoder.v|
+!s90 E:\iverilog\project\darksoul\rtl\core\decoder.v|
+!i113 0
+Z4 o-L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+Z5 tCvgOpt 0
+vid_ex
+!s110 1730428472
+!i10b 1
+!s100 `mWbMaUA03@Mm[zoCe19h1
+R1
+I4hR6_lVaMdfm@@3Q4eYg[0
+R0
+w1730428385
+8E:\iverilog\project\darksoul\rtl\core\id_ex.v
+FE:\iverilog\project\darksoul\rtl\core\id_ex.v
+!i122 48
+L0 7 119
+R2
+R3
+r1
+!s85 0
+31
+!s108 1730428472.000000
+!s107 defines.v|E:\iverilog\project\darksoul\rtl\core\id_ex.v|
+!s90 E:\iverilog\project\darksoul\rtl\core\id_ex.v|
+!i113 0
+R4
+R5
+vid_stage
+!s110 1730379477
+!i10b 1
+!s100 5JLJ463k;BIJecoFL[AB61
+R1
+ITO`78782n1a8a4ZnCU4PV3
+R0
+w1730379476
+8E:\iverilog\project\darksoul\rtl\core\id_stage.v
+FE:\iverilog\project\darksoul\rtl\core\id_stage.v
+!i122 46
+L0 7 80
+R2
+R3
+r1
+!s85 0
+31
+!s108 1730379477.000000
+!s107 defines.v|E:\iverilog\project\darksoul\rtl\core\id_stage.v|
+!s90 E:\iverilog\project\darksoul\rtl\core\id_stage.v|
+!i113 0
+R4
+R5
+vif_id
+!s110 1730292498
+!i10b 1
+!s100 ^`PBVnUc973F;2N5QH3a13
+R1
+IT>ARnZ1d7l?W3b`omWaIA2
+R0
+w1730292498
+8E:\iverilog\project\darksoul\rtl\core\if_id.v
+FE:\iverilog\project\darksoul\rtl\core\if_id.v
+!i122 36
+L0 4 56
+R2
+R3
+r1
+!s85 0
+31
+!s108 1730292498.000000
+!s107 defines.v|E:\iverilog\project\darksoul\rtl\core\if_id.v|
+!s90 E:\iverilog\project\darksoul\rtl\core\if_id.v|
+!i113 0
+R4
+R5
+vif_stage
+!s110 1730183383
+!i10b 1
+!s100 econIYjX9iM3PHfzDTJ=:0
+R1
+I<ibfWCg1_T3Zeec>[_UiC3
+R0
+w1730183382
+8E:\iverilog\project\darksoul\rtl\core\if_stage.v
+FE:\iverilog\project\darksoul\rtl\core\if_stage.v
+!i122 29
+L0 7 56
+R2
+R3
+r1
+!s85 0
+31
+!s108 1730183383.000000
+!s107 defines.v|E:\iverilog\project\darksoul\rtl\core\if_stage.v|
+!s90 E:\iverilog\project\darksoul\rtl\core\if_stage.v|
+!i113 0
+R4
+R5
+vimm_gen
+!s110 1730376094
+!i10b 1
+!s100 GHfCFD_ahjmMn@HOFO2e03
+R1
+IenM8_BSgFDVZ1B:lB1N=D0
+R0
+w1730376093
+8E:\iverilog\project\darksoul\rtl\core\imm_gen.v
+FE:\iverilog\project\darksoul\rtl\core\imm_gen.v
+!i122 40
+L0 5 42
+R2
+R3
+r1
+!s85 0
+31
+!s108 1730376094.000000
+!s107 defines.v|E:\iverilog\project\darksoul\rtl\core\imm_gen.v|
+!s90 E:\iverilog\project\darksoul\rtl\core\imm_gen.v|
+!i113 0
+R4
+R5
+vIRAM
+!s110 1730185538
+!i10b 1
+!s100 iJOol4Ih62mk5z_M_?ECQ3
+R1
+I2;UgX?9;A>f?B0[?:W]4U2
+R0
+w1730185538
+8E:\iverilog\project\darksoul\rtl\core\IRAM.v
+FE:\iverilog\project\darksoul\rtl\core\IRAM.v
+!i122 32
+L0 4 21
+R2
+R3
+r1
+!s85 0
+31
+!s108 1730185538.000000
+!s107 defines.v|E:\iverilog\project\darksoul\rtl\core\IRAM.v|
+!s90 E:\iverilog\project\darksoul\rtl\core\IRAM.v|
+!i113 0
+R4
+R5
+n@i@r@a@m
+vitcm
+!s110 1730039883
+!i10b 1
+!s100 dde7I@Oo5YN2]0M4V7XQ^1
+R1
+IO86G]MY??UILoS7Ijz2S00
+R0
+w1730039882
+8E:\iverilog\project\darksoul\rtl\core\itcm.v
+FE:\iverilog\project\darksoul\rtl\core\itcm.v
+!i122 23
+L0 3 21
+R2
+R3
+r1
+!s85 0
+31
+!s108 1730039883.000000
+!s107 defines.v|E:\iverilog\project\darksoul\rtl\core\itcm.v|
+!s90 E:\iverilog\project\darksoul\rtl\core\itcm.v|
+!i113 0
+R4
+R5
+vpc_reg
+!s110 1730183226
+!i10b 1
+!s100 MokELD^U]zXLc6dS@nmRA0
+R1
+I__0a`ePfY_OdL=^G6M4;a0
+R0
+w1730183225
+8E:\iverilog\project\darksoul\rtl\core\pc_reg.v
+FE:\iverilog\project\darksoul\rtl\core\pc_reg.v
+!i122 28
+L0 3 32
+R2
+R3
+r1
+!s85 0
+31
+!s108 1730183225.000000
+!s107 defines.v|E:\iverilog\project\darksoul\rtl\core\pc_reg.v|
+!s90 E:\iverilog\project\darksoul\rtl\core\pc_reg.v|
+!i113 0
+R4
+R5
+vregfile
+!s110 1730188322
+!i10b 1
+!s100 d<FTCjUgRLVLd4fJgC3Bi3
+R1
+ICGRnm08oXTdzRl?07@O5a1
+R0
+w1730188322
+8E:\iverilog\project\darksoul\rtl\core\regfile.v
+FE:\iverilog\project\darksoul\rtl\core\regfile.v
+!i122 33
+L0 5 43
+R2
+R3
+r1
+!s85 0
+31
+!s108 1730188322.000000
+!s107 defines.v|E:\iverilog\project\darksoul\rtl\core\regfile.v|
+!s90 E:\iverilog\project\darksoul\rtl\core\regfile.v|
+!i113 0
+R4
+R5

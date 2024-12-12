@@ -1,0 +1,779 @@
+m255
+K4
+z2
+!s11f vlog 2020.4 2020.10, Oct 13 2020
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dE:/modelsim/examples
+T_opt
+!s110 1732250642
+VLdJg5Go>]lf?>2m[PjKUb3
+04 6 4 work cpu_tb fast 0
+=1-d8bbc1a9ec3e-67400c11-29f-340c
+Z1 o-quiet -auto_acc_if_foreign -work work +acc
+Z2 tCvgOpt 0
+n@_opt
+Z3 OL;O;2020.4;71
+R0
+T_opt1
+!s110 1732356246
+Vm]8QS6LXPDcnI`Tk7h6MA1
+04 6 4 work div_tb fast 0
+=1-d8bbc1a9ec3e-6741a895-29a-29c4
+R1
+R2
+n@_opt1
+R3
+vagu
+Z4 !s110 1732356087
+!i10b 1
+!s100 W3ZmX]>C[O:VfU51j6Y;l0
+Z5 !s11b Dg1SIo80bB@j0V0VzS_@n1
+IX`k@hTThYFbIk0?[g>m>91
+Z6 dC:/Users/dzj0489/Desktop/fffff/project/darksoul/tb/modelsim
+w1732111133
+8C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/agu.v
+FC:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/agu.v
+!i122 326
+L0 7 19
+Z7 VDg1SIo80bB@j0V0VzS_@n1
+Z8 OL;L;2020.4;71
+r1
+!s85 0
+31
+Z9 !s108 1732356087.000000
+!s107 C:\Users\dzj0489\Desktop\fffff\project\darksoul\rtl\core\defines.v|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/agu.v|
+!s90 -reportprogress|300|-work|work|-vopt|-stats=none|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/agu.v|
+!i113 0
+Z10 o-work work -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+R2
+valu
+R4
+!i10b 1
+!s100 bM[Go7k0eId@BW`:Xn`B@1
+R5
+IR1_CeOcgb:06CIlAIkmb`0
+R6
+w1732160424
+8C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/alu.v
+FC:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/alu.v
+!i122 327
+L0 7 89
+R7
+R8
+r1
+!s85 0
+31
+R9
+!s107 C:\Users\dzj0489\Desktop\fffff\project\darksoul\rtl\core\defines.v|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/alu.v|
+!s90 -reportprogress|300|-work|work|-vopt|-stats=none|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/alu.v|
+!i113 0
+R10
+R2
+vbju
+R4
+!i10b 1
+!s100 =a`h>8@4Z`YiD`CUVjHa90
+R5
+Ib[JTUCNK_f80`A_Le;FjC2
+R6
+w1730557657
+8C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/bju.v
+FC:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/bju.v
+!i122 328
+L0 7 34
+R7
+R8
+r1
+!s85 0
+31
+R9
+!s107 C:\Users\dzj0489\Desktop\fffff\project\darksoul\rtl\core\defines.v|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/bju.v|
+!s90 -reportprogress|300|-work|work|-vopt|-stats=none|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/bju.v|
+!i113 0
+R10
+R2
+vbooth_encoder
+Z11 !s110 1732356090
+!i10b 1
+!s100 I4O^A8icMf6dO<30WfPSd2
+R5
+IfF>`jY5XJo`^Kc;FB[7cY0
+R6
+w1731848914
+8C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/booth_encoder.v
+FC:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/booth_encoder.v
+!i122 353
+L0 1 41
+R7
+R8
+r1
+!s85 0
+31
+Z12 !s108 1732356090.000000
+!s107 C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/booth_encoder.v|
+!s90 -reportprogress|300|-work|work|-vopt|-stats=none|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/booth_encoder.v|
+!i113 0
+R10
+R2
+vcomp3_2
+R11
+!i10b 1
+!s100 OK7^cbkiE56L=YEiJZ>Sz0
+R5
+IRL?nbO2:G7@FPj2;Gd9RA1
+R6
+Z13 w1732014656
+Z14 8C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/compressor.v
+Z15 FC:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/compressor.v
+!i122 352
+L0 1 15
+R7
+R8
+r1
+!s85 0
+31
+R12
+Z16 !s107 C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/compressor.v|
+Z17 !s90 -reportprogress|300|-work|work|-vopt|-stats=none|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/compressor.v|
+!i113 0
+R10
+R2
+vcomp4_2
+R11
+!i10b 1
+!s100 cOzZUF74zK56k73iJdlc_0
+R5
+IWETN1@n4?^RgNKf3Qd@711
+R6
+R13
+R14
+R15
+!i122 352
+L0 51 22
+R7
+R8
+r1
+!s85 0
+31
+R12
+R16
+R17
+!i113 0
+R10
+R2
+vcpu_tb
+Z18 !s110 1732356089
+!i10b 1
+!s100 mgf=oVh:aPYHC8:L3:`N40
+R5
+I0Mc>K0L^W_;jERL=VlZ]71
+R6
+w1732238743
+8C:/Users/dzj0489/Desktop/fffff/project/darksoul/tb/cpu_tb.v
+FC:/Users/dzj0489/Desktop/fffff/project/darksoul/tb/cpu_tb.v
+!i122 346
+L0 2 66
+R7
+R8
+r1
+!s85 0
+31
+Z19 !s108 1732356089.000000
+!s107 C:/Users/dzj0489/Desktop/fffff/project/darksoul/tb/cpu_tb.v|
+!s90 -reportprogress|300|-work|work|-vopt|-stats=none|C:/Users/dzj0489/Desktop/fffff/project/darksoul/tb/cpu_tb.v|
+!i113 0
+R10
+R2
+vcpu_top
+R4
+!i10b 1
+!s100 <JX>1M=4gE77b:ZzV5Z4I3
+R5
+I[Z;bi3:==E03^fJMSVU6a3
+R6
+w1732203076
+8C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/cpu_top.v
+FC:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/cpu_top.v
+!i122 329
+L0 5 464
+R7
+R8
+r1
+!s85 0
+31
+R9
+!s107 C:\Users\dzj0489\Desktop\fffff\project\darksoul\rtl\core\defines.v|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/cpu_top.v|
+!s90 -reportprogress|300|-work|work|-vopt|-stats=none|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/cpu_top.v|
+!i113 0
+R10
+R2
+vdecoder
+R4
+!i10b 1
+!s100 67j]UB1X]4Zn?[QZO`9<V3
+R5
+I=Kd0iYKeGhg]Piefh`:P72
+R6
+w1732201051
+8C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/decoder.v
+FC:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/decoder.v
+!i122 330
+L0 6 745
+R7
+R8
+r1
+!s85 0
+31
+R9
+!s107 C:\Users\dzj0489\Desktop\fffff\project\darksoul\rtl\core\defines.v|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/decoder.v|
+!s90 -reportprogress|300|-work|work|-vopt|-stats=none|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/decoder.v|
+!i113 0
+R10
+R2
+vdiv
+R11
+!i10b 1
+!s100 bn]JC:hghIk5l3OcHY`Yn3
+R5
+I[5AZ9;EUUBR9D>NJkfN;[0
+R6
+w1732354753
+8C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/div.v
+FC:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/div.v
+!i122 355
+L0 3 111
+R7
+R8
+r1
+!s85 0
+31
+R12
+!s107 C:\Users\dzj0489\Desktop\fffff\project\darksoul\rtl\core\defines.v|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/div.v|
+!s90 -reportprogress|300|-work|work|-vopt|-stats=none|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/div.v|
+!i113 0
+R10
+R2
+vdiv_tb
+!s110 1732356235
+!i10b 1
+!s100 ohM;?IMe[LoPUfYP?9jA<1
+R5
+I5bfKE4B<X<0:JJ^FGI8VQ2
+R6
+w1732356226
+8C:/Users/dzj0489/Desktop/fffff/project/darksoul/tb/div_tb.v
+FC:/Users/dzj0489/Desktop/fffff/project/darksoul/tb/div_tb.v
+!i122 356
+L0 1 53
+R7
+R8
+r1
+!s85 0
+31
+!s108 1732356235.000000
+!s107 C:/Users/dzj0489/Desktop/fffff/project/darksoul/tb/div_tb.v|
+!s90 -reportprogress|300|-work|work|-vopt|-stats=none|C:/Users/dzj0489/Desktop/fffff/project/darksoul/tb/div_tb.v|
+!i113 0
+R10
+R2
+vDRAM
+Z20 !s110 1732356088
+!i10b 1
+!s100 QBEBdQiF7;TYmjMI4UNP[2
+R5
+IRmW6Dz4=LAUmLAmeo4MLS0
+R6
+w1732106839
+8C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/DRAM.v
+FC:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/DRAM.v
+!i122 331
+L0 5 50
+R7
+R8
+r1
+!s85 0
+31
+Z21 !s108 1732356088.000000
+!s107 C:\Users\dzj0489\Desktop\fffff\project\darksoul\rtl\core\defines.v|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/DRAM.v|
+!s90 -reportprogress|300|-work|work|-vopt|-stats=none|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/DRAM.v|
+!i113 0
+R10
+R2
+n@d@r@a@m
+vex_mem
+R20
+!i10b 1
+!s100 @aX9ijjH1FAiFXGEN>mY62
+R5
+IFmGU__Slk[5oM7VbXcgkI3
+R6
+w1732201740
+8C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/ex_mem.v
+FC:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/ex_mem.v
+!i122 332
+L0 5 102
+R7
+R8
+r1
+!s85 0
+31
+R21
+!s107 C:\Users\dzj0489\Desktop\fffff\project\darksoul\rtl\core\defines.v|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/ex_mem.v|
+!s90 -reportprogress|300|-work|work|-vopt|-stats=none|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/ex_mem.v|
+!i113 0
+R10
+R2
+vex_stage
+R20
+!i10b 1
+!s100 <4;]CPVfzT39gYnPeP9WC3
+R5
+IY;=[CCheoYbmmDgM0LWkQ2
+R6
+w1732201476
+8C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/ex_stage.v
+FC:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/ex_stage.v
+!i122 333
+L0 7 158
+R7
+R8
+r1
+!s85 0
+31
+R21
+!s107 C:\Users\dzj0489\Desktop\fffff\project\darksoul\rtl\core\defines.v|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/ex_stage.v|
+!s90 -reportprogress|300|-work|work|-vopt|-stats=none|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/ex_stage.v|
+!i113 0
+R10
+R2
+vid_ex
+R20
+!i10b 1
+!s100 7MDhkb>AbEB?hWiTd:mNC2
+R5
+IiO@Xo4_MNZ8>m0L@Y4aio2
+R6
+w1732201240
+8C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/id_ex.v
+FC:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/id_ex.v
+!i122 334
+L0 7 165
+R7
+R8
+r1
+!s85 0
+31
+R21
+!s107 C:\Users\dzj0489\Desktop\fffff\project\darksoul\rtl\core\defines.v|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/id_ex.v|
+!s90 -reportprogress|300|-work|work|-vopt|-stats=none|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/id_ex.v|
+!i113 0
+R10
+R2
+vid_stage
+R20
+!i10b 1
+!s100 lnaZ6l9RC=U1l?a34gWa?3
+R5
+IL5jXQC4e=;QGDoAzIAg761
+R6
+w1732201139
+8C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/id_stage.v
+FC:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/id_stage.v
+!i122 335
+L0 7 146
+R7
+R8
+r1
+!s85 0
+31
+R21
+!s107 C:\Users\dzj0489\Desktop\fffff\project\darksoul\rtl\core\defines.v|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/id_stage.v|
+!s90 -reportprogress|300|-work|work|-vopt|-stats=none|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/id_stage.v|
+!i113 0
+R10
+R2
+vif_id
+R20
+!i10b 1
+!s100 ID_>J?Cbdz4lDYKA<z1kZ0
+R5
+IPHcOFX3Bc<?W2QlFUHnXY0
+R6
+w1731149428
+8C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/if_id.v
+FC:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/if_id.v
+!i122 336
+L0 4 58
+R7
+R8
+r1
+!s85 0
+31
+R21
+!s107 C:\Users\dzj0489\Desktop\fffff\project\darksoul\rtl\core\defines.v|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/if_id.v|
+!s90 -reportprogress|300|-work|work|-vopt|-stats=none|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/if_id.v|
+!i113 0
+R10
+R2
+vif_stage
+R20
+!i10b 1
+!s100 3YOTbE6bdVoXUdWYJOadL2
+R5
+IjU5L3<iVb0Ik;Hf?B947[1
+R6
+w1731149583
+8C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/if_stage.v
+FC:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/if_stage.v
+!i122 337
+L0 7 56
+R7
+R8
+r1
+!s85 0
+31
+R21
+!s107 C:\Users\dzj0489\Desktop\fffff\project\darksoul\rtl\core\defines.v|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/if_stage.v|
+!s90 -reportprogress|300|-work|work|-vopt|-stats=none|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/if_stage.v|
+!i113 0
+R10
+R2
+vimm_gen
+R20
+!i10b 1
+!s100 GHfCFD_ahjmMn@HOFO2e03
+R5
+I?Y9dEaPn`6d^<KBaBNK>X3
+R6
+w1730376093
+8C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/imm_gen.v
+FC:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/imm_gen.v
+!i122 338
+L0 5 42
+R7
+R8
+r1
+!s85 0
+31
+R21
+!s107 C:\Users\dzj0489\Desktop\fffff\project\darksoul\rtl\core\defines.v|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/imm_gen.v|
+!s90 -reportprogress|300|-work|work|-vopt|-stats=none|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/imm_gen.v|
+!i113 0
+R10
+R2
+vIRAM
+R18
+!i10b 1
+!s100 hoVN:nNdB=VS_VCegkV903
+R5
+IGl1Zo_F[jc[_6:W5cP=dL0
+R6
+w1730642659
+8C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/IRAM.v
+FC:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/IRAM.v
+!i122 339
+L0 4 21
+R7
+R8
+r1
+!s85 0
+31
+R19
+!s107 C:\Users\dzj0489\Desktop\fffff\project\darksoul\rtl\core\defines.v|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/IRAM.v|
+!s90 -reportprogress|300|-work|work|-vopt|-stats=none|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/IRAM.v|
+!i113 0
+R10
+R2
+n@i@r@a@m
+vLCA
+R11
+!i10b 1
+!s100 zZIMlo9OE3SV4G?KBi]fC2
+R5
+IQdkO]^5amaFUOR;_5XFLM2
+R6
+Z22 w1732030309
+Z23 8C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/LCA.v
+Z24 FC:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/LCA.v
+!i122 349
+L0 6 32
+R7
+R8
+r1
+!s85 0
+31
+R12
+Z25 !s107 C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/LCA.v|
+Z26 !s90 -reportprogress|300|-work|work|-vopt|-stats=none|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/LCA.v|
+!i113 0
+R10
+R2
+n@l@c@a
+vLCA_4
+R11
+!i10b 1
+!s100 moW50Q54IiX8RE9Ko<g761
+R5
+Ifig?H=ni<jiE9KN1@;^YR3
+R6
+R22
+R23
+R24
+!i122 349
+L0 42 28
+R7
+R8
+r1
+!s85 0
+31
+R12
+R25
+R26
+!i113 0
+R10
+R2
+n@l@c@a_4
+vmem_stage
+R18
+!i10b 1
+!s100 WG<U@K2MDh8JoUAFD=oJg3
+R5
+IVed9>:VCFJ[TCiG`[Nb_h3
+R6
+w1731081643
+8C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/mem_stage.v
+FC:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/mem_stage.v
+!i122 340
+L0 7 79
+R7
+R8
+r1
+!s85 0
+31
+R19
+!s107 C:\Users\dzj0489\Desktop\fffff\project\darksoul\rtl\core\defines.v|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/mem_stage.v|
+!s90 -reportprogress|300|-work|work|-vopt|-stats=none|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/mem_stage.v|
+!i113 0
+R10
+R2
+vmem_wb
+R18
+!i10b 1
+!s100 @bkE@oLQV>45]lA`03<ZC1
+R5
+I<ZFOocY5kA>e>0<ha6S:j0
+R6
+w1731677236
+8C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/mem_wb.v
+FC:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/mem_wb.v
+!i122 341
+L0 5 74
+R7
+R8
+r1
+!s85 0
+31
+R19
+!s107 C:\Users\dzj0489\Desktop\fffff\project\darksoul\rtl\core\defines.v|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/mem_wb.v|
+!s90 -reportprogress|300|-work|work|-vopt|-stats=none|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/mem_wb.v|
+!i113 0
+R10
+R2
+vmul
+R11
+!i10b 1
+!s100 LK=MlDkC>FzFLLaXgF]TL0
+R5
+IVlnViX:__noE2DmKEo3=N1
+R6
+w1732250610
+8C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/mul.v
+FC:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/mul.v
+!i122 348
+L0 4 277
+R7
+R8
+r1
+!s85 0
+31
+R12
+!s107 C:\Users\dzj0489\Desktop\fffff\project\darksoul\rtl\core\defines.v|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/mul.v|
+!s90 -reportprogress|300|-work|work|-vopt|-stats=none|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/mul.v|
+!i113 0
+R10
+R2
+vmux_alu
+R18
+!i10b 1
+!s100 f92?=9]i59CF@9Y;DM97n3
+R5
+IXfjMm6TIcVHMK]nG2gA4L0
+R6
+w1730553466
+8C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/mux_alu.v
+FC:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/mux_alu.v
+!i122 342
+L0 7 62
+R7
+R8
+r1
+!s85 0
+31
+R19
+!s107 C:\Users\dzj0489\Desktop\fffff\project\darksoul\rtl\core\defines.v|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/mux_alu.v|
+!s90 -reportprogress|300|-work|work|-vopt|-stats=none|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/mux_alu.v|
+!i113 0
+R10
+R2
+vN_comp3_2
+R11
+!i10b 1
+!s100 ESY2FV;R<:c]3k^5FX9f22
+R5
+I04`zM>m=E6`gNU7DGIJoj1
+R6
+R13
+R14
+R15
+!i122 352
+L0 18 32
+R7
+R8
+r1
+!s85 0
+31
+R12
+R16
+R17
+!i113 0
+R10
+R2
+n@n_comp3_2
+vN_comp4_2
+R11
+!i10b 1
+!s100 G6?O9lekCj2JTbc1<]QGo0
+R5
+IP53M]FkGT2:LNRH<T8dO31
+R6
+R13
+R14
+R15
+!i122 352
+L0 74 38
+R7
+R8
+r1
+!s85 0
+31
+R12
+R16
+R17
+!i113 0
+R10
+R2
+n@n_comp4_2
+vpc_reg
+R18
+!i10b 1
+!s100 ]h2cjMI^[TaA`GehZ8WzV1
+R5
+I665V80WhI]b=ODmV?@ReV3
+R6
+w1731149471
+8C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/pc_reg.v
+FC:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/pc_reg.v
+!i122 343
+L0 3 34
+R7
+R8
+r1
+!s85 0
+31
+R19
+!s107 C:\Users\dzj0489\Desktop\fffff\project\darksoul\rtl\core\defines.v|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/pc_reg.v|
+!s90 -reportprogress|300|-work|work|-vopt|-stats=none|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/pc_reg.v|
+!i113 0
+R10
+R2
+vpipe_ctrl
+R18
+!i10b 1
+!s100 oYcN;2K:]lZNhJ5L`]MO11
+R5
+Io?LXQZ:<ZTLS9a1A]c0EE2
+R6
+w1732202982
+8C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/pipe_ctrl.v
+FC:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/pipe_ctrl.v
+!i122 344
+L0 4 37
+R7
+R8
+r1
+!s85 0
+31
+R19
+!s107 C:\Users\dzj0489\Desktop\fffff\project\darksoul\rtl\core\defines.v|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/pipe_ctrl.v|
+!s90 -reportprogress|300|-work|work|-vopt|-stats=none|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/pipe_ctrl.v|
+!i113 0
+R10
+R2
+vpp_gen
+R11
+!i10b 1
+!s100 gL4H9>_D]Cg=ND?MNOl`J0
+R5
+IE0BdUd:Fg1PI[R?UODXJi0
+R6
+w1731848478
+8C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/pp_gen.v
+FC:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/pp_gen.v
+!i122 350
+L0 1 68
+R7
+R8
+r1
+!s85 0
+31
+R12
+!s107 C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/pp_gen.v|
+!s90 -reportprogress|300|-work|work|-vopt|-stats=none|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/pp_gen.v|
+!i113 0
+R10
+R2
+vRAM
+R18
+!i10b 1
+!s100 9AKf^`DM<nAeWE?9A7:0z1
+R5
+I3KkZbdG:1B9V=ba9[_fhm1
+R6
+w1730644781
+8C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/utils/RAM.v
+FC:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/utils/RAM.v
+!i122 347
+L0 5 72
+R7
+R8
+r1
+!s85 0
+31
+R19
+!s107 C:\Users\dzj0489\Desktop\fffff\project\darksoul\rtl\utils\..\core\defines.v|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/utils/RAM.v|
+!s90 -reportprogress|300|-work|work|-vopt|-stats=none|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/utils/RAM.v|
+!i113 0
+R10
+R2
+n@r@a@m
+vregfile
+R18
+!i10b 1
+!s100 d<FTCjUgRLVLd4fJgC3Bi3
+R5
+II

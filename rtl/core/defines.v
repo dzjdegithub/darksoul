@@ -1,0 +1,191 @@
+//processer
+`define XLEN 32
+`define CPU_RST_ADDR `XLEN'b0
+`define INST_BYTE_NUM 4
+`define RST_EDGE negedge
+`define MTVEC_BASE_ADDR 30'h600
+
+
+//IRAM
+`define IRAM_RADDR_BASE 31 : 2
+
+//const
+`define ZEROWORD `XLEN'b0
+`define ENABLE 1'b1
+`define DISABLE 1'b0
+`define TRUE 1'b1 
+`define FALSE 1'b0
+
+//regfile
+`define REG_NUM 32
+`define RF_ADDR_WIDTH 5
+`define X0 5'b0
+
+//pipe
+`define STALL 1'b1
+
+
+//DFF
+`define DFF_RST_ENABLE 1'b0
+`define DFF_ENABLE 1'b1
+
+//RAM
+`define RAM_RST_ENABLE 1'b0
+`define RAM_READ_ENABLE 1'b1
+`define RAM_WRITE_ENABLE 1'b1
+
+
+//decode
+`define RS1_BASE 19 : 15
+`define RS2_BASE 24 : 20
+`define RD_BASE 11 : 7
+
+//OPCODE
+`define OPCODE_WIDTH 7
+`define OPCODE_BASE 6 : 0
+`define INST_TYPE_R `OPCODE_WIDTH'b0110011 //reg
+`define INST_TYPE_I `OPCODE_WIDTH'b0010011 //imm
+`define INST_TYPE_IL `OPCODE_WIDTH'b0000011 //load
+`define INST_TYPE_S `OPCODE_WIDTH'b0100011 //store
+`define INST_TYPE_B `OPCODE_WIDTH'b1100011 //branch
+`define INST_LUI `OPCODE_WIDTH'b0110111//lui
+`define INST_AUIPC `OPCODE_WIDTH'b0010111//auipc
+`define INST_JAL `OPCODE_WIDTH'b1101111//jal
+`define INST_JALR `OPCODE_WIDTH'b1100111//jalr
+`define INST_CSR_E `OPCODE_WIDTH'b1110011//csr ecall ebreak
+`define INST_TYPE_FENCE `OPCODE_WIDTH'b0001111//fence fence.i
+
+//funct3
+`define FUNCT3_WIDTH 3
+`define FUNCT3_BASE 14 : 12
+//R-TYPE
+`define INST_ADD_SUB_MUL `FUNCT3_WIDTH'b000 
+`define INST_SLL_MULH `FUNCT3_WIDTH'b001 
+`define INST_SLT_MULHSU `FUNCT3_WIDTH'b010 
+`define INST_SLTU_MULHU `FUNCT3_WIDTH'b011 
+`define INST_XOR_DIV `FUNCT3_WIDTH'b100
+`define INST_SRL_SRA_DIVU `FUNCT3_WIDTH'b101 
+`define INST_OR_REM `FUNCT3_WIDTH'b110
+`define INST_AND_REMU `FUNCT3_WIDTH'b111
+//I-TYPE
+`define INST_ADDI `FUNCT3_WIDTH'b000 
+`define INST_SLTI `FUNCT3_WIDTH'b010 
+`define INST_SLTIU `FUNCT3_WIDTH'b011 
+`define INST_XORI `FUNCT3_WIDTH'b100
+`define INST_ORI `FUNCT3_WIDTH'b110 
+`define INST_ANDI `FUNCT3_WIDTH'b111
+`define INST_SLLI `FUNCT3_WIDTH'b001
+`define INST_SRLI_SRAI `FUNCT3_WIDTH'b101
+//IL load
+`define INST_LB `FUNCT3_WIDTH'b000 
+`define INST_LH `FUNCT3_WIDTH'b001
+`define INST_LW `FUNCT3_WIDTH'b010 
+`define INST_LBU `FUNCT3_WIDTH'b100 
+`define INST_LHU `FUNCT3_WIDTH'b101
+//S-TYPE (store)
+`define INST_SB `FUNCT3_WIDTH'b000 
+`define INST_SH `FUNCT3_WIDTH'b001 
+`define INST_SW `FUNCT3_WIDTH'b010
+//B-TYPE
+`define INST_BEQ `FUNCT3_WIDTH'b000 
+`define INST_BNE `FUNCT3_WIDTH'b001 
+`define INST_BLT `FUNCT3_WIDTH'b100
+`define INST_BGE `FUNCT3_WIDTH'b101 
+`define INST_BLTU `FUNCT3_WIDTH'b110 
+`define INST_BGEU `FUNCT3_WIDTH'b111 
+//e
+`define INST_ECALL_EBREAK `FUNCT3_WIDTH'b000
+`define INST_ECALL 25'b0
+`define INST_EBREAK {12'b1, 13'b0}
+//csr
+`define INST_CSRRW `FUNCT3_WIDTH'b001
+`define INST_CSRRS `FUNCT3_WIDTH'b010 
+`define INST_CSRRC `FUNCT3_WIDTH'b011 
+`define INST_CSRRWI `FUNCT3_WIDTH'b101 
+`define INST_CSRRSI `FUNCT3_WIDTH'b110 
+`define INST_CSRRCI `FUNCT3_WIDTH'b111
+//fence fence.i
+`define INST_FENCE `FUNCT3_WIDTH'b000
+`define INST_FENCE_I `FUNCT3_WIDTH'b001
+
+
+//funct7
+`define FUNCT7_WIDTH 7
+`define FUNCT7_BASE 31 : 25
+`define FUNCT7_TYPE_A `FUNCT7_WIDTH'h00
+`define FUNCT7_TYPE_B `FUNCT7_WIDTH'h20
+`define FUNCT7_TYPE_C `FUNCT7_WIDTH'h01
+
+
+//ALU opcode
+`define ALU_OP_WIDTH 5           //?
+`define ALU_OP_NOP `ALU_OP_WIDTH'd0
+`define ALU_OP_ADD `ALU_OP_WIDTH'd1
+`define ALU_OP_SUB `ALU_OP_WIDTH'd2
+`define ALU_OP_SLL `ALU_OP_WIDTH'd3 //逻辑左移
+`define ALU_OP_SLT `ALU_OP_WIDTH'd4 //set less than 
+`define ALU_OP_SLTU `ALU_OP_WIDTH'd5 //set less than unsigned
+`define ALU_OP_XOR `ALU_OP_WIDTH'd6
+`define ALU_OP_SRL `ALU_OP_WIDTH'd7 //逻辑右移
+`define ALU_OP_SRA `ALU_OP_WIDTH'd8 //算术右移
+`define ALU_OP_OR `ALU_OP_WIDTH'd9
+`define ALU_OP_AND `ALU_OP_WIDTH'd10
+`define ALU_OP_EQ `ALU_OP_WIDTH'd11
+`define ALU_OP_NE `ALU_OP_WIDTH'd12
+`define ALU_OP_LT `ALU_OP_WIDTH'd13
+`define ALU_OP_GE `ALU_OP_WIDTH'd14
+`define ALU_OP_LTU `ALU_OP_WIDTH'd15
+`define ALU_OP_GEU `ALU_OP_WIDTH'd16
+
+
+//ALU_SRC_TYPE
+`define ALU_SRC_TYPE_WIDTH 3            //?
+`define ALU_NO_SRC `ALU_SRC_TYPE_WIDTH'd0
+`define RS_RS `ALU_SRC_TYPE_WIDTH'd1
+`define RS_IMM `ALU_SRC_TYPE_WIDTH'd2
+`define PC_IMM `ALU_SRC_TYPE_WIDTH'd3 //AUIPC
+`define PC_4 `ALU_SRC_TYPE_WIDTH'd4 //JAL JALR
+`define ZERO_IMM `ALU_SRC_TYPE_WIDTH'd5 //LUI
+
+//BJU_SRC_TYPE
+`define BJU_SRC_TYPE_WIDTH 2
+`define BJU_PC_IMM `BJU_SRC_TYPE_WIDTH'b00
+`define BJU_RS_IMM `BJU_SRC_TYPE_WIDTH'b01
+`define BJU_NO_SRC `BJU_SRC_TYPE_WIDTH'b10
+
+//IMM_GEN_OP
+`define IMM_GEN_OP_WIDTH 3  //?
+`define IMM_GEN_NONE `IMM_GEN_OP_WIDTH'd0
+`define IMM_GEN_I `IMM_GEN_OP_WIDTH'd1 
+`define IMM_GEN_S `IMM_GEN_OP_WIDTH'd2
+`define IMM_GEN_B `IMM_GEN_OP_WIDTH'd3
+`define IMM_GEN_U `IMM_GEN_OP_WIDTH'd4
+`define IMM_GEN_J `IMM_GEN_OP_WIDTH'd5
+`define IMM_GEN_CSR `IMM_GEN_OP_WIDTH'd6
+
+//sign_extend
+`define UNSIGNED_UNSIGNED 2'b00
+`define SIGNED_SIGNED 2'b11
+`define UNSIGNED_SIGNED 2'b01
+
+//word_sel
+`define LOW 1'b0
+`define HIGH 1'b1
+
+//div_res_sel
+`define QUOTIENT 1'b0
+`define REMAINDER 1'b1
+
+//csr_op
+`define CSR_RW 3'b001 
+`define CSR_RS 3'b010
+`define CSR_RC 3'b100 
+`define CSR_NONE 3'b000
+
+//csr_src_tp
+`define CSR_RS1 1'b0
+`define CSR_IMM 1'b1
+
+//fence_tp
+`define FENCE 1'b0
+`define FENCE_I 1'b1

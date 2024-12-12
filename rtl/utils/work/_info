@@ -1,0 +1,104 @@
+m255
+K4
+z2
+!s11f vlog 2020.4 2020.10, Oct 13 2020
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dE:/iverilog/project/darksoul/rtl/utils
+vgnrl_dff
+Z1 !s110 1730038297
+!i10b 1
+!s100 K@KQ9OV6j0>RA7YdB5:X?0
+Z2 !s11b Dg1SIo80bB@j0V0VzS_@n1
+IWf_InE:Y]@;UiNnAhiKOE1
+R0
+Z3 w1730038297
+Z4 8E:\iverilog\project\darksoul\rtl\utils\gnrl_dff_tools.v
+Z5 FE:\iverilog\project\darksoul\rtl\utils\gnrl_dff_tools.v
+!i122 6
+L0 15 24
+Z6 VDg1SIo80bB@j0V0VzS_@n1
+Z7 OL;L;2020.4;71
+r1
+!s85 0
+31
+Z8 !s108 1730038297.000000
+Z9 !s107 ../core/defines.v|E:\iverilog\project\darksoul\rtl\utils\gnrl_dff_tools.v|
+Z10 !s90 E:\iverilog\project\darksoul\rtl\utils\gnrl_dff_tools.v|
+!i113 0
+Z11 o-L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+Z12 tCvgOpt 0
+vgnrl_dff_ne
+R1
+!i10b 1
+!s100 2B?LaVkH05H:kW1X=eO782
+R2
+IlWnL>6gZczh<=Fd3Pi_hi2
+R0
+R3
+R4
+R5
+!i122 6
+L0 42 21
+R6
+R7
+r1
+!s85 0
+31
+R8
+R9
+R10
+!i113 0
+R11
+R12
+vgnrl_dff_nr
+R1
+!i10b 1
+!s100 D`iA0NjDoU2M;A^HkT]<L2
+R2
+Ig^OiADa2m4aV]RR7G9F7[2
+R0
+R3
+R4
+R5
+!i122 6
+L0 66 20
+R6
+R7
+r1
+!s85 0
+31
+R8
+R9
+R10
+!i113 0
+R11
+R12
+vRAM
+!s110 1730182878
+!i10b 1
+!s100 0AMmm5W@QW6TGdN?f[T<R3
+R2
+I=3YhZ_dA^[5YS3:KZ698o1
+R0
+w1730182877
+8E:\iverilog\project\darksoul\rtl\utils\RAM.v
+FE:\iverilog\project\darksoul\rtl\utils\RAM.v
+!i122 7
+L0 5 53
+R6
+R7
+r1
+!s85 0
+31
+!s108 1730182878.000000
+!s107 ../core/defines.v|E:\iverilog\project\darksoul\rtl\utils\RAM.v|
+!s90 E:\iverilog\project\darksoul\rtl\utils\RAM.v|
+!i113 0
+R11
+R12
+n@r@a@m
