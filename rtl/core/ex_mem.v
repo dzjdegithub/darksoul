@@ -29,6 +29,12 @@ module ex_mem
     input ex_is_load,
     input [1 : 0] ex_ls_addr_2low,  //将低两位传给mem阶段，与mask共同算出load指令的数据
     input [4 : 0] ex_l_mask,
+    input ex_exp_flag,
+    input ex_int_flag,
+    input id2ex_inst_addr_misal,
+    input id2ex_is_illg_inst,
+    input id2ex_is_ecall_inst,
+    input id2ex_is_ebreak_inst,
     
     //mem
     output reg [`XLEN - 1 : 0] mem_pc,
@@ -38,7 +44,13 @@ module ex_mem
     output reg [`XLEN - 1 : 0] mem_alu_res,
     output reg mem_is_load,
     output reg [1 : 0] mem_ls_addr_2low,
-    output reg [4 : 0] mem_l_mask
+    output reg [4 : 0] mem_l_mask,
+    output reg ex2mem_exp_flag,
+    output reg ex2mem_int_flag,
+    output reg ex2mem_inst_addr_misal,
+    output reg ex2mem_is_illg_inst,
+    output reg ex2mem_is_ecall_inst,
+    output reg ex2mem_is_ebreak_inst
 );
 
     wire ex_ready_go;
@@ -71,6 +83,12 @@ module ex_mem
             mem_is_load <= `FALSE;
             mem_ls_addr_2low <= 2'b00;
             mem_l_mask <= 5'b00000;
+            ex2mem_exp_flag <= `FALSE;
+            ex2mem_int_flag <= `FALSE;
+            ex2mem_inst_addr_misal <= `FALSE;
+            ex2mem_is_illg_inst <= `FALSE;
+            ex2mem_is_ecall_inst <= `FALSE;
+            ex2mem_is_ebreak_inst <= `FALSE;
         end
          else if(ex_mem_valid && mem_allowin) begin
             mem_pc <= ex_pc;
@@ -81,6 +99,12 @@ module ex_mem
             mem_is_load <= ex_is_load;
             mem_ls_addr_2low <= ex_ls_addr_2low;
             mem_l_mask <= ex_l_mask;
+            ex2mem_exp_flag <= ex_exp_flag;
+            ex2mem_int_flag <= ex_int_flag;
+            ex2mem_inst_addr_misal <= id2ex_inst_addr_misal;
+            ex2mem_is_illg_inst <= id2ex_is_illg_inst;
+            ex2mem_is_ecall_inst <= id2ex_is_ecall_inst;
+            ex2mem_is_ebreak_inst <= id2ex_is_ebreak_inst;
         end
         else begin
             mem_pc <= mem_pc;
@@ -91,6 +115,12 @@ module ex_mem
             mem_is_load <= mem_is_load;
             mem_ls_addr_2low <= mem_ls_addr_2low;
             mem_l_mask <= mem_l_mask;
+            ex2mem_exp_flag        <= ex2mem_exp_flag;
+            ex2mem_int_flag        <= ex2mem_int_flag;
+            ex2mem_inst_addr_misal <= ex2mem_inst_addr_misal;
+            ex2mem_is_illg_inst    <= ex2mem_is_illg_inst;
+            ex2mem_is_ecall_inst   <= ex2mem_is_ecall_inst;
+            ex2mem_is_ebreak_inst  <= ex2mem_is_ebreak_inst;
         end
       
     end

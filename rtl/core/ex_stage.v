@@ -16,9 +16,7 @@ module ex_stage
     
     input [`ALU_SRC_TYPE_WIDTH - 1 :0] ex_alu_src_tp,
     input [`XLEN - 1 : 0] ex_rs1_i,
-    // output [`XLEN - 1 : 0] ex_rs1_o,
     input [`XLEN - 1 : 0] ex_rs2_i,
-    // output [`XLEN - 1 : 0] ex_rs2_o,
     input [`XLEN - 1 : 0] ex_imm,
     input [`ALU_OP_WIDTH - 1 : 0] ex_alu_op,
     input ex_req_rf_i,
@@ -87,9 +85,8 @@ module ex_stage
     output ex_exp_flag,
     // output ex_exp_int_flag,
     
-    input ex2mem_exp_int_flag,
-    input mem2wb_exp_int_flag
-    
+    input mem_exp_int_flag,
+    input wb_exp_int_flag
 );
     
     wire ex_exp_int_flag;
@@ -99,8 +96,8 @@ module ex_stage
     assign ex_exp_flag = id2ex_exp_flag; //ex阶段暂时不会产生异常
     assign ex_exp_int_flag = ex_int_flag | ex_exp_flag;
     assign ex_ok = ~(ex_exp_int_flag     | 
-                     ex2mem_exp_int_flag | 
-                     mem2wb_exp_int_flag );   
+                     mem_exp_int_flag | 
+                     wb_exp_int_flag );   
 
     
     wire [`XLEN - 1 : 0] alu_src1, alu_src2;

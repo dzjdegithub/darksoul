@@ -21,6 +21,12 @@ module mem_wb
     input mem_req_rf,
     input [`RF_ADDR_WIDTH - 1 : 0] mem_rf_waddr,
     input [`XLEN - 1 : 0] mem_wb_data,
+    input mem_exp_flag,
+    input mem_int_flag,
+    input ex2mem_inst_addr_misal,
+    input ex2mem_is_illg_inst,
+    input ex2mem_is_ecall_inst,
+    input ex2mem_is_ebreak_inst,
     
     //wb
     output reg [`XLEN - 1 : 0] wb_pc,
@@ -28,6 +34,14 @@ module mem_wb
     output reg wb_rf_we,
     output reg [`RF_ADDR_WIDTH - 1 : 0] wb_rf_waddr,
     output reg [`XLEN - 1 : 0] wb_wb_data,
+    
+    output reg wb_exp_flag,
+    output reg wb_int_flag,
+    output wb_exp_int_flag,
+    output reg wb_inst_addr_misal,
+    output reg wb_is_illg_inst,
+    output reg wb_is_ecall_inst,
+    output reg wb_is_ebreak_inst,
     
     output reg wb_valid
 );
