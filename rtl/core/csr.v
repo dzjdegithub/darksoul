@@ -17,14 +17,15 @@ module csr
     input exp_flag,//狭义异常标志
     input int_flag,//狭义中断标志
     input exp_int_flag,
-    input is_mret_inst,
+    input ex_is_mret_inst,
     
     input inst_addr_misal, //指令地址未对齐
     input is_illg_inst, //非法指令
     input is_ecall_inst,
     input is_ebreak_inst,
     
-    output [`XLEN - 1 : 0] eh_addr  //异常处理入口地址
+    output [`XLEN - 1 : 0] meh_addr,  //机器异常处理入口地址
+    output [`XLEN - 1 : 0] mret_addr //机器模式异常返回地址
 );
     
     
@@ -144,7 +145,7 @@ module csr
     wire sel_mcause = (csr_addr == 12'h342);
     wire rd_mcause = (sel_mcause & csr_ren);
     //暂时只实现部分原因 
-    //ecall ebreak 非法指令
+    //ecall ebreak 非法指令 取指令未对齐
     wire [`XLEN - 1 : 0] int_mc, exp_mc;
     assign int_mc[31] = 1'b1;
     assign int_mc[30 : 4] = 27'b0;
@@ -160,7 +161,7 @@ module csr
     wire [`XLEN - 1 : 0] mcause;
     csr_reg mcause_csr_reg(.clk(clk), .rst_n(rst_n), .rst_val(32'h0000_0010), .csr_reg_ena(wr_mcause_en), .csr_reg_wdata(mcause_nxt), .csr_reg_rdata(mcause));
     
-    assign eh_addr = (mtvec_MODE[0] == 1'b0) ? {mtvec_BASE, 2'b00} :
+    assign meh_addr = (mtvec_MODE[0] == 1'b0) ? {mtvec_BASE, 2'b00} :
                                                {mtvec_BASE, 2'b00} + ({1'b0, mcause_nxt[30 : 0]} << 2);
     
     //mepc
@@ -175,6 +176,8 @@ module csr
                       mepc;
     csr_reg mepc_csr_reg(.clk(clk), .rst_n(rst_n), .rst_val(`ZEROWORD), .csr_reg_ena(wr_mepc_en), .csr_reg_wdata(mepc_nxt), .csr_reg_rdata(mepc));
     
+    assign mret_addr = mepc;
+    
     //mtval 若为存储器访问产生异常则更新为访存地址，非法指令则更新为指令编码
     wire sel_mtval = (csr_addr == 12'h343);
     wire rd_mtval = (sel_mtval & csr_ren);
@@ -188,34 +191,42 @@ module csr
     wire sel_mstatus = (csr_addr == 12'h300);
     wire rd_mstatus = (sel_mstatus & csr_ren);
     wire csrw_mstatus = (sel_mstatus & csr_wen);
+    //SD
     wire mstatus_SD, mstatus_SD_nxt;
     assign mstatus_SD_nxt = mstatus_SD;
     wire wr_mstatus_SD_en = `DISABLE;
     csr_reg #(.CSR_REG_WIDTH(1)) mstatus_SD_csr_reg(.clk(clk), .rst_n(rst_n), .rst_val(1'b0), .csr_reg_ena(wr_mstatus_SD_en), .csr_reg_wdata(mstatus_SD_nxt), .csr_reg_rdata(mstatus_SD));
+    //TSR
     wire mstatus_TSR, mstatus_TSR_nxt;
     assign mstatus_TSR_nxt = mstatus_TSR;
     wire wr_mstatus_TSR_en = `DISABLE;
     csr_reg #(.CSR_REG_WIDTH(1)) mstatus_TSR_csr_reg(.clk(clk), .rst_n(rst_n), .rst_val(1'b0), .csr_reg_ena(wr_mstatus_TSR_en), .csr_reg_wdata(mstatus_TSR_nxt), .csr_reg_rdata(mstatus_TSR));
+    //TW
     wire mstatus_TW, mstatus_TW_nxt;
     assign mstatus_TW_nxt = mstatus_TW;
     wire wr_mstatus_TW_en = `DISABLE;
     csr_reg #(.CSR_REG_WIDTH(1)) mstatus_TW_csr_reg(.clk(clk), .rst_n(rst_n), .rst_val(1'b0), .csr_reg_ena(wr_mstatus_TW_en), .csr_reg_wdata(mstatus_TW_nxt), .csr_reg_rdata(mstatus_TW));
+    //TVM
     wire mstatus_TVM, mstatus_TVM_nxt;
     assign mstatus_TVM_nxt = mstatus_TVM;
     wire wr_mstatus_TVM_en = `DISABLE;
     csr_reg #(.CSR_REG_WIDTH(1)) mstatus_TVM_csr_reg(.clk(clk), .rst_n(rst_n), .rst_val(1'b0), .csr_reg_ena(wr_mstatus_TVM_en), .csr_reg_wdata(mstatus_TVM_nxt), .csr_reg_rdata(mstatus_TVM));
+    //MXR
     wire mstatus_MXR, mstatus_MXR_nxt;
     assign mstatus_MXR_nxt = mstatus_MXR;
     wire wr_mstatus_MXR_en = `DISABLE;
     csr_reg #(.CSR_REG_WIDTH(1)) mstatus_MXR_csr_reg(.clk(clk), .rst_n(rst_n), .rst_val(1'b0), .csr_reg_ena(wr_mstatus_MXR_en), .csr_reg_wdata(mstatus_MXR_nxt), .csr_reg_rdata(mstatus_MXR));
+    //SUM
     wire mstatus_SUM, mstatus_SUM_nxt;
     assign mstatus_SUM_nxt = mstatus_SUM;
     wire wr_mstatus_SUM_en = `DISABLE;
     csr_reg #(.CSR_REG_WIDTH(1)) mstatus_SUM_csr_reg(.clk(clk), .rst_n(rst_n), .rst_val(1'b0), .csr_reg_ena(wr_mstatus_SUM_en), .csr_reg_wdata(mstatus_SUM_nxt), .csr_reg_rdata(mstatus_SUM));
+    //MPRV
     wire mstatus_MPRV, mstatus_MPRV_nxt;
     assign mstatus_MPRV_nxt = mstatus_MPRV;
     wire wr_mstatus_MPRV_en = `DISABLE;
     csr_reg #(.CSR_REG_WIDTH(1)) mstatus_MPRV_csr_reg(.clk(clk), .rst_n(rst_n), .rst_val(1'b0), .csr_reg_ena(wr_mstatus_MPRV_en), .csr_reg_wdata(mstatus_MPRV_nxt), .csr_reg_rdata(mstatus_MPRV));
+    //XS FS
     wire [1 : 0] mstatus_XS, mstatus_FS, mstatus_XS_nxt, mstatus_FS_nxt;
     assign mstatus_XS_nxt = mstatus_XS;
     assign mstatus_FS_nxt = mstatus_FS;
@@ -223,37 +234,45 @@ module csr
     wire wr_mstatus_FS_en = `DISABLE;
     csr_reg #(.CSR_REG_WIDTH(2)) mstatus_XS_csr_reg(.clk(clk), .rst_n(rst_n), .rst_val(2'b0), .csr_reg_ena(wr_mstatus_XS_en), .csr_reg_wdata(mstatus_XS_nxt), .csr_reg_rdata(mstatus_XS));
     csr_reg #(.CSR_REG_WIDTH(2)) mstatus_FS_csr_reg(.clk(clk), .rst_n(rst_n), .rst_val(2'b0), .csr_reg_ena(wr_mstatus_FS_en), .csr_reg_wdata(mstatus_FS_nxt), .csr_reg_rdata(mstatus_FS));
+    //MPP
     wire [1 : 0] mstatus_MPP, mstatus_MPP_nxt;
     assign mstatus_MPP_nxt = mstatus_MPP;
     wire wr_mstatus_MPP_en = `DISABLE;
     csr_reg #(.CSR_REG_WIDTH(2)) mstatus_MPP_csr_reg(.clk(clk), .rst_n(rst_n), .rst_val(2'b11), .csr_reg_ena(wr_mstatus_MPP_en), .csr_reg_wdata(mstatus_MPP_nxt), .csr_reg_rdata(mstatus_MPP));
+    //SPP
     wire mstatus_SPP, mstatus_SPP_nxt;
     assign mstatus_SPP_nxt = mstatus_SPP;
     wire wr_mstatus_SPP_en = `DISABLE;
     csr_reg #(.CSR_REG_WIDTH(1)) mstatus_SPP_csr_reg(.clk(clk), .rst_n(rst_n), .rst_val(1'b0), .csr_reg_ena(wr_mstatus_SPP_en), .csr_reg_wdata(mstatus_SPP_nxt), .csr_reg_rdata(mstatus_SPP));
+    //MPIE
     wire mstatus_MPIE, mstatus_MPIE_nxt;
     wire mstatus_MIE, mstatus_MIE_nxt;
     assign mstatus_MPIE_nxt = mstatus_MIE;
     wire wr_mstatus_MPIE_en = exp_int_flag;
     csr_reg #(.CSR_REG_WIDTH(1)) mstatus_MPIE_csr_reg(.clk(clk), .rst_n(rst_n), .rst_val(1'b0), .csr_reg_ena(wr_mstatus_MPIE_en), .csr_reg_wdata(mstatus_MPIE_nxt), .csr_reg_rdata(mstatus_MPIE));
+    //SPIE
     wire mstatus_SPIE, mstatus_SPIE_nxt;
     assign mstatus_SPIE_nxt = mstatus_SPIE;
     wire wr_mstatus_SPIE_en = `DISABLE;
     csr_reg #(.CSR_REG_WIDTH(1)) mstatus_SPIE_csr_reg(.clk(clk), .rst_n(rst_n), .rst_val(1'b0), .csr_reg_ena(wr_mstatus_SPIE_en), .csr_reg_wdata(mstatus_SPIE_nxt), .csr_reg_rdata(mstatus_SPIE));
+    //UPIE
     wire mstatus_UPIE, mstatus_UPIE_nxt;
     assign mstatus_UPIE_nxt = mstatus_UPIE;
     wire wr_mstatus_UPIE_en = `DISABLE;
     csr_reg #(.CSR_REG_WIDTH(1)) mstatus_UPIE_csr_reg(.clk(clk), .rst_n(rst_n), .rst_val(1'b0), .csr_reg_ena(wr_mstatus_UPIE_en), .csr_reg_wdata(mstatus_UPIE_nxt), .csr_reg_rdata(mstatus_UPIE));
-    assign mstatus_MIE_nxt = is_mret_inst ? mstatus_MPIE :
+    //MIE
+    assign mstatus_MIE_nxt = ex_is_mret_inst ? mstatus_MPIE :
                              exp_int_flag ? 1'b0         :
                              csrw_mstatus ? csr_wdata[3] :
                              mstatus_MIE;
-    wire wr_mstatus_MIE_en = (is_mret_inst | exp_int_flag | csrw_mstatus);
+    wire wr_mstatus_MIE_en = (ex_is_mret_inst | exp_int_flag | csrw_mstatus);
     csr_reg #(.CSR_REG_WIDTH(1)) mstatus_MIE_csr_reg(.clk(clk), .rst_n(rst_n), .rst_val(1'b0), .csr_reg_ena(wr_mstatus_MIE_en), .csr_reg_wdata(mstatus_MIE_nxt), .csr_reg_rdata(mstatus_MIE));
+    //SIE
     wire mstatus_SIE, mstatus_SIE_nxt;
     assign mstatus_SIE_nxt = mstatus_SIE;
     wire wr_mstatus_SIE_en = `DISABLE;
     csr_reg #(.CSR_REG_WIDTH(1)) mstatus_SIE_csr_reg(.clk(clk), .rst_n(rst_n), .rst_val(1'b0), .csr_reg_ena(wr_mstatus_SIE_en), .csr_reg_wdata(mstatus_SIE_nxt), .csr_reg_rdata(mstatus_SIE));
+    //UIE
     wire mstatus_UIE, mstatus_UIE_nxt;
     assign mstatus_UIE_nxt = mstatus_UIE;
     wire wr_mstatus_UIE_en = `DISABLE;

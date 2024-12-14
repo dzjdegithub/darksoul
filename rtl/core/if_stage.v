@@ -17,6 +17,11 @@ module if_stage
     //pipe
     input  pipe_stall,
     
+    input wb_exp_int_flag,
+    input [`XLEN - 1 : 0] meh_addr,
+    input id_is_mret_inst,
+    input [`XLEN - 1 : 0] mret_addr,
+    
     //iram_interface
     output iram_en,
     output [`XLEN - 3 : 0] inst_raddr,
@@ -33,9 +38,9 @@ module if_stage
     output if_inst_addr_misal
 );
 
-    wire [`XLEN - 1 : 0] pc;
+    wire [`XLEN - 1 : 0] pc_o;
     
-    assign if_inst_addr_misal = ((pc[1 : 0] != 2'b00) & if_valid);
+    assign if_inst_addr_misal = ((pc_o[1 : 0] != 2'b00) & if_valid);
     
     assign if_int_flag = int_flag;
     assign if_exp_flag = if_inst_addr_misal;
@@ -54,17 +59,22 @@ module if_stage
         
         .pipe_stall(pipe_stall),
         
+        .wb_exp_int_flag(wb_exp_int_flag),
+        .meh_addr(meh_addr),
+        .id_is_mret_inst(id_is_mret_inst),
+        .mret_addr(mret_addr),
+        
         .iram_en(iram_en),
-        .pc_o(pc)
+        .pc_o(pc_o)
     );
     
     
 
     
-    assign inst_raddr = pc[`IRAM_RADDR_BASE];
+    assign inst_raddr = pc_o[`IRAM_RADDR_BASE];
     
     
-    assign if_pc = pc;
+    assign if_pc = pc_o;
     
     assign if_inst = inst;  //未来可能会有总线读取的外部存储器的指令，在到缓存读取的指令
     

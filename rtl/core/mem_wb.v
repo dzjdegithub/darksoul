@@ -13,7 +13,7 @@ module mem_wb
     output reg mem_valid,
     output mem_allowin,
 
-
+    input int_flag,
     
     //mem 
     input [`XLEN - 1 : 0] mem_pc,
@@ -31,12 +31,12 @@ module mem_wb
     //wb
     output reg [`XLEN - 1 : 0] wb_pc,
     output reg [`XLEN - 1 : 0] wb_inst,
-    output reg wb_rf_we,
+    output  wb_rf_we,
     output reg [`RF_ADDR_WIDTH - 1 : 0] wb_rf_waddr,
     output reg [`XLEN - 1 : 0] wb_wb_data,
     
-    output reg wb_exp_flag,
-    output reg wb_int_flag,
+    output wb_exp_flag,
+    output wb_int_flag,
     output wb_exp_int_flag,
     output reg wb_inst_addr_misal,
     output reg wb_is_illg_inst,
@@ -74,31 +74,55 @@ module mem_wb
             wb_valid <= wb_valid;
     end 
 
+    reg mem2wb_int_flag, mem2wb_exp_flag;
+    reg mem2wb_rf_we;
+    
     always @(posedge clk or `RST_EDGE rst_n) begin
         if(rst_n == `DFF_RST_ENABLE) begin
             wb_pc <= `ZEROWORD;
             wb_inst <= `ZEROWORD;
-            wb_rf_we <= `DISABLE;
+            mem2wb_rf_we <= `DISABLE;
             wb_rf_waddr <= `RF_ADDR_WIDTH'b0;
             wb_wb_data <= `ZEROWORD;
+            mem2wb_int_flag <= `FALSE;
+            mem2wb_exp_flag <= `FALSE;
+            wb_inst_addr_misal <= `FALSE;
+            wb_is_illg_inst <= `FALSE;
+            wb_is_ecall_inst <= `FALSE;
+            wb_is_ebreak_inst <= `FALSE;
         end
         else if(mem_wb_valid && wb_allowin) begin
             wb_pc <= mem_pc;
             wb_inst <= mem_inst;
-            wb_rf_we <= mem_req_rf;
+            mem2wb_rf_we <= mem_req_rf;
             wb_rf_waddr <= mem_rf_waddr;
             wb_wb_data <= mem_wb_data;
+            mem2wb_int_flag <= mem_int_flag;
+            mem2wb_exp_flag <= mem_exp_flag;
+            wb_inst_addr_misal <= ex2mem_inst_addr_misal;
+            wb_is_illg_inst <= ex2mem_is_illg_inst;
+            wb_is_ecall_inst <= ex2mem_is_ecall_inst;
+            wb_is_ebreak_inst <= ex2mem_is_ebreak_inst;
         end
         else begin
             wb_pc <= wb_pc;
             wb_inst <= wb_inst;
-            wb_rf_we <= wb_rf_we; //写使能有可能需要更改
+            mem2wb_rf_we <= mem2wb_rf_we; //写使能有可能需要更改
             wb_rf_waddr <= wb_rf_waddr;
             wb_wb_data <= wb_wb_data;
+            mem2wb_exp_flag <= mem2wb_exp_flag;
+            mem2wb_int_flag <= mem2wb_int_flag;
+            wb_inst_addr_misal <= wb_inst_addr_misal;
+            wb_is_illg_inst <= wb_is_illg_inst;
+            wb_is_ecall_inst <= wb_is_ecall_inst;
+            wb_is_ebreak_inst <= wb_is_ebreak_inst;
         end
-        
     end 
 
-
-
+    assign wb_exp_flag = mem2wb_exp_flag; //目前写回不会产生异常
+    assign wb_int_flag = mem2wb_int_flag | int_flag;
+    assign wb_exp_int_flag = wb_exp_flag | wb_int_flag;
+    
+    assign wb_rf_we = mem2wb_rf_we & (~wb_exp_int_flag);
+    
 endmodule 
