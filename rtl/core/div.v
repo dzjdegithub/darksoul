@@ -5,6 +5,8 @@ module div
     input clk,
     input rst_n,
     
+    input pipe_flush,
+    
     input ex_is_div_inst,
     input ex_div_sign,
     input [`XLEN - 1 : 0] dividend,
@@ -51,6 +53,8 @@ module div
     
     always @(posedge clk or `RST_EDGE rst_n) begin
         if(rst_n == `DFF_RST_ENABLE) 
+            cnt <= 'b0;
+        else if(pipe_flush == `FLUSH)
             cnt <= 'b0;
         else if(cnt == 'd33)
             cnt <= 'b0;

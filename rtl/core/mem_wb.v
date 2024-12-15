@@ -7,6 +7,7 @@ module mem_wb
     input clk,
     input rst_n,
     
+    input pipe_flush,
     //hand
     input ex_mem_valid,
 
@@ -58,6 +59,8 @@ module mem_wb
     always @(posedge clk or `RST_EDGE rst_n) begin
         if(rst_n == `DFF_RST_ENABLE)
             mem_valid <= `FALSE;
+        else if(pipe_flush == `FLUSH)
+            mem_valid <= `FALSE;
         else if(mem_allowin)
             mem_valid <= ex_mem_valid;
         else
@@ -67,6 +70,8 @@ module mem_wb
 
     always @(posedge clk or `RST_EDGE rst_n) begin
         if(rst_n == `DFF_RST_ENABLE)
+            wb_valid <= `FALSE;
+        else if(pipe_flush == `FLUSH)
             wb_valid <= `FALSE;
         else if(wb_allowin)
             wb_valid <= mem_wb_valid;
@@ -79,6 +84,19 @@ module mem_wb
     
     always @(posedge clk or `RST_EDGE rst_n) begin
         if(rst_n == `DFF_RST_ENABLE) begin
+            wb_pc <= `ZEROWORD;
+            wb_inst <= `ZEROWORD;
+            mem2wb_rf_we <= `DISABLE;
+            wb_rf_waddr <= `RF_ADDR_WIDTH'b0;
+            wb_wb_data <= `ZEROWORD;
+            mem2wb_int_flag <= `FALSE;
+            mem2wb_exp_flag <= `FALSE;
+            wb_inst_addr_misal <= `FALSE;
+            wb_is_illg_inst <= `FALSE;
+            wb_is_ecall_inst <= `FALSE;
+            wb_is_ebreak_inst <= `FALSE;
+        end
+        else if(pipe_flush == `FLUSH) begin
             wb_pc <= `ZEROWORD;
             wb_inst <= `ZEROWORD;
             mem2wb_rf_we <= `DISABLE;
@@ -123,6 +141,6 @@ module mem_wb
     assign wb_int_flag = mem2wb_int_flag | int_flag;
     assign wb_exp_int_flag = wb_exp_flag | wb_int_flag;
     
-    assign wb_rf_we = mem2wb_rf_we & (~wb_exp_int_flag);
+    assign wb_rf_we = mem2wb_rf_we & (~wb_exp_int_flag) & wb_valid;
     
 endmodule 

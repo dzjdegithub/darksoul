@@ -4,7 +4,8 @@ module cpu_tb;
     reg rst_n;
     reg clk;
     
-    wire [31:0] wb_pc = cpu_top_inst.mem_wb_instance.wb_pc;
+    // wire [31:0] wb_pc = cpu_top_inst.mem_wb_instance.wb_pc; 
+    wire [31:0] wb_pc = cpu_top_inst.mem_wb_instance.wb_pc + 'h100b0; 
     wire [63:0] mcycle_64 = cpu_top_inst.csr_instance.mcycle_64;
     wire [63:0] minstret_64 = cpu_top_inst.csr_instance.minstret_64;
     
@@ -61,8 +62,8 @@ module cpu_tb;
     end
 
     initial begin
-        // $readmemh("C:/Users/dzj0489/Desktop/fffff/RISCV/Project/inst/FENCE_I", cpu_top_inst.sram_instance.ram_inst.ram);
-        $readmemh("C:/Users/dzj0489/Desktop/hello", cpu_top_inst.sram_instance.ram_inst.ram);
+        // $readmemh("C:/Users/dzj0489/Desktop/fffff/RISCV/Project/inst/BNE", cpu_top_inst.sram_instance.ram_inst.ram);
+        $readmemh("C:/Users/dzj0489/Desktop/hello.hex", cpu_top_inst.sram_instance.ram_inst.ram);
     end
     
 

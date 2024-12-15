@@ -7,6 +7,7 @@ module ex_mem
     input clk,
     input rst_n,
 
+    input pipe_flush,
  
     //hand
     input id_ex_valid,
@@ -64,6 +65,8 @@ module ex_mem
     always @(posedge clk or `RST_EDGE rst_n) begin
         if(rst_n == `DFF_RST_ENABLE)
             ex_valid <= `FALSE;
+        else if(pipe_flush == `FLUSH)
+            ex_valid <= `FALSE;
         else if(ex_allowin)
             ex_valid <= id_ex_valid;
         else
@@ -90,7 +93,23 @@ module ex_mem
             ex2mem_is_ecall_inst <= `FALSE;
             ex2mem_is_ebreak_inst <= `FALSE;
         end
-         else if(ex_mem_valid && mem_allowin) begin
+        else if(pipe_flush == `FLUSH) begin
+            mem_pc <= `ZEROWORD;
+            mem_inst <= `ZEROWORD;
+            mem_req_rf <= `FALSE;
+            mem_rf_waddr <= `RF_ADDR_WIDTH'b0;
+            mem_alu_res <= `ZEROWORD;
+            mem_is_load <= `FALSE;
+            mem_ls_addr_2low <= 2'b00;
+            mem_l_mask <= 5'b00000;
+            ex2mem_exp_flag <= `FALSE;
+            ex2mem_int_flag <= `FALSE;
+            ex2mem_inst_addr_misal <= `FALSE;
+            ex2mem_is_illg_inst <= `FALSE;
+            ex2mem_is_ecall_inst <= `FALSE;
+            ex2mem_is_ebreak_inst <= `FALSE;
+        end
+        else if(ex_mem_valid && mem_allowin) begin
             mem_pc <= ex_pc;
             mem_inst <= ex_inst;
             mem_req_rf <= ex_req_rf;

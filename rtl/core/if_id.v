@@ -8,8 +8,9 @@ module if_id
     
     //pipe_ctrl
     input pipe_stall,
-    //有没有flush以后在看
+    input pipe_flush,
     input ex_bj_flag,
+    input ex_is_mret_inst,
     
     //hand
     input id_allowin,
@@ -22,7 +23,7 @@ module if_id
     input [`XLEN - 1 : 0] if_inst,
     input if_int_flag,
     input if_exp_flag,
-    input if_exp_int_flag,
+    // input if_exp_int_flag,
     input if_inst_addr_misal,
 
     
@@ -39,14 +40,21 @@ module if_id
     
 
     wire if_ready_go;
-    assign if_valid = ((~pipe_stall) && (~ex_bj_flag));
-    assign if_ready_go = if_valid;   // 加总线后一周期不能取到指令，需要修改
+    assign if_valid = ((~pipe_stall) & (~ex_bj_flag) & (~ex_is_mret_inst));
+    assign if_ready_go = 1'b1;   // 加总线后一周期不能取到指令，需要修改
     assign if_id_valid = (if_valid & if_ready_go);
     
     
     
     always @(posedge clk or `RST_EDGE rst_n) begin
         if(rst_n == `DFF_RST_ENABLE) begin
+            id_pc <= `CPU_RST_ADDR;
+            if2id_int_flag <= `FALSE;
+            if2id_exp_flag <= `FALSE;
+            // if2id_exp_int_flag <= `FALSE;
+            if2id_inst_addr_misal <= `FALSE;
+        end
+        else if(pipe_flush == `FLUSH) begin
             id_pc <= `CPU_RST_ADDR;
             if2id_int_flag <= `FALSE;
             if2id_exp_flag <= `FALSE;

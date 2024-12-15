@@ -51,7 +51,9 @@ module decoder
 
     output reg is_illg_inst,
     output reg is_ecall_inst,
-    output reg is_ebreak_inst
+    output reg is_ebreak_inst,
+    
+    output reg is_mret_inst
 );
 
     assign inst_o = inst_i;
@@ -113,6 +115,7 @@ module decoder
         is_illg_inst = `FALSE;
         is_ecall_inst = `FALSE;
         is_ebreak_inst = `FALSE;
+        is_mret_inst = `FALSE;
         
         case(opcode) 
            
@@ -778,7 +781,7 @@ module decoder
             `INST_CSR_E : begin
                 case(funct3)
                     
-                    `INST_ECALL_EBREAK : begin
+                    `INST_E_TYPE : begin
                         case(inst_i[31 : 7])
                         
                             `INST_ECALL : begin
@@ -789,6 +792,11 @@ module decoder
                             `INST_EBREAK : begin
                                 is_ebreak_inst = `TRUE;
                                 req_rf = `FALSE;
+                            end
+                            
+                            `INST_MRET : begin
+                                req_rf = `FALSE;
+                                is_mret_inst = `TRUE;
                             end
                             
                             default : begin

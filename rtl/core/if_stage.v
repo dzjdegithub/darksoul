@@ -19,7 +19,7 @@ module if_stage
     
     input wb_exp_int_flag,
     input [`XLEN - 1 : 0] meh_addr,
-    input id_is_mret_inst,
+    input ex_is_mret_inst,
     input [`XLEN - 1 : 0] mret_addr,
     
     //iram_interface
@@ -61,7 +61,7 @@ module if_stage
         
         .wb_exp_int_flag(wb_exp_int_flag),
         .meh_addr(meh_addr),
-        .id_is_mret_inst(id_is_mret_inst),
+        .ex_is_mret_inst(ex_is_mret_inst),
         .mret_addr(mret_addr),
         
         .iram_en(iram_en),

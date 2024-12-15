@@ -117,8 +117,17 @@ module cpu_top
     wire wb_rf_we;
     wire [`RF_ADDR_WIDTH - 1 : 0] wb_rf_waddr;
     wire [`XLEN - 1 : 0] wb_wb_data;
+    wire wb_exp_int_flag;
+    wire [`XLEN - 1 : 0] meh_addr;
+    wire ex_is_mret_inst;
+    wire [`XLEN - 1 : 0] mret_addr;
+    wire pipe_flush;
  
  
+    wire int_flag = 1'b0; //暂时没有中断
+    
+    wire if_int_flag, if_exp_flag;
+    wire if_inst_addr_misal;
     if_stage if_stage_instance
     (
         .if_valid(if_valid),
@@ -130,30 +139,38 @@ module cpu_top
         
         .pipe_stall(pipe_stall),
         
+        .wb_exp_int_flag(wb_exp_int_flag),
+        .meh_addr(meh_addr),
+        .ex_is_mret_inst(ex_is_mret_inst),
+        .mret_addr(mret_addr),
+        
         .iram_en(iram_en),
         .inst_raddr(inst_raddr),
         .inst(inst),
         
         .if_pc(if_pc),
-        .if_inst(if_inst)
+        .if_inst(if_inst),
+        
+        .int_flag(int_flag),
+        .if_int_flag(if_int_flag),
+        .if_exp_flag(if_exp_flag),
+        
+        .if_inst_addr_misal(if_inst_addr_misal)
     );
 
-    // IRAM iram_instance
-    // (
-        // .clk(clk),
-        // .iram_en(iram_en),
-        // .raddr(inst_raddr),
-        // .inst(inst)
-    // );
+    
 
+    wire if2id_int_flag, if2id_exp_flag;
+    wire if2id_inst_addr_misal;
     if_id if_id_instance
     (
         .clk(clk),
         .rst_n(rst_n),
         
         .pipe_stall(pipe_stall),
-        
+        .pipe_flush(pipe_flush),
         .ex_bj_flag(ex_bj_flag),
+        .ex_is_mret_inst(ex_is_mret_inst),
         
         .id_allowin(id_allowin),
         .if_valid(if_valid),
@@ -161,9 +178,15 @@ module cpu_top
         
         .if_pc(if_pc),
         .if_inst(if_inst),
+        .if_int_flag(if_int_flag),
+        .if_exp_flag(if_exp_flag),
+        .if_inst_addr_misal(if_inst_addr_misal),
         
         .id_pc(id_pc),
-        .id_inst(id_inst)
+        .id_inst(id_inst),
+        .if2id_int_flag(if2id_int_flag),
+        .if2id_exp_flag(if2id_exp_flag),
+        .if2id_inst_addr_misal(if2id_inst_addr_misal)
     );
 
     wire id_is_csr_inst;
@@ -173,6 +196,12 @@ module cpu_top
     wire id_rs1_is_x0;
     wire id_is_fence_inst;
     wire id_fence_tp;
+    wire id_exp_flag;
+    wire id_int_flag;
+    wire id_is_illg_inst;
+    wire id_is_ecall_inst;
+    wire id_is_ebreak_inst;
+    wire id_is_mret_inst;
     id_stage id_stage_instance
     (
         .id_valid(id_valid),
@@ -233,7 +262,19 @@ module cpu_top
         .id_rs1_is_x0(id_rs1_is_x0),
         
         .id_is_fence_inst(id_is_fence_inst),
-        .id_fence_tp(id_fence_tp)
+        .id_fence_tp(id_fence_tp),
+        
+        .int_flag(int_flag),
+        .if2id_int_flag(if2id_int_flag),
+        .if2id_exp_flag(if2id_exp_flag),
+        .id_exp_flag(id_exp_flag),
+        .id_int_flag(id_int_flag),
+        
+        .id_is_illg_inst(id_is_illg_inst),
+        .id_is_ecall_inst(id_is_ecall_inst),
+        .id_is_ebreak_inst(id_is_ebreak_inst),
+        
+        .id_is_mret_inst(id_is_mret_inst)
     );
     
     regfile regfile_instance
@@ -256,10 +297,19 @@ module cpu_top
     wire ex_csr_src_tp;
     wire ex_rd_is_x0;
     wire ex_rs1_is_x0;
+    wire id2ex_exp_flag;
+    wire id2ex_int_flag;
+    wire id2ex_inst_addr_misal;
+    wire id2ex_is_illg_inst;
+    wire id2ex_is_ecall_inst;
+    wire id2ex_is_ebreak_inst;
+    wire id2ex_is_mret_inst;
     id_ex id_ex_instance
     (
         .clk(clk),
         .rst_n(rst_n),
+        
+        .pipe_flush(pipe_flush),
         
         .ld_risk(ld_risk),
         
@@ -297,6 +347,14 @@ module cpu_top
         .id_csr_src_tp(id_csr_src_tp),
         .id_rd_is_x0(id_rd_is_x0),
         .id_rs1_is_x0(id_rs1_is_x0),
+        .id_exp_flag(id_exp_flag),
+        .id_int_flag(id_int_flag),
+        .if2id_inst_addr_misal(if2id_inst_addr_misal),
+        .id_is_illg_inst(id_is_illg_inst),
+        .id_is_ecall_inst(id_is_ecall_inst),
+        .id_is_ebreak_inst(id_is_ebreak_inst),
+        
+        .id_is_mret_inst(id_is_mret_inst),
         
         .ex_pc(ex_pc),
         .ex_inst(ex_inst),
@@ -325,7 +383,14 @@ module cpu_top
         .ex_csr_op(ex_csr_op),
         .ex_csr_src_tp(ex_csr_src_tp),
         .ex_rd_is_x0(ex_rd_is_x0),
-        .ex_rs1_is_x0(ex_rs1_is_x0)
+        .ex_rs1_is_x0(ex_rs1_is_x0),
+        .id2ex_exp_flag(id2ex_exp_flag),
+        .id2ex_int_flag(id2ex_int_flag),
+        .id2ex_inst_addr_misal(id2ex_inst_addr_misal),
+        .id2ex_is_illg_inst(id2ex_is_illg_inst),
+        .id2ex_is_ecall_inst(id2ex_is_ecall_inst),
+        .id2ex_is_ebreak_inst(id2ex_is_ebreak_inst),
+        .id2ex_is_mret_inst(id2ex_is_mret_inst)
     );
     
     wire ex_is_mul_inst_o;
@@ -338,11 +403,14 @@ module cpu_top
     wire ex_csr_wen;
     wire [`XLEN - 1 : 0] ex_csr_wdata;
     wire ex_is_store_o;
+    wire ex_int_flag, ex_exp_flag;
+    wire mem_exp_int_flag;
     ex_stage ex_stage_instance
     (
         .clk(clk),
         .rst_n(rst_n),
         .ex_valid(ex_valid),
+        .pipe_flush(pipe_flush),
         .ex_pc_i(ex_pc),
         .ex_pc_o(ex_pc_o),
         .ex_inst_i(ex_inst),
@@ -407,10 +475,28 @@ module cpu_top
         .ex_csr_ren(ex_csr_ren),
         .ex_csr_rdata(ex_csr_rdata),
         .ex_csr_wen(ex_csr_wen),
-        .ex_csr_wdata(ex_csr_wdata)
+        .ex_csr_wdata(ex_csr_wdata),
+        
+        .int_flag(int_flag),
+        .id2ex_int_flag(id2ex_int_flag),
+        .id2ex_exp_flag(id2ex_exp_flag),
+        .ex_int_flag(ex_int_flag),
+        .ex_exp_flag(ex_exp_flag),
+        
+        .mem_exp_int_flag(mem_exp_int_flag),
+        .wb_exp_int_flag(wb_exp_int_flag),
+        
+        .id2ex_is_mret_inst(id2ex_is_mret_inst),
+        .ex_is_mret_inst(ex_is_mret_inst)
     );
     
     wire wb_valid;
+    wire wb_exp_flag, wb_int_flag;
+    wire wb_inst_addr_misal;
+    wire wb_is_illg_inst;
+    wire wb_is_ecall_inst;
+    wire wb_is_ebreak_inst;
+
     csr csr_instance
     (
         .clk(clk),
@@ -421,7 +507,22 @@ module cpu_top
         .csr_wen(ex_csr_wen),
         .csr_wdata(ex_csr_wdata),
         
-        .wb_valid(wb_valid)
+        .wb_valid(wb_valid),
+        .wb_pc(wb_pc),
+        .wb_inst(wb_inst),
+        
+        .exp_flag(wb_exp_flag),
+        .int_flag(wb_int_flag),
+        .exp_int_flag(wb_exp_int_flag),
+        .ex_is_mret_inst(ex_is_mret_inst),
+        
+        .inst_addr_misal(wb_inst_addr_misal),
+        .is_illg_inst(wb_is_illg_inst),
+        .is_ecall_inst(wb_is_ecall_inst),
+        .is_ebreak_inst(wb_is_ebreak_inst),
+        
+        .meh_addr(meh_addr),
+        .mret_addr(mret_addr)
     );
     
     wire mem_raw_risk;
@@ -448,10 +549,17 @@ module cpu_top
         .mem_raw_risk(mem_raw_risk)
     );
     
+    wire ex2mem_exp_flag, ex2mem_int_flag;
+    wire ex2mem_inst_addr_misal;
+    wire ex2mem_is_illg_inst;
+    wire ex2mem_is_ecall_inst;
+    wire ex2mem_is_ebreak_inst;
     ex_mem ex_mem_instance
     (
         .clk(clk),
         .rst_n(rst_n),
+        
+        .pipe_flush(pipe_flush),
         
         .id_ex_valid(id_ex_valid),
         .mem_allowin(mem_allowin),
@@ -469,10 +577,15 @@ module cpu_top
         .ex_req_rf(ex_req_rf_o),
         .ex_rf_waddr(ex_rf_waddr_o),
         .ex_alu_res(ex_alu_res),
-        .ex_is_load(ex_loading),
-        
+        .ex_is_load(ex_loading),  
         .ex_ls_addr_2low(ex_ls_addr[1:0]),
         .ex_l_mask(ex_l_mask_o),
+        .ex_exp_flag(ex_exp_flag),
+        .ex_int_flag(ex_int_flag),
+        .id2ex_inst_addr_misal(id2ex_inst_addr_misal),
+        .id2ex_is_illg_inst(id2ex_is_illg_inst),
+        .id2ex_is_ecall_inst(id2ex_is_ecall_inst),
+        .id2ex_is_ebreak_inst(id2ex_is_ebreak_inst),
         
         .mem_pc(mem_pc),
         .mem_inst(mem_inst),
@@ -481,9 +594,16 @@ module cpu_top
         .mem_alu_res(mem_alu_res),
         .mem_is_load(mem_is_load),
         .mem_ls_addr_2low(mem_ls_addr_2low),
-        .mem_l_mask(mem_l_mask)
+        .mem_l_mask(mem_l_mask),
+        .ex2mem_exp_flag(ex2mem_exp_flag),
+        .ex2mem_int_flag(ex2mem_int_flag),
+        .ex2mem_inst_addr_misal(ex2mem_inst_addr_misal),
+        .ex2mem_is_illg_inst(ex2mem_is_illg_inst),
+        .ex2mem_is_ecall_inst(ex2mem_is_ecall_inst),
+        .ex2mem_is_ebreak_inst(ex2mem_is_ebreak_inst)
     );
     
+    wire mem_int_flag, mem_exp_flag;
     mem_stage mem_stage
     (
         .mem_valid(mem_valid),
@@ -507,7 +627,14 @@ module cpu_top
         .mem_wb_data(mem_wb_data),
         
         .mem_fw_rd_addr(mem_fw_rd_addr),
-        .mem_fw_data(mem_fw_data)
+        .mem_fw_data(mem_fw_data),
+        
+        .int_flag(int_flag),
+        .ex2mem_exp_flag(ex2mem_exp_flag),
+        .ex2mem_int_flag(ex2mem_int_flag),
+        .mem_exp_flag(mem_exp_flag),
+        .mem_int_flag(mem_int_flag),
+        .mem_exp_int_flag(mem_exp_int_flag)
     );
     
     mem_wb mem_wb_instance
@@ -515,22 +642,40 @@ module cpu_top
         .clk(clk),
         .rst_n(rst_n),
         
+        .pipe_flush(pipe_flush),
+        
         .ex_mem_valid(ex_mem_valid),
         
         .mem_valid(mem_valid),
         .mem_allowin(mem_allowin),
+        
+        .int_flag(int_flag),
         
         .mem_pc(mem_pc_o),
         .mem_inst(mem_inst_o),
         .mem_req_rf(mem_req_rf_o),
         .mem_rf_waddr(mem_rf_waddr_o),
         .mem_wb_data(mem_wb_data),
+        .mem_exp_flag(mem_exp_flag),
+        .mem_int_flag(mem_int_flag),
+        .ex2mem_inst_addr_misal(ex2mem_inst_addr_misal),
+        .ex2mem_is_illg_inst(ex2mem_is_illg_inst),
+        .ex2mem_is_ecall_inst(ex2mem_is_ecall_inst),
+        .ex2mem_is_ebreak_inst(ex2mem_is_ebreak_inst),
         
         .wb_pc(wb_pc),
         .wb_inst(wb_inst),
         .wb_rf_we(wb_rf_we),
         .wb_rf_waddr(wb_rf_waddr),
         .wb_wb_data(wb_wb_data),
+        
+        .wb_exp_flag(wb_exp_flag),
+        .wb_int_flag(wb_int_flag),
+        .wb_exp_int_flag(wb_exp_int_flag),
+        .wb_inst_addr_misal(wb_inst_addr_misal),
+        .wb_is_illg_inst(wb_is_illg_inst),
+        .wb_is_ecall_inst(wb_is_ecall_inst),
+        .wb_is_ebreak_inst(wb_is_ebreak_inst),
         
         .wb_valid(wb_valid)
     );
@@ -559,7 +704,12 @@ module cpu_top
         .id_fence_tp(id_fence_tp),
         .ex_is_store(ex_is_store_o),
         
-        .mem_raw_risk(mem_raw_risk)
+        .mem_raw_risk(mem_raw_risk),
+        
+        .id_is_mret_inst(id_is_mret_inst),
+        
+        .wb_exp_int_flag(wb_exp_int_flag),
+        .pipe_flush(pipe_flush)
     );
     
 endmodule 

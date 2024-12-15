@@ -9,6 +9,8 @@ module id_ex
     input clk,
     input rst_n,
     
+    input pipe_flush,
+    
     input ld_risk,  //load冒险
     //hand
     input if_id_valid,
@@ -55,6 +57,8 @@ module id_ex
     input id_is_illg_inst,
     input id_is_ecall_inst,
     input id_is_ebreak_inst,
+    
+    input id_is_mret_inst,
 
     
     //ex
@@ -92,7 +96,8 @@ module id_ex
     output reg id2ex_inst_addr_misal,
     output reg id2ex_is_illg_inst,
     output reg id2ex_is_ecall_inst,
-    output reg id2ex_is_ebreak_inst
+    output reg id2ex_is_ebreak_inst,
+    output reg id2ex_is_mret_inst
     
 );
 
@@ -105,6 +110,8 @@ module id_ex
     
     always @(posedge clk or `RST_EDGE rst_n) begin
         if(rst_n == `DFF_RST_ENABLE)
+            id_valid <= `FALSE;
+        else if(pipe_flush == `FLUSH)
             id_valid <= `FALSE;
         else if(id_allowin)
             id_valid <= if_id_valid;
@@ -150,7 +157,46 @@ module id_ex
             id2ex_inst_addr_misal <= `FALSE;
             id2ex_is_illg_inst <= `FALSE;
             id2ex_is_ecall_inst <= `FALSE;
-            id2ex_is_ebreak_inst <= `FALSE;           
+            id2ex_is_ebreak_inst <= `FALSE; 
+            id2ex_is_mret_inst <= `FALSE;
+        end
+        else if(pipe_flush == `FLUSH) begin
+            ex_pc <= `ZEROWORD;
+            ex_inst <= `ZEROWORD;
+            ex_is_bj_inst <= `FALSE;
+            ex_is_j_inst <= `FALSE;
+            ex_is_mul_inst <= `FALSE;
+            ex_is_div_inst <= `FALSE;
+            ex_sign_extend <= `UNSIGNED_UNSIGNED;
+            ex_word_sel <= `LOW;
+            ex_div_sign <= `TRUE;
+            ex_div_res_sel <= `QUOTIENT;
+            ex_bju_src_tp <= `BJU_NO_SRC;
+            ex_req_mem <= `FALSE;
+            ex_is_load <= `FALSE;
+            ex_l_mask <= 5'b00000;
+            ex_is_store <= `FALSE;
+            ex_s_mask <= 4'b0000;
+            ex_alu_op <= `ALU_OP_NOP;
+            ex_alu_src_tp <= `ALU_NO_SRC;
+            ex_rs1 <= `ZEROWORD;
+            ex_rs2 <= `ZEROWORD;
+            ex_req_rf <= `FALSE;
+            ex_rf_waddr <= `RF_ADDR_WIDTH'b0;
+            ex_imm <= `ZEROWORD;
+            ex_is_csr_inst <= `FALSE;
+            ex_csr_op <= `CSR_NONE;
+            ex_csr_src_tp <= `CSR_RS1;
+            ex_rd_is_x0 <= `FALSE;
+            ex_rs1_is_x0 <= `FALSE;
+            id2ex_exp_flag <= `FALSE;
+            id2ex_int_flag <= `FALSE;
+            // id2ex_exp_int_flag <= `FALSE;
+            id2ex_inst_addr_misal <= `FALSE;
+            id2ex_is_illg_inst <= `FALSE;
+            id2ex_is_ecall_inst <= `FALSE;
+            id2ex_is_ebreak_inst <= `FALSE; 
+            id2ex_is_mret_inst <= `FALSE;
         end
         else if(id_ex_valid && ex_allowin) begin
             ex_pc <= id_pc;
@@ -188,6 +234,7 @@ module id_ex
             id2ex_is_illg_inst   <= id_is_illg_inst;
             id2ex_is_ecall_inst  <= id_is_ecall_inst;
             id2ex_is_ebreak_inst <= id_is_ebreak_inst;
+            id2ex_is_mret_inst <= id_is_mret_inst;
         end
         else begin
             ex_pc <= ex_pc;
@@ -225,7 +272,7 @@ module id_ex
             id2ex_is_illg_inst    <= id2ex_is_illg_inst;
             id2ex_is_ecall_inst   <= id2ex_is_ecall_inst;
             id2ex_is_ebreak_inst  <= id2ex_is_ebreak_inst;
-            
+            id2ex_is_mret_inst <= id2ex_is_mret_inst;
         end
     end 
     

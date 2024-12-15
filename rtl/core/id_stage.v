@@ -8,6 +8,7 @@ module id_stage
 (
     input id_valid,
     input ld_risk,
+    
     input [`XLEN - 1 : 0] id_pc_i,
     output [`XLEN - 1 : 0] id_pc_o,
     input [`XLEN - 1 : 0] id_inst_i,
@@ -86,7 +87,9 @@ module id_stage
     
     output id_is_illg_inst,
     output id_is_ecall_inst,
-    output id_is_ebreak_inst
+    output id_is_ebreak_inst,
+    
+    output id_is_mret_inst
 );
 
     assign id_exp_flag = (if2id_exp_flag    |
@@ -112,6 +115,7 @@ module id_stage
     wire is_illg_inst;
     wire is_ecall_inst;
     wire is_ebreak_inst;
+    wire is_mret_inst;
     
     
     assign id_is_bj_inst = (is_bj_inst && id_valid);
@@ -129,6 +133,7 @@ module id_stage
     assign id_is_illg_inst = (is_illg_inst && id_valid);
     assign id_is_ecall_inst = (is_ecall_inst && id_valid);
     assign id_is_ebreak_inst = (is_ebreak_inst && id_valid);
+    assign id_is_mret_inst = (is_mret_inst && id_valid);
     
     decoder decoder_inst
     (
@@ -166,7 +171,8 @@ module id_stage
         .fence_tp(id_fence_tp),
         .is_illg_inst(is_illg_inst),
         .is_ecall_inst(is_ecall_inst),
-        .is_ebreak_inst(is_ebreak_inst)
+        .is_ebreak_inst(is_ebreak_inst),
+        .is_mret_inst(is_mret_inst)
     );
 
     //id2ex pipereg

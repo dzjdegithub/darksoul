@@ -9,6 +9,7 @@ module ex_stage
     input clk,
     input rst_n,
     input ex_valid,
+    input pipe_flush,
     input [`XLEN - 1 : 0] ex_pc_i,
     output [`XLEN - 1 : 0] ex_pc_o,
     input [`XLEN - 1 : 0] ex_inst_i,
@@ -86,7 +87,10 @@ module ex_stage
     // output ex_exp_int_flag,
     
     input mem_exp_int_flag,
-    input wb_exp_int_flag
+    input wb_exp_int_flag,
+    
+    input id2ex_is_mret_inst,
+    output ex_is_mret_inst
 );
     
     wire ex_exp_int_flag;
@@ -95,9 +99,11 @@ module ex_stage
     assign ex_int_flag = (int_flag | id2ex_int_flag);
     assign ex_exp_flag = id2ex_exp_flag; //ex阶段暂时不会产生异常
     assign ex_exp_int_flag = ex_int_flag | ex_exp_flag;
-    assign ex_ok = ~(ex_exp_int_flag     | 
+    assign ex_ok = ~(ex_exp_int_flag  | 
                      mem_exp_int_flag | 
-                     wb_exp_int_flag );   
+                     wb_exp_int_flag  );   
+                     
+    assign ex_is_mret_inst = (id2ex_is_mret_inst & ex_ok & ex_valid);
 
     
     wire [`XLEN - 1 : 0] alu_src1, alu_src2;
@@ -153,6 +159,7 @@ module ex_stage
     (
         .clk(clk),
         .rst_n(rst_n),
+        .pipe_flush(pipe_flush),
         .ex_is_mul_inst(ex_is_mul_inst_o),
         .ex_word_sel(ex_word_sel),
         .m1(ex_rs1_i),
@@ -167,6 +174,7 @@ module ex_stage
     (
         .clk(clk),
         .rst_n(rst_n),
+        .pipe_flush(pipe_flush),
         .ex_is_div_inst(ex_is_div_inst_o),
         .ex_div_sign(ex_div_sign),
         .dividend(ex_rs1_i),

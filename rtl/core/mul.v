@@ -6,6 +6,8 @@ module mul
     input clk,
     input rst_n,
     
+    input pipe_flush,
+    
     input ex_is_mul_inst,
     input ex_word_sel,
     
@@ -267,6 +269,8 @@ module mul
     reg [1 : 0] cnt;
     always @(posedge clk or `RST_EDGE rst_n) begin
         if(rst_n == `DFF_RST_ENABLE)
+            cnt <= 'b0;
+        else if(pipe_flush == `FLUSH)
             cnt <= 'b0;
         else if(ex_is_mul_inst)
             cnt <= cnt + 1'b1;

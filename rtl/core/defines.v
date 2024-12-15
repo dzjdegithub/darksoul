@@ -23,7 +23,7 @@
 
 //pipe
 `define STALL 1'b1
-
+`define FLUSH 1'b1
 
 //DFF
 `define DFF_RST_ENABLE 1'b0
@@ -52,7 +52,7 @@
 `define INST_AUIPC `OPCODE_WIDTH'b0010111//auipc
 `define INST_JAL `OPCODE_WIDTH'b1101111//jal
 `define INST_JALR `OPCODE_WIDTH'b1100111//jalr
-`define INST_CSR_E `OPCODE_WIDTH'b1110011//csr ecall ebreak
+`define INST_CSR_E `OPCODE_WIDTH'b1110011//csr ecall ebreak mret
 `define INST_TYPE_FENCE `OPCODE_WIDTH'b0001111//fence fence.i
 
 //funct3
@@ -94,9 +94,10 @@
 `define INST_BLTU `FUNCT3_WIDTH'b110 
 `define INST_BGEU `FUNCT3_WIDTH'b111 
 //e
-`define INST_ECALL_EBREAK `FUNCT3_WIDTH'b000
+`define INST_E_TYPE `FUNCT3_WIDTH'b000
 `define INST_ECALL 25'b0
 `define INST_EBREAK {12'b1, 13'b0}
+`define INST_MRET {12'b0011000_00010, 13'b0}
 //csr
 `define INST_CSRRW `FUNCT3_WIDTH'b001
 `define INST_CSRRS `FUNCT3_WIDTH'b010 
