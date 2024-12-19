@@ -3,9 +3,9 @@ module cpu_tb;
 
     reg rst_n;
     reg clk;
+    reg rtc_clk;
     
-    // wire [31:0] wb_pc = cpu_top_inst.mem_wb_instance.wb_pc; 
-    wire [31:0] wb_pc = cpu_top_inst.mem_wb_instance.wb_pc + 'h100b0; 
+    wire [31:0] wb_pc = cpu_top_inst.mem_wb_instance.wb_pc; 
     wire [63:0] mcycle_64 = cpu_top_inst.csr_instance.mcycle_64;
     wire [63:0] minstret_64 = cpu_top_inst.csr_instance.minstret_64;
     
@@ -47,13 +47,16 @@ module cpu_tb;
     cpu_top cpu_top_inst
     (
         .clk(clk),
+        .rtc_clk(rtc_clk),
         .rst_n(rst_n)
     );
 
     initial begin
         clk = 1;
+        rtc_clk = 0;
     end
     always #10 clk = ~clk;
+    always #50 rtc_clk = ~rtc_clk;
     
     initial begin
         rst_n = 1'b0;

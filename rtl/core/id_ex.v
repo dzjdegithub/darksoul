@@ -51,7 +51,7 @@ module id_ex
     input id_rd_is_x0,
     input id_rs1_is_x0,
     input id_exp_flag,
-    input id_int_flag,
+    // input id_int_flag,
     // input id_exp_int_flag,
     input if2id_inst_addr_misal,
     input id_is_illg_inst,
@@ -91,7 +91,7 @@ module id_ex
     output reg ex_rd_is_x0,
     output reg ex_rs1_is_x0,
     output reg id2ex_exp_flag,
-    output reg id2ex_int_flag,
+    // output reg id2ex_int_flag,
     // output reg id2ex_exp_int_flag,
     output reg id2ex_inst_addr_misal,
     output reg id2ex_is_illg_inst,
@@ -152,7 +152,7 @@ module id_ex
             ex_rd_is_x0 <= `FALSE;
             ex_rs1_is_x0 <= `FALSE;
             id2ex_exp_flag <= `FALSE;
-            id2ex_int_flag <= `FALSE;
+            // id2ex_int_flag <= `FALSE;
             // id2ex_exp_int_flag <= `FALSE;
             id2ex_inst_addr_misal <= `FALSE;
             id2ex_is_illg_inst <= `FALSE;
@@ -190,7 +190,7 @@ module id_ex
             ex_rd_is_x0 <= `FALSE;
             ex_rs1_is_x0 <= `FALSE;
             id2ex_exp_flag <= `FALSE;
-            id2ex_int_flag <= `FALSE;
+            // id2ex_int_flag <= `FALSE;
             // id2ex_exp_int_flag <= `FALSE;
             id2ex_inst_addr_misal <= `FALSE;
             id2ex_is_illg_inst <= `FALSE;
@@ -228,7 +228,7 @@ module id_ex
             ex_rd_is_x0 <= id_rd_is_x0;
             ex_rs1_is_x0 <= id_rs1_is_x0;
             id2ex_exp_flag <= id_exp_flag;
-            id2ex_int_flag <= id_int_flag;
+            // id2ex_int_flag <= id_int_flag;
             // id2ex_exp_int_flag <= id_exp_int_flag;
             id2ex_inst_addr_misal <= if2id_inst_addr_misal;
             id2ex_is_illg_inst   <= id_is_illg_inst;
@@ -266,7 +266,7 @@ module id_ex
             ex_rd_is_x0 <= ex_rd_is_x0;
             ex_rs1_is_x0 <= ex_rs1_is_x0;
             id2ex_exp_flag <= id2ex_exp_flag;
-            id2ex_int_flag <= id2ex_int_flag;
+            // id2ex_int_flag <= id2ex_int_flag;
             // id2ex_exp_int_flag <= id2ex_exp_int_flag;
             id2ex_inst_addr_misal <= id2ex_inst_addr_misal;
             id2ex_is_illg_inst    <= id2ex_is_illg_inst;

@@ -32,7 +32,7 @@ module RAM
     always @(posedge clk or `RST_EDGE rst) begin
         if(rst == `RAM_RST_ENABLE)
             rdata1 <= `ZEROWORD;
-        else if((re1&cs) == `RAM_READ_ENABLE)
+        else if((re1) == `RAM_READ_ENABLE)
             rdata1 <= ram[raddr1];
         else
             rdata1 <= rdata1;
@@ -41,7 +41,9 @@ module RAM
     always @(posedge clk or `RST_EDGE rst) begin
         if(rst == `RAM_RST_ENABLE)
             rdata2 <= `ZEROWORD;
-        else if((re2&cs) == `RAM_READ_ENABLE)
+        else if(~cs)
+            rdata2 <= `ZEROWORD;
+        else if((re2) == `RAM_READ_ENABLE)
             rdata2 <= ram[raddr2];
         else
             rdata2 <= rdata2;
@@ -85,3 +87,6 @@ module RAM
 
 
 endmodule 
+
+
+

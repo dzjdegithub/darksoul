@@ -5,6 +5,14 @@
 `define RST_EDGE negedge
 `define MTVEC_BASE_ADDR 30'h600
 
+//addr map
+//clint
+`define MTIMECMP_L `XLEN'h0200_0000
+`define MTIMECMP_H `XLEN'h0200_0004
+`define MTIME_L `XLEN'h0200_0008
+`define MTIME_H `XLEN'h0200_000c
+`define MSIP `XLEN'h0200_0010
+
 
 //IRAM
 `define IRAM_RADDR_BASE 31 : 2

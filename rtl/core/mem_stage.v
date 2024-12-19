@@ -32,13 +32,13 @@ module mem_stage
     
     input int_flag,
     input ex2mem_exp_flag,
-    input ex2mem_int_flag,
+    // input ex2mem_int_flag,
     output mem_exp_flag,
     output mem_int_flag,
     output mem_exp_int_flag
 );
 
-    assign mem_int_flag = ex2mem_int_flag | int_flag;
+    assign mem_int_flag = int_flag;
     assign mem_exp_flag = ex2mem_exp_flag; //mem阶段暂时不会产生异常
     assign mem_exp_int_flag = mem_int_flag | mem_exp_flag;
 

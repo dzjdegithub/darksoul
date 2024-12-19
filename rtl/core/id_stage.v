@@ -78,11 +78,11 @@ module id_stage
     output id_is_fence_inst,
     output id_fence_tp,
     
-    input int_flag,
-    input if2id_int_flag,
+    // input int_flag,
+    // input if2id_int_flag,
     input if2id_exp_flag,
     output id_exp_flag,
-    output id_int_flag,
+    // output id_int_flag,
     // output id_exp_int_flag,
     
     output id_is_illg_inst,
@@ -96,7 +96,7 @@ module id_stage
                           id_is_illg_inst   |
                           id_is_ecall_inst  |
                           id_is_ebreak_inst );
-    assign id_int_flag = (if2id_int_flag | int_flag);
+    // assign id_int_flag = (if2id_int_flag | int_flag);
     // assign id_exp_int_flag = (id_exp_flag | id_int_flag);
     
     wire [`XLEN - 1 : 0] inst;

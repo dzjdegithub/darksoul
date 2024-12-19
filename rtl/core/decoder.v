@@ -116,7 +116,7 @@ module decoder
         is_ecall_inst = `FALSE;
         is_ebreak_inst = `FALSE;
         is_mret_inst = `FALSE;
-        
+        req_mem = `FALSE;
         case(opcode) 
            
             

@@ -30,8 +30,8 @@ module if_stage
     output [`XLEN - 1 : 0] if_pc,
     output [`XLEN - 1 : 0] if_inst,
     
-    input int_flag,
-    output if_int_flag,
+    // input int_flag,
+    // output if_int_flag,
     output if_exp_flag,
     // output if_exp_int_flag,
     
@@ -42,7 +42,7 @@ module if_stage
     
     assign if_inst_addr_misal = ((pc_o[1 : 0] != 2'b00) & if_valid);
     
-    assign if_int_flag = int_flag;
+    // assign if_int_flag = int_flag;
     assign if_exp_flag = if_inst_addr_misal;
     // assign if_exp_int_flag = if_int_flag | if_exp_flag;
 

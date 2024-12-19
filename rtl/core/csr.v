@@ -24,8 +24,13 @@ module csr
     input is_ecall_inst,
     input is_ebreak_inst,
     
+    input m_sip,  //机器模式软件中断
+    input m_tip,  //机器模式定时器中断
+    
     output [`XLEN - 1 : 0] meh_addr,  //机器异常处理入口地址
-    output [`XLEN - 1 : 0] mret_addr //机器模式异常返回地址
+    output [`XLEN - 1 : 0] mret_addr, //机器模式异常返回地址
+    
+    output mtime_cnt_en
 );
     
     
@@ -83,9 +88,13 @@ module csr
     wire sel_mcounterstop = (csr_addr == 12'hBFF);
     wire wr_mcounterstop_en = (sel_mcounterstop & csr_wen);
     wire rd_mcounterstop = (sel_mcounterstop & csr_ren);
-    wire [`XLEN - 1 : 0] mcounterstop, mcounterstop_nxt;
-    assign mcounterstop_nxt = csr_wdata;
-    csr_reg mcounterstop_csr_reg(.clk(clk), .rst_n(rst_n), .rst_val(`ZEROWORD), .csr_reg_ena(wr_mcounterstop_en), .csr_reg_wdata(mcounterstop_nxt), .csr_reg_rdata(mcounterstop));
+    wire [`XLEN - 1 : 0] mcounterstop;
+    wire [2 : 0] mcntstp, mcounterstop_nxt;
+    assign mcounterstop_nxt = csr_wdata[2 : 0];
+    csr_reg #(.CSR_REG_WIDTH(3)) mcounterstop_csr_reg(.clk(clk), .rst_n(rst_n), .rst_val(3'b000), .csr_reg_ena(wr_mcounterstop_en), .csr_reg_wdata(mcounterstop_nxt), .csr_reg_rdata(mcntstp));
+    assign mcounterstop = {29'b0, mcntstp};
+    
+    assign mtime_cnt_en = ~mcounterstop[2];
 
     //mcycle mcycleh
     wire sel_mcycle = (csr_addr == 12'hB00);
@@ -149,7 +158,10 @@ module csr
     wire [`XLEN - 1 : 0] int_mc, exp_mc;
     assign int_mc[31] = 1'b1;
     assign int_mc[30 : 4] = 27'b0;
-    assign int_mc[3 : 0] = 4'b0;//支持中断后需要更改
+    //注意优先级
+    assign int_mc[3 : 0] = m_sip ? 4'd3 :                    
+                           m_tip ? 4'd7 :
+                           4'd12;
     assign exp_mc[31 : 5] = 27'b0;
     assign exp_mc[4 : 0] = is_illg_inst     ? 5'd2  :
                            is_ecall_inst    ? 5'd11 :
@@ -159,7 +171,7 @@ module csr
     wire [`XLEN - 1 : 0] mcause_nxt = exp_flag ? exp_mc : int_mc;
     wire wr_mcause_en = exp_int_flag;
     wire [`XLEN - 1 : 0] mcause;
-    csr_reg mcause_csr_reg(.clk(clk), .rst_n(rst_n), .rst_val(32'h0000_0010), .csr_reg_ena(wr_mcause_en), .csr_reg_wdata(mcause_nxt), .csr_reg_rdata(mcause));
+    csr_reg mcause_csr_reg(.clk(clk), .rst_n(rst_n), .rst_val(`ZEROWORD), .csr_reg_ena(wr_mcause_en), .csr_reg_wdata(mcause_nxt), .csr_reg_rdata(mcause));
     
     assign meh_addr = (mtvec_MODE[0] == 1'b0) ? {mtvec_BASE, 2'b00} :
                                                {mtvec_BASE, 2'b00} + ({1'b0, mcause_nxt[30 : 0]} << 2);
@@ -280,6 +292,67 @@ module csr
     wire [`XLEN - 1 : 0] mstatus;
     assign mstatus = {mstatus_SD, 8'b0, mstatus_TSR, mstatus_TW, mstatus_TVM, mstatus_MXR, mstatus_SUM, mstatus_MPRV, mstatus_XS, mstatus_FS, mstatus_MPP, 2'b00, mstatus_SPP, mstatus_MPIE, 1'b0, mstatus_SPIE, mstatus_UPIE, mstatus_MIE, 1'b0, mstatus_SIE, mstatus_UIE};
     
+    
+    //mie 
+    wire sel_mie = (csr_addr == 12'h304);
+    wire rd_mie = (sel_mie & csr_ren);
+    wire wr_mie_en = (sel_mie & csr_wen);
+    wire [`XLEN - 1 : 0] mie;
+    //MEIE
+    wire mie_MEIE, mie_MEIE_nxt;
+    assign mie_MEIE_nxt = csr_wdata[11];
+    csr_reg #(.CSR_REG_WIDTH(1)) mie_MEIE_csr_reg(.clk(clk), .rst_n(rst_n), .rst_val(1'b0), .csr_reg_ena(wr_mie_en), .csr_reg_wdata(mie_MEIE_nxt), .csr_reg_rdata(mie_MEIE));
+    //SEIE
+    wire mie_SEIE, mie_SEIE_nxt;
+    assign mie_SEIE_nxt = csr_wdata[9];
+    csr_reg #(.CSR_REG_WIDTH(1)) mie_SEIE_csr_reg(.clk(clk), .rst_n(rst_n), .rst_val(1'b0), .csr_reg_ena(wr_mie_en), .csr_reg_wdata(mie_SEIE_nxt), .csr_reg_rdata(mie_SEIE));
+    //UEIE
+    wire mie_UEIE, mie_UEIE_nxt;
+    assign mie_UEIE_nxt = csr_wdata[8];
+    csr_reg #(.CSR_REG_WIDTH(1)) mie_UEIE_csr_reg(.clk(clk), .rst_n(rst_n), .rst_val(1'b0), .csr_reg_ena(wr_mie_en), .csr_reg_wdata(mie_UEIE_nxt), .csr_reg_rdata(mie_UEIE));
+    //MTIE
+    wire mie_MTIE, mie_MTIE_nxt;
+    assign mie_MTIE_nxt = csr_wdata[7];
+    csr_reg #(.CSR_REG_WIDTH(1)) mie_MTIE_csr_reg(.clk(clk), .rst_n(rst_n), .rst_val(1'b0), .csr_reg_ena(wr_mie_en), .csr_reg_wdata(mie_MTIE_nxt), .csr_reg_rdata(mie_MTIE));
+    //STIE
+    wire mie_STIE, mie_STIE_nxt;
+    assign mie_STIE_nxt = csr_wdata[5];
+    csr_reg #(.CSR_REG_WIDTH(1)) mie_STIE_csr_reg(.clk(clk), .rst_n(rst_n), .rst_val(1'b0), .csr_reg_ena(wr_mie_en), .csr_reg_wdata(mie_STIE_nxt), .csr_reg_rdata(mie_STIE));
+    //UTIE
+    wire mie_UTIE, mie_UTIE_nxt;
+    assign mie_UTIE_nxt = csr_wdata[4];
+    csr_reg #(.CSR_REG_WIDTH(1)) mie_UTIE_csr_reg(.clk(clk), .rst_n(rst_n), .rst_val(1'b0), .csr_reg_ena(wr_mie_en), .csr_reg_wdata(mie_UTIE_nxt), .csr_reg_rdata(mie_UTIE));
+    //MSIE
+    wire mie_MSIE, mie_MSIE_nxt;
+    assign mie_MSIE_nxt = csr_wdata[3];
+    csr_reg #(.CSR_REG_WIDTH(1)) mie_MSIE_csr_reg(.clk(clk), .rst_n(rst_n), .rst_val(1'b0), .csr_reg_ena(wr_mie_en), .csr_reg_wdata(mie_MSIE_nxt), .csr_reg_rdata(mie_MSIE));
+    //SSIE
+    wire mie_SSIE, mie_SSIE_nxt;
+    assign mie_SSIE_nxt = csr_wdata[1];
+    csr_reg #(.CSR_REG_WIDTH(1)) mie_SSIE_csr_reg(.clk(clk), .rst_n(rst_n), .rst_val(1'b0), .csr_reg_ena(wr_mie_en), .csr_reg_wdata(mie_SSIE_nxt), .csr_reg_rdata(mie_SSIE));
+    //USIE
+    wire mie_USIE, mie_USIE_nxt;
+    assign mie_USIE_nxt = csr_wdata[0];
+    csr_reg #(.CSR_REG_WIDTH(1)) mie_USIE_csr_reg(.clk(clk), .rst_n(rst_n), .rst_val(1'b0), .csr_reg_ena(wr_mie_en), .csr_reg_wdata(mie_USIE_nxt), .csr_reg_rdata(mie_USIE));
+    assign mie = {20'b0, mie_MEIE, 1'b0, mie_SEIE, mie_UEIE, mie_MTIE, 1'b0, mie_STIE, mie_UTIE, mie_MSIE, 1'b0, mie_SSIE, mie_USIE};
+    
+    
+    //mip
+    wire sel_mip = (csr_addr == 12'h344);
+    wire rd_mip = (sel_mip & csr_ren);
+    wire mip_MEIP = 1'b0; //暂时没有外部中断
+    wire mip_SEIP = 1'b0;
+    wire mip_UEIP = 1'b0;
+    wire mip_MTIP = m_tip;
+    wire mip_STIP = 1'b0;
+    wire mip_UTIP = 1'b0;
+    wire mip_MSIP = m_sip;
+    wire mip_SSIP = 1'b0;
+    wire mip_USIP = 1'b0;
+    wire [`XLEN - 1 : 0] mip;
+    assign mip = {20'b0, mip_MEIP, 1'b0, mip_SEIP, mip_UEIP, mip_MTIP, 1'b0, mip_STIP, mip_UTIP, mip_MSIP, 1'b0, mip_SSIP, mip_USIP};
+    
+    
     //csr_rdata
     assign csr_rdata = (`ZEROWORD                                 )    |
                        ({`XLEN{rd_misa          }} & misa         )    |
@@ -297,7 +370,9 @@ module csr
                        ({`XLEN{rd_mcause        }} & mcause       )    |
                        ({`XLEN{rd_mepc          }} & mepc         )    |
                        ({`XLEN{rd_mtval         }} & mtval        )    |
-                       ({`XLEN{rd_mstatus       }} & mstatus      )    ;
+                       ({`XLEN{rd_mstatus       }} & mstatus      )    |
+                       ({`XLEN{rd_mie           }} & mie          )    |
+                       ({`XLEN{rd_mip           }} & mip          )    ;
                        // ({`XLEN{rd_}} & ) ;
     
     

@@ -14,7 +14,7 @@ module mem_wb
     output reg mem_valid,
     output mem_allowin,
 
-    input int_flag,
+    // input int_flag,
     
     //mem 
     input [`XLEN - 1 : 0] mem_pc,
@@ -138,7 +138,7 @@ module mem_wb
     end 
 
     assign wb_exp_flag = mem2wb_exp_flag; //目前写回不会产生异常
-    assign wb_int_flag = mem2wb_int_flag | int_flag;
+    assign wb_int_flag = mem2wb_int_flag;
     assign wb_exp_int_flag = wb_exp_flag | wb_int_flag;
     
     assign wb_rf_we = mem2wb_rf_we & (~wb_exp_int_flag) & wb_valid;

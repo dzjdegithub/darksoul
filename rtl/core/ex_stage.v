@@ -79,10 +79,10 @@ module ex_stage
     output ex_csr_wen,
     output [`XLEN - 1 : 0] ex_csr_wdata,
     
-    input int_flag,
-    input id2ex_int_flag,
+    // input int_flag,
+    // input id2ex_int_flag,
     input id2ex_exp_flag,
-    output ex_int_flag,
+    // output ex_int_flag,
     output ex_exp_flag,
     // output ex_exp_int_flag,
     
@@ -93,13 +93,13 @@ module ex_stage
     output ex_is_mret_inst
 );
     
-    wire ex_exp_int_flag;
+    // wire ex_exp_int_flag;
     wire ex_ok; //由中断和异常引起的，使ex段不能写rf 不能访存，不能访问csr
 
-    assign ex_int_flag = (int_flag | id2ex_int_flag);
+    // assign ex_int_flag = (int_flag | id2ex_int_flag);
     assign ex_exp_flag = id2ex_exp_flag; //ex阶段暂时不会产生异常
-    assign ex_exp_int_flag = ex_int_flag | ex_exp_flag;
-    assign ex_ok = ~(ex_exp_int_flag  | 
+    // assign ex_exp_int_flag = ex_int_flag | ex_exp_flag;
+    assign ex_ok = ~(ex_exp_flag  | 
                      mem_exp_int_flag | 
                      wb_exp_int_flag  );   
                      

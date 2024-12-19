@@ -5,6 +5,7 @@
 module cpu_top
 (
     input clk,
+    input rtc_clk,
     input rst_n
 );
 
@@ -122,9 +123,12 @@ module cpu_top
     wire ex_is_mret_inst;
     wire [`XLEN - 1 : 0] mret_addr;
     wire pipe_flush;
+    wire m_sip, m_tip;
  
  
-    wire int_flag = 1'b0; //暂时没有中断
+    wire int_flag = (csr_instance.mstatus_MIE & (   
+                    (csr_instance.mie_MSIE & m_sip) |
+                    (csr_instance.mie_MTIE & m_tip))); 
     
     wire if_int_flag, if_exp_flag;
     wire if_inst_addr_misal;
@@ -151,8 +155,8 @@ module cpu_top
         .if_pc(if_pc),
         .if_inst(if_inst),
         
-        .int_flag(int_flag),
-        .if_int_flag(if_int_flag),
+        // .int_flag(int_flag),
+        // .if_int_flag(if_int_flag),
         .if_exp_flag(if_exp_flag),
         
         .if_inst_addr_misal(if_inst_addr_misal)
@@ -178,13 +182,13 @@ module cpu_top
         
         .if_pc(if_pc),
         .if_inst(if_inst),
-        .if_int_flag(if_int_flag),
+        // .if_int_flag(if_int_flag),
         .if_exp_flag(if_exp_flag),
         .if_inst_addr_misal(if_inst_addr_misal),
         
         .id_pc(id_pc),
         .id_inst(id_inst),
-        .if2id_int_flag(if2id_int_flag),
+        // .if2id_int_flag(if2id_int_flag),
         .if2id_exp_flag(if2id_exp_flag),
         .if2id_inst_addr_misal(if2id_inst_addr_misal)
     );
@@ -264,11 +268,11 @@ module cpu_top
         .id_is_fence_inst(id_is_fence_inst),
         .id_fence_tp(id_fence_tp),
         
-        .int_flag(int_flag),
-        .if2id_int_flag(if2id_int_flag),
+        // .int_flag(int_flag),
+        // .if2id_int_flag(if2id_int_flag),
         .if2id_exp_flag(if2id_exp_flag),
         .id_exp_flag(id_exp_flag),
-        .id_int_flag(id_int_flag),
+        // .id_int_flag(id_int_flag),
         
         .id_is_illg_inst(id_is_illg_inst),
         .id_is_ecall_inst(id_is_ecall_inst),
@@ -348,7 +352,7 @@ module cpu_top
         .id_rd_is_x0(id_rd_is_x0),
         .id_rs1_is_x0(id_rs1_is_x0),
         .id_exp_flag(id_exp_flag),
-        .id_int_flag(id_int_flag),
+        // .id_int_flag(id_int_flag),
         .if2id_inst_addr_misal(if2id_inst_addr_misal),
         .id_is_illg_inst(id_is_illg_inst),
         .id_is_ecall_inst(id_is_ecall_inst),
@@ -385,7 +389,7 @@ module cpu_top
         .ex_rd_is_x0(ex_rd_is_x0),
         .ex_rs1_is_x0(ex_rs1_is_x0),
         .id2ex_exp_flag(id2ex_exp_flag),
-        .id2ex_int_flag(id2ex_int_flag),
+        // .id2ex_int_flag(id2ex_int_flag),
         .id2ex_inst_addr_misal(id2ex_inst_addr_misal),
         .id2ex_is_illg_inst(id2ex_is_illg_inst),
         .id2ex_is_ecall_inst(id2ex_is_ecall_inst),
@@ -477,10 +481,10 @@ module cpu_top
         .ex_csr_wen(ex_csr_wen),
         .ex_csr_wdata(ex_csr_wdata),
         
-        .int_flag(int_flag),
-        .id2ex_int_flag(id2ex_int_flag),
+        // .int_flag(int_flag),
+        // .id2ex_int_flag(id2ex_int_flag),
         .id2ex_exp_flag(id2ex_exp_flag),
-        .ex_int_flag(ex_int_flag),
+        // .ex_int_flag(ex_int_flag),
         .ex_exp_flag(ex_exp_flag),
         
         .mem_exp_int_flag(mem_exp_int_flag),
@@ -521,17 +525,43 @@ module cpu_top
         .is_ecall_inst(wb_is_ecall_inst),
         .is_ebreak_inst(wb_is_ebreak_inst),
         
+        .m_sip(m_sip),
+        .m_tip(m_tip),
+        
         .meh_addr(meh_addr),
-        .mret_addr(mret_addr)
+        .mret_addr(mret_addr),
+        
+        .mtime_cnt_en(mtime_cnt_en)
+    );
+    
+    wire [`XLEN - 1 : 0] clint_rdata;
+
+    clint clint_instance
+    (
+        .clk(clk),
+        .rtc_clk(rtc_clk),
+        .rst_n(rst_n),
+        .mtime_cnt_en(mtime_cnt_en),
+        
+        .raddr(ex_ls_addr),
+        .re(ex_mem_re),
+        .rdata(clint_rdata),
+        .waddr(ex_ls_addr),
+        .byte_we(ex_byte_we),
+        .wdata(ex_rs2_o),
+        
+        .m_sip(m_sip),
+        .m_tip(m_tip)
     );
     
     wire mem_raw_risk;
+    wire sram_cs = ex_ls_addr[31 : 24] == 8'h00;
     SRAM sram_instance
     (
         .clk(clk),
         .rst_n(1'b1),
         
-        .cs(1'b1),
+        .cs(sram_cs),
         
         .re1(iram_en),
         .mem_raddr1(inst_raddr),
@@ -581,7 +611,7 @@ module cpu_top
         .ex_ls_addr_2low(ex_ls_addr[1:0]),
         .ex_l_mask(ex_l_mask_o),
         .ex_exp_flag(ex_exp_flag),
-        .ex_int_flag(ex_int_flag),
+        // .ex_int_flag(ex_int_flag),
         .id2ex_inst_addr_misal(id2ex_inst_addr_misal),
         .id2ex_is_illg_inst(id2ex_is_illg_inst),
         .id2ex_is_ecall_inst(id2ex_is_ecall_inst),
@@ -596,14 +626,17 @@ module cpu_top
         .mem_ls_addr_2low(mem_ls_addr_2low),
         .mem_l_mask(mem_l_mask),
         .ex2mem_exp_flag(ex2mem_exp_flag),
-        .ex2mem_int_flag(ex2mem_int_flag),
+        // .ex2mem_int_flag(ex2mem_int_flag),
         .ex2mem_inst_addr_misal(ex2mem_inst_addr_misal),
         .ex2mem_is_illg_inst(ex2mem_is_illg_inst),
         .ex2mem_is_ecall_inst(ex2mem_is_ecall_inst),
         .ex2mem_is_ebreak_inst(ex2mem_is_ebreak_inst)
     );
     
+    
     wire mem_int_flag, mem_exp_flag;
+    wire [`XLEN - 1 : 0] mem_load_data_i;
+    assign mem_load_data_i = sram_cs ? mem_load_data : clint_rdata; //后面需要更改
     mem_stage mem_stage
     (
         .mem_valid(mem_valid),
@@ -611,7 +644,7 @@ module cpu_top
         .mem_inst_i(mem_inst),
         
         .mem_is_load_i(mem_is_load),
-        .mem_load_data_i(mem_load_data),
+        .mem_load_data_i(mem_load_data_i),
         .mem_ls_addr_2low_i(mem_ls_addr_2low),
         .mem_l_mask_i(mem_l_mask),
         
@@ -631,7 +664,7 @@ module cpu_top
         
         .int_flag(int_flag),
         .ex2mem_exp_flag(ex2mem_exp_flag),
-        .ex2mem_int_flag(ex2mem_int_flag),
+        // .ex2mem_int_flag(ex2mem_int_flag),
         .mem_exp_flag(mem_exp_flag),
         .mem_int_flag(mem_int_flag),
         .mem_exp_int_flag(mem_exp_int_flag)
@@ -649,7 +682,7 @@ module cpu_top
         .mem_valid(mem_valid),
         .mem_allowin(mem_allowin),
         
-        .int_flag(int_flag),
+        // .int_flag(int_flag),
         
         .mem_pc(mem_pc_o),
         .mem_inst(mem_inst_o),
