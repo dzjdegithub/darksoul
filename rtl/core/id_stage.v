@@ -89,7 +89,8 @@ module id_stage
     output id_is_ecall_inst,
     output id_is_ebreak_inst,
     
-    output id_is_mret_inst
+    output id_is_mret_inst,
+    output id_is_wfi_inst
 );
 
     assign id_exp_flag = (if2id_exp_flag    |
@@ -116,6 +117,7 @@ module id_stage
     wire is_ecall_inst;
     wire is_ebreak_inst;
     wire is_mret_inst;
+    wire is_wfi_inst;
     
     
     assign id_is_bj_inst = (is_bj_inst && id_valid);
@@ -134,6 +136,7 @@ module id_stage
     assign id_is_ecall_inst = (is_ecall_inst && id_valid);
     assign id_is_ebreak_inst = (is_ebreak_inst && id_valid);
     assign id_is_mret_inst = (is_mret_inst && id_valid);
+    assign id_is_wfi_inst = (is_wfi_inst && id_valid);
     
     decoder decoder_inst
     (
@@ -172,7 +175,8 @@ module id_stage
         .is_illg_inst(is_illg_inst),
         .is_ecall_inst(is_ecall_inst),
         .is_ebreak_inst(is_ebreak_inst),
-        .is_mret_inst(is_mret_inst)
+        .is_mret_inst(is_mret_inst),
+        .is_wfi_inst(is_wfi_inst)
     );
 
     //id2ex pipereg

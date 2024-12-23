@@ -124,18 +124,22 @@ module cpu_top
     wire [`XLEN - 1 : 0] mret_addr;
     wire pipe_flush;
     wire m_sip, m_tip;
+    wire ex_is_wfi_inst_o;
+    wire mem_is_wfi_inst;
+    wire mem_is_wfi_inst_o;
  
- 
+    wire clk_gate;
     wire int_flag = (csr_instance.mstatus_MIE & (   
                     (csr_instance.mie_MSIE & m_sip) |
                     (csr_instance.mie_MTIE & m_tip))); 
+    assign clk_gate = mem_is_wfi_inst_o ? (m_tip & clk) : clk; 
     
     wire if_int_flag, if_exp_flag;
     wire if_inst_addr_misal;
     if_stage if_stage_instance
     (
         .if_valid(if_valid),
-        .clk(clk),
+        .clk(clk_gate),
         .rst_n(rst_n),
         
         .bj_flag(ex_bj_flag),
@@ -168,7 +172,7 @@ module cpu_top
     wire if2id_inst_addr_misal;
     if_id if_id_instance
     (
-        .clk(clk),
+        .clk(clk_gate),
         .rst_n(rst_n),
         
         .pipe_stall(pipe_stall),
@@ -206,6 +210,7 @@ module cpu_top
     wire id_is_ecall_inst;
     wire id_is_ebreak_inst;
     wire id_is_mret_inst;
+    wire id_is_wfi_inst;
     id_stage id_stage_instance
     (
         .id_valid(id_valid),
@@ -278,12 +283,14 @@ module cpu_top
         .id_is_ecall_inst(id_is_ecall_inst),
         .id_is_ebreak_inst(id_is_ebreak_inst),
         
-        .id_is_mret_inst(id_is_mret_inst)
+        .id_is_mret_inst(id_is_mret_inst),
+        
+        .id_is_wfi_inst(id_is_wfi_inst)
     );
     
     regfile regfile_instance
     (
-        .clk(clk),
+        .clk(clk_gate),
         .rst_n(rst_n),
         
         .rf_raddr1(id_rf_raddr1),
@@ -308,9 +315,10 @@ module cpu_top
     wire id2ex_is_ecall_inst;
     wire id2ex_is_ebreak_inst;
     wire id2ex_is_mret_inst;
+    wire ex_is_wfi_inst;
     id_ex id_ex_instance
     (
-        .clk(clk),
+        .clk(clk_gate),
         .rst_n(rst_n),
         
         .pipe_flush(pipe_flush),
@@ -359,6 +367,8 @@ module cpu_top
         .id_is_ebreak_inst(id_is_ebreak_inst),
         
         .id_is_mret_inst(id_is_mret_inst),
+        .id_is_wfi_inst(id_is_wfi_inst),
+        
         
         .ex_pc(ex_pc),
         .ex_inst(ex_inst),
@@ -394,7 +404,9 @@ module cpu_top
         .id2ex_is_illg_inst(id2ex_is_illg_inst),
         .id2ex_is_ecall_inst(id2ex_is_ecall_inst),
         .id2ex_is_ebreak_inst(id2ex_is_ebreak_inst),
-        .id2ex_is_mret_inst(id2ex_is_mret_inst)
+        .id2ex_is_mret_inst(id2ex_is_mret_inst),
+        
+        .ex_is_wfi_inst(ex_is_wfi_inst)
     );
     
     wire ex_is_mul_inst_o;
@@ -409,9 +421,10 @@ module cpu_top
     wire ex_is_store_o;
     wire ex_int_flag, ex_exp_flag;
     wire mem_exp_int_flag;
+
     ex_stage ex_stage_instance
     (
-        .clk(clk),
+        .clk(clk_gate),
         .rst_n(rst_n),
         .ex_valid(ex_valid),
         .pipe_flush(pipe_flush),
@@ -491,7 +504,10 @@ module cpu_top
         .wb_exp_int_flag(wb_exp_int_flag),
         
         .id2ex_is_mret_inst(id2ex_is_mret_inst),
-        .ex_is_mret_inst(ex_is_mret_inst)
+        .ex_is_mret_inst(ex_is_mret_inst),
+        
+        .ex_is_wfi_inst_i(ex_is_wfi_inst),
+        .ex_is_wfi_inst_o(ex_is_wfi_inst_o)
     );
     
     wire wb_valid;
@@ -503,7 +519,7 @@ module cpu_top
 
     csr csr_instance
     (
-        .clk(clk),
+        .clk(clk_gate),
         .rst_n(rst_n),
         .csr_addr(ex_csr_addr),
         .csr_rdata(ex_csr_rdata),
@@ -558,7 +574,7 @@ module cpu_top
     wire sram_cs = ex_ls_addr[31 : 24] == 8'h00;
     SRAM sram_instance
     (
-        .clk(clk),
+        .clk(clk_gate),
         .rst_n(1'b1),
         
         .cs(sram_cs),
@@ -586,7 +602,7 @@ module cpu_top
     wire ex2mem_is_ebreak_inst;
     ex_mem ex_mem_instance
     (
-        .clk(clk),
+        .clk(clk_gate),
         .rst_n(rst_n),
         
         .pipe_flush(pipe_flush),
@@ -616,6 +632,7 @@ module cpu_top
         .id2ex_is_illg_inst(id2ex_is_illg_inst),
         .id2ex_is_ecall_inst(id2ex_is_ecall_inst),
         .id2ex_is_ebreak_inst(id2ex_is_ebreak_inst),
+        .ex_is_wfi_inst(ex_is_wfi_inst_o),
         
         .mem_pc(mem_pc),
         .mem_inst(mem_inst),
@@ -630,7 +647,8 @@ module cpu_top
         .ex2mem_inst_addr_misal(ex2mem_inst_addr_misal),
         .ex2mem_is_illg_inst(ex2mem_is_illg_inst),
         .ex2mem_is_ecall_inst(ex2mem_is_ecall_inst),
-        .ex2mem_is_ebreak_inst(ex2mem_is_ebreak_inst)
+        .ex2mem_is_ebreak_inst(ex2mem_is_ebreak_inst),
+        .mem_is_wfi_inst(mem_is_wfi_inst)
     );
     
     
@@ -667,12 +685,15 @@ module cpu_top
         // .ex2mem_int_flag(ex2mem_int_flag),
         .mem_exp_flag(mem_exp_flag),
         .mem_int_flag(mem_int_flag),
-        .mem_exp_int_flag(mem_exp_int_flag)
+        .mem_exp_int_flag(mem_exp_int_flag),
+        
+        .mem_is_wfi_inst_i(mem_is_wfi_inst),
+        .mem_is_wfi_inst_o(mem_is_wfi_inst_o)
     );
     
     mem_wb mem_wb_instance
     (
-        .clk(clk),
+        .clk(clk_gate),
         .rst_n(rst_n),
         
         .pipe_flush(pipe_flush),

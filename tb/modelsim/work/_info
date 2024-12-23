@@ -30,16 +30,16 @@ n@_opt1
 R4
 R0
 T_opt2
-!s110 1734529932
-VF^k^VdcdQL0EWP?cBCH_T2
+!s110 1734970888
+VATEV@m2a9<6Cdf;TkUTLS1
 R1
-=1-d8bbc1a9ec3e-6762d38b-3d5-6ff8
+=1-d8bbc1a9ec3e-67698e07-20c-57d4
 R2
 R3
 n@_opt2
 R4
 vagu
-Z5 !s110 1734524192
+Z5 !s110 1734970874
 !i10b 1
 !s100 W3ZmX]>C[O:VfU51j6Y;l0
 Z6 !s11b Dg1SIo80bB@j0V0VzS_@n1
@@ -48,14 +48,14 @@ Z7 dC:/Users/dzj0489/Desktop/fffff/project/darksoul/tb/modelsim
 Z8 w1732888222
 8C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/agu.v
 FC:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/agu.v
-!i122 681
+!i122 746
 L0 7 19
 Z9 VDg1SIo80bB@j0V0VzS_@n1
 Z10 OL;L;2020.4;71
 r1
 !s85 0
 31
-Z11 !s108 1734524192.000000
+Z11 !s108 1734970874.000000
 !s107 C:\Users\dzj0489\Desktop\fffff\project\darksoul\rtl\core\defines.v|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/agu.v|
 !s90 -reportprogress|300|-work|work|-vopt|-stats=none|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/agu.v|
 !i113 0
@@ -71,7 +71,7 @@ R7
 R8
 8C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/alu.v
 FC:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/alu.v
-!i122 682
+!i122 747
 L0 7 89
 R9
 R10
@@ -94,7 +94,7 @@ R7
 R8
 8C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/bju.v
 FC:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/bju.v
-!i122 683
+!i122 748
 L0 7 34
 R9
 R10
@@ -108,115 +108,115 @@ R11
 R12
 R3
 vbooth_encoder
-Z13 !s110 1734524196
+Z13 !s110 1734970877
 !i10b 1
 !s100 I4O^A8icMf6dO<30WfPSd2
 R6
 IfF>`jY5XJo`^Kc;FB[7cY0
 R7
-w1731848914
+w1734601122
 8C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/booth_encoder.v
 FC:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/booth_encoder.v
-!i122 706
+!i122 771
 L0 1 41
 R9
 R10
 r1
 !s85 0
 31
-Z14 !s108 1734524196.000000
+Z14 !s108 1734970877.000000
 !s107 C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/booth_encoder.v|
 !s90 -reportprogress|300|-work|work|-vopt|-stats=none|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/booth_encoder.v|
 !i113 0
 R12
 R3
 vclint
-Z15 !s110 1734524199
+Z15 !s110 1734970878
 !i10b 1
 !s100 5Aff4MBL:M1i1MDh2zYTA1
 R6
 IjV1@XB8bAh]QWj=mlASz21
 R7
-w1734420227
+w1734601879
 8C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/clint.v
 FC:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/clint.v
-!i122 711
+!i122 776
 L0 4 174
 R9
 R10
 r1
 !s85 0
 31
-Z16 !s108 1734524199.000000
+Z16 !s108 1734970878.000000
 !s107 C:\Users\dzj0489\Desktop\fffff\project\darksoul\rtl\core\defines.v|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/clint.v|
 !s90 -reportprogress|300|-work|work|-vopt|-stats=none|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/clint.v|
 !i113 0
 R12
 R3
 vcomp3_2
-Z17 !s110 1734524195
+R13
 !i10b 1
 !s100 OK7^cbkiE56L=YEiJZ>Sz0
 R6
 IRL?nbO2:G7@FPj2;Gd9RA1
 R7
-Z18 w1732014656
-Z19 8C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/compressor.v
-Z20 FC:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/compressor.v
-!i122 705
+Z17 w1732014656
+Z18 8C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/compressor.v
+Z19 FC:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/compressor.v
+!i122 770
 L0 1 15
 R9
 R10
 r1
 !s85 0
 31
-Z21 !s108 1734524195.000000
-Z22 !s107 C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/compressor.v|
-Z23 !s90 -reportprogress|300|-work|work|-vopt|-stats=none|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/compressor.v|
+R14
+Z20 !s107 C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/compressor.v|
+Z21 !s90 -reportprogress|300|-work|work|-vopt|-stats=none|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/compressor.v|
 !i113 0
 R12
 R3
 vcomp4_2
-R17
+R13
 !i10b 1
 !s100 cOzZUF74zK56k73iJdlc_0
 R6
 IWETN1@n4?^RgNKf3Qd@711
 R7
+R17
 R18
 R19
-R20
-!i122 705
+!i122 770
 L0 51 22
 R9
 R10
 r1
 !s85 0
 31
+R14
+R20
 R21
-R22
-R23
 !i113 0
 R12
 R3
 vcpu_tb
-Z24 !s110 1734524194
+Z22 !s110 1734970876
 !i10b 1
-!s100 ohVoa32FH;RTN;RbN1GdZ2
+!s100 VC]5cEA;g]=Mc@0<^R@U?1
 R6
-ISLo6OKoi:6[V01GInl4KA3
+IbYJAhoBS3DJaSAM6C6R0R3
 R7
-w1734516736
+w1734968601
 8C:/Users/dzj0489/Desktop/fffff/project/darksoul/tb/cpu_tb.v
 FC:/Users/dzj0489/Desktop/fffff/project/darksoul/tb/cpu_tb.v
-!i122 699
-L0 2 72
+!i122 764
+L0 2 73
 R9
 R10
 r1
 !s85 0
 31
-Z25 !s108 1734524194.000000
+Z23 !s108 1734970876.000000
 !s107 C:/Users/dzj0489/Desktop/fffff/project/darksoul/tb/cpu_tb.v|
 !s90 -reportprogress|300|-work|work|-vopt|-stats=none|C:/Users/dzj0489/Desktop/fffff/project/darksoul/tb/cpu_tb.v|
 !i113 0
@@ -225,15 +225,15 @@ R3
 vcpu_top
 R5
 !i10b 1
-!s100 FF]`XZ=213KmJg=n`k^`d0
+!s100 AS@ahoh]]o:2do149OP=22
 R6
-I5YgXVFXC1Sj1IEkF^Jf^C1
+IANGkD:7I]^gnI7QW6M`L32
 R7
-Z26 w1734524183
+w1734970836
 8C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/cpu_top.v
 FC:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/cpu_top.v
-!i122 684
-L0 5 744
+!i122 749
+L0 5 765
 R9
 R10
 r1
@@ -246,48 +246,48 @@ R11
 R12
 R3
 vcsr
-Z27 !s110 1734524198
+R15
 !i10b 1
-!s100 X=EX^9jj3Ukz6m3^0nK<C2
+!s100 BZbS2>`GSaC1?gfbJA?dV0
 R6
-IKdQ`^bUG@kXTdZY<6<k:b0
+IYjTNzf`Id`481d8hG@`?Z1
 R7
-Z28 w1734412947
-Z29 8C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/csr.v
-Z30 FC:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/csr.v
-!i122 708
+Z24 w1734602382
+Z25 8C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/csr.v
+Z26 FC:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/csr.v
+!i122 773
 L0 3 382
 R9
 R10
 r1
 !s85 0
 31
-Z31 !s108 1734524198.000000
-Z32 !s107 C:\Users\dzj0489\Desktop\fffff\project\darksoul\rtl\core\defines.v|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/csr.v|
-Z33 !s90 -reportprogress|300|-work|work|-vopt|-stats=none|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/csr.v|
+R14
+Z27 !s107 C:\Users\dzj0489\Desktop\fffff\project\darksoul\rtl\core\defines.v|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/csr.v|
+Z28 !s90 -reportprogress|300|-work|work|-vopt|-stats=none|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/csr.v|
 !i113 0
 R12
 R3
 vcsr_reg
-R27
+R15
 !i10b 1
 !s100 @1Pbb:<0KR>FM>PIJ4z?62
 R6
 Ieog8BWBk8P]M]RgRIe4zj0
 R7
-R28
-R29
-R30
-!i122 708
+R24
+R25
+R26
+!i122 773
 L0 389 23
 R9
 R10
 r1
 !s85 0
 31
-R31
-R32
-R33
+R14
+R27
+R28
 !i113 0
 R12
 R3
@@ -301,7 +301,7 @@ R7
 w1732930047
 8C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/csru.v
 FC:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/csru.v
-!i122 709
+!i122 774
 L0 3 63
 R9
 R10
@@ -315,23 +315,23 @@ R16
 R12
 R3
 vdecoder
-!s110 1734526818
+Z29 !s110 1734970875
 !i10b 1
-!s100 X`?WzdMH9RkW2LD>SaCi32
+!s100 Y_J8bI6F=;<0L75NTm;3I2
 R6
-IjBng?JbTTMRY:_UiAYCE31
+Ih165Ilin^KUA4L_`h^UJY2
 R7
-w1734526578
+w1734965696
 8C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/decoder.v
 FC:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/decoder.v
-!i122 712
-L0 5 943
+!i122 750
+L0 5 1000
 R9
 R10
 r1
 !s85 0
 31
-!s108 1734526818.000000
+Z30 !s108 1734970875.000000
 !s107 C:\Users\dzj0489\Desktop\fffff\project\darksoul\rtl\core\defines.v|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/decoder.v|
 !s90 -reportprogress|300|-work|work|-vopt|-stats=none|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/decoder.v|
 !i113 0
@@ -347,7 +347,7 @@ R7
 w1734231471
 8C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/div.v
 FC:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/div.v
-!i122 707
+!i122 772
 L0 3 116
 R9
 R10
@@ -408,99 +408,99 @@ R12
 R3
 n@d@r@a@m
 vex_mem
-Z34 !s110 1734524193
+R29
 !i10b 1
-!s100 FJZ]U44LhT5_BU92P14Re1
+!s100 PoH:hXZQW9JJbA:>8IRKc1
 R6
-IE:Ig?<HcD8V7RV40L?5Wb2
+I[]Oa@7e3EQF;9]@PHW?U>3
 R7
-w1734524036
+w1734970499
 8C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/ex_mem.v
 FC:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/ex_mem.v
-!i122 686
-L0 5 149
+!i122 751
+L0 5 155
 R9
 R10
 r1
 !s85 0
 31
-Z35 !s108 1734524193.000000
+R30
 !s107 C:\Users\dzj0489\Desktop\fffff\project\darksoul\rtl\core\defines.v|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/ex_mem.v|
 !s90 -reportprogress|300|-work|work|-vopt|-stats=none|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/ex_mem.v|
 !i113 0
 R12
 R3
 vex_stage
-R34
+R29
 !i10b 1
-!s100 `QJHT[>jmY1<Me6RllW6a1
+!s100 4G6=6o;HYjCk282MFK?cA3
 R6
-IkD58D^bOHW<2l:>z[0QSZ0
+In73AGB;`?cgfn?BcbS54h2
 R7
-w1734523939
+w1734966323
 8C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/ex_stage.v
 FC:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/ex_stage.v
-!i122 687
-L0 7 238
+!i122 752
+L0 7 242
 R9
 R10
 r1
 !s85 0
 31
-R35
+R30
 !s107 C:\Users\dzj0489\Desktop\fffff\project\darksoul\rtl\core\defines.v|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/ex_stage.v|
 !s90 -reportprogress|300|-work|work|-vopt|-stats=none|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/ex_stage.v|
 !i113 0
 R12
 R3
 vid_ex
-R34
+R29
 !i10b 1
-!s100 eoOLPjY`75]Y=g_B=;z@I1
+!s100 c?b:j9N_F_`Sh9Z16_4Ao3
 R6
-IOYUY[2MS?W0XiYRKFJzKe2
+IfFk09Z?e?Q`a:?aTDfPnT0
 R7
-w1734523648
+w1734965994
 8C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/id_ex.v
 FC:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/id_ex.v
-!i122 688
-L0 7 284
+!i122 753
+L0 7 289
 R9
 R10
 r1
 !s85 0
 31
-R35
+R30
 !s107 C:\Users\dzj0489\Desktop\fffff\project\darksoul\rtl\core\defines.v|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/id_ex.v|
 !s90 -reportprogress|300|-work|work|-vopt|-stats=none|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/id_ex.v|
 !i113 0
 R12
 R3
 vid_stage
-R34
+R29
 !i10b 1
-!s100 ;nAlEYC[@I0f3K`PEXYZ42
+!s100 8E`Nn29HF^<`8<>S5HkfG1
 R6
-I[8CgoX4QFl4]LCZ3nK0D`2
+I86H3?;az1l`^8JT_6O;ij0
 R7
-Z36 w1734523499
+w1734965838
 8C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/id_stage.v
 FC:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/id_stage.v
-!i122 689
-L0 7 201
+!i122 754
+L0 7 205
 R9
 R10
 r1
 !s85 0
 31
-R35
+R30
 !s107 C:\Users\dzj0489\Desktop\fffff\project\darksoul\rtl\core\defines.v|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/id_stage.v|
 !s90 -reportprogress|300|-work|work|-vopt|-stats=none|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/id_stage.v|
 !i113 0
 R12
 R3
 vif_id
-R34
+R29
 !i10b 1
 !s100 z<D:37FB2L`SFK`73@A7o1
 R6
@@ -509,44 +509,44 @@ R7
 w1734523534
 8C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/if_id.v
 FC:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/if_id.v
-!i122 690
+!i122 755
 L0 4 86
 R9
 R10
 r1
 !s85 0
 31
-R35
+R30
 !s107 C:\Users\dzj0489\Desktop\fffff\project\darksoul\rtl\core\defines.v|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/if_id.v|
 !s90 -reportprogress|300|-work|work|-vopt|-stats=none|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/if_id.v|
 !i113 0
 R12
 R3
 vif_stage
-R34
+R29
 !i10b 1
 !s100 GXfL[c1?YeCCXkOEl9E4X2
 R6
 I=5EYj6__i[oQk7zkD>Gak0
 R7
-R36
+w1734523499
 8C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/if_stage.v
 FC:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/if_stage.v
-!i122 691
+!i122 756
 L0 7 81
 R9
 R10
 r1
 !s85 0
 31
-R35
+R30
 !s107 C:\Users\dzj0489\Desktop\fffff\project\darksoul\rtl\core\defines.v|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/if_stage.v|
 !s90 -reportprogress|300|-work|work|-vopt|-stats=none|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/if_stage.v|
 !i113 0
 R12
 R3
 vimm_gen
-R24
+R22
 !i10b 1
 !s100 J>Kzz5jzf@3j1zlRFl_bm1
 R6
@@ -555,14 +555,14 @@ R7
 R8
 8C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/imm_gen.v
 FC:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/imm_gen.v
-!i122 692
+!i122 757
 L0 5 44
 R9
 R10
 r1
 !s85 0
 31
-R35
+R23
 !s107 C:\Users\dzj0489\Desktop\fffff\project\darksoul\rtl\core\defines.v|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/imm_gen.v|
 !s90 -reportprogress|300|-work|work|-vopt|-stats=none|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/imm_gen.v|
 !i113 0
@@ -593,101 +593,101 @@ R12
 R3
 n@i@r@a@m
 vLCA
-R17
+R13
 !i10b 1
 !s100 zZIMlo9OE3SV4G?KBi]fC2
 R6
 IQdkO]^5amaFUOR;_5XFLM2
 R7
-Z37 w1732030309
-Z38 8C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/LCA.v
-Z39 FC:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/LCA.v
-!i122 702
+Z31 w1732030309
+Z32 8C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/LCA.v
+Z33 FC:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/LCA.v
+!i122 767
 L0 6 32
 R9
 R10
 r1
 !s85 0
 31
-R21
-Z40 !s107 C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/LCA.v|
-Z41 !s90 -reportprogress|300|-work|work|-vopt|-stats=none|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/LCA.v|
+R14
+Z34 !s107 C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/LCA.v|
+Z35 !s90 -reportprogress|300|-work|work|-vopt|-stats=none|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/LCA.v|
 !i113 0
 R12
 R3
 n@l@c@a
 vLCA_4
-R17
+R13
 !i10b 1
 !s100 moW50Q54IiX8RE9Ko<g761
 R6
 Ifig?H=ni<jiE9KN1@;^YR3
 R7
-R37
-R38
-R39
-!i122 702
+R31
+R32
+R33
+!i122 767
 L0 42 28
 R9
 R10
 r1
 !s85 0
 31
-R21
-R40
-R41
+R14
+R34
+R35
 !i113 0
 R12
 R3
 n@l@c@a_4
 vmem_stage
-R24
+R22
 !i10b 1
-!s100 YzO^1lmMH>ZRiS[5oHYYX3
+!s100 72XmL_b=1hC4STU>l6G[M2
 R6
-IH]fOCf[A]UQU<5>7`Ym0H2
+I2@1fl`U>^Cd6`oghW]_QF0
 R7
-w1734524108
+w1734970612
 8C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/mem_stage.v
 FC:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/mem_stage.v
-!i122 693
-L0 7 92
+!i122 758
+L0 7 95
 R9
 R10
 r1
 !s85 0
 31
-R25
+R23
 !s107 C:\Users\dzj0489\Desktop\fffff\project\darksoul\rtl\core\defines.v|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/mem_stage.v|
 !s90 -reportprogress|300|-work|work|-vopt|-stats=none|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/mem_stage.v|
 !i113 0
 R12
 R3
 vmem_wb
-R24
+R22
 !i10b 1
 !s100 64k0b048d[27``B^CzH`C0
 R6
 Io@W6FD^[M@g?6UoibmgFJ1
 R7
-R26
+w1734524183
 8C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/mem_wb.v
 FC:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/mem_wb.v
-!i122 694
+!i122 759
 L0 5 142
 R9
 R10
 r1
 !s85 0
 31
-R25
+R23
 !s107 C:\Users\dzj0489\Desktop\fffff\project\darksoul\rtl\core\defines.v|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/mem_wb.v|
 !s90 -reportprogress|300|-work|work|-vopt|-stats=none|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/mem_wb.v|
 !i113 0
 R12
 R3
 vmul
-R17
+R13
 !i10b 1
 !s100 SiPJD<lRzcM8VZm;BPh]f1
 R6
@@ -696,21 +696,21 @@ R7
 w1734231294
 8C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/mul.v
 FC:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/mul.v
-!i122 701
+!i122 766
 L0 4 281
 R9
 R10
 r1
 !s85 0
 31
-R21
+R14
 !s107 C:\Users\dzj0489\Desktop\fffff\project\darksoul\rtl\core\defines.v|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/mul.v|
 !s90 -reportprogress|300|-work|work|-vopt|-stats=none|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/mul.v|
 !i113 0
 R12
 R3
 vmux_alu
-R24
+R22
 !i10b 1
 !s100 f92?=9]i59CF@9Y;DM97n3
 R6
@@ -719,92 +719,92 @@ R7
 R8
 8C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/mux_alu.v
 FC:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/mux_alu.v
-!i122 695
+!i122 760
 L0 7 62
 R9
 R10
 r1
 !s85 0
 31
-R25
+R23
 !s107 C:\Users\dzj0489\Desktop\fffff\project\darksoul\rtl\core\defines.v|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/mux_alu.v|
 !s90 -reportprogress|300|-work|work|-vopt|-stats=none|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/mux_alu.v|
 !i113 0
 R12
 R3
 vN_comp3_2
-R17
+R13
 !i10b 1
 !s100 ESY2FV;R<:c]3k^5FX9f22
 R6
 I04`zM>m=E6`gNU7DGIJoj1
 R7
+R17
 R18
 R19
-R20
-!i122 705
+!i122 770
 L0 18 32
 R9
 R10
 r1
 !s85 0
 31
+R14
+R20
 R21
-R22
-R23
 !i113 0
 R12
 R3
 n@n_comp3_2
 vN_comp4_2
-R17
+R13
 !i10b 1
 !s100 G6?O9lekCj2JTbc1<]QGo0
 R6
 IP53M]FkGT2:LNRH<T8dO31
 R7
+R17
 R18
 R19
-R20
-!i122 705
+!i122 770
 L0 74 38
 R9
 R10
 r1
 !s85 0
 31
+R14
+R20
 R21
-R22
-R23
 !i113 0
 R12
 R3
 n@n_comp4_2
 vpc_reg
-R24
+R22
 !i10b 1
 !s100 1OVc<9h88eoN^oma@0SVo0
 R6
 IZ6`Po2Km9Bj:`^Qea0VS?1
 R7
-w1734190058
+w1734601811
 8C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/pc_reg.v
 FC:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/pc_reg.v
-!i122 696
+!i122 761
 L0 3 41
 R9
 R10
 r1
 !s85 0
 31
-R25
+R23
 !s107 C:\Users\dzj0489\Desktop\fffff\project\darksoul\rtl\core\defines.v|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/pc_reg.v|
 !s90 -reportprogress|300|-work|work|-vopt|-stats=none|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/pc_reg.v|
 !i113 0
 R12
 R3
 vpipe_ctrl
-R24
+R22
 !i10b 1
 !s100 ^WO>NJ1;`WWM<Go;A?oJJ3
 R6
@@ -813,21 +813,21 @@ R7
 w1734230159
 8C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/pipe_ctrl.v
 FC:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/pipe_ctrl.v
-!i122 697
+!i122 762
 L0 4 61
 R9
 R10
 r1
 !s85 0
 31
-R25
+R23
 !s107 C:\Users\dzj0489\Desktop\fffff\project\darksoul\rtl\core\defines.v|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/pipe_ctrl.v|
 !s90 -reportprogress|300|-work|work|-vopt|-stats=none|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/pipe_ctrl.v|
 !i113 0
 R12
 R3
 vpp_gen
-R17
+R13
 !i10b 1
 !s100 gL4H9>_D]Cg=ND?MNOl`J0
 R6
@@ -836,21 +836,21 @@ R7
 w1731848478
 8C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/pp_gen.v
 FC:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/pp_gen.v
-!i122 703
+!i122 768
 L0 1 68
 R9
 R10
 r1
 !s85 0
 31
-R21
+R14
 !s107 C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/pp_gen.v|
 !s90 -reportprogress|300|-work|work|-vopt|-stats=none|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/pp_gen.v|
 !i113 0
 R12
 R3
 vRAM
-!s110 1734529920
+R13
 !i10b 1
 !s100 S^`9z?g42VM0BcQ=VkJX=1
 R6
@@ -859,14 +859,14 @@ R7
 w1734529886
 8C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/utils/RAM.v
 FC:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/utils/RAM.v
-!i122 714
+!i122 765
 L0 5 85
 R9
 R10
 r1
 !s85 0
 31
-!s108 1734529920.000000
+R23
 !s107 C:\Users\dzj0489\Desktop\fffff\project\darksoul\rtl\utils\..\core\defines.v|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/utils/RAM.v|
 !s90 -reportprogress|300|-work|work|-vopt|-stats=none|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/utils/RAM.v|
 !i113 0
@@ -874,23 +874,23 @@ R12
 R3
 n@r@a@m
 vregfile
-R24
+R22
 !i10b 1
 !s100 d<FTCjUgRLVLd4fJgC3Bi3
 R6
 II`VPzOKlEdEIXZmN[bZ<n1
 R7
-R8
+w1734600178
 8C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/regfile.v
 FC:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/regfile.v
-!i122 698
+!i122 763
 L0 5 43
 R9
 R10
 r1
 !s85 0
 31
-R25
+R23
 !s107 C:\Users\dzj0489\Desktop\fffff\project\darksoul\rtl\core\defines.v|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/regfile.v|
 !s90 -reportprogress|300|-work|work|-vopt|-stats=none|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/regfile.v|
 !i113 0
@@ -906,7 +906,7 @@ R7
 w1733058264
 8C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/SRAM.v
 FC:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/SRAM.v
-!i122 710
+!i122 775
 L0 5 60
 R9
 R10
@@ -921,7 +921,7 @@ R12
 R3
 n@s@r@a@m
 vwallace_tree
-R17
+R13
 !i10b 1
 !s100 U<][5bZLV>aWI]Doi8[SW1
 R6
@@ -930,14 +930,14 @@ R7
 w1732017486
 8C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/wallace_tree.v
 FC:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/wallace_tree.v
-!i122 704
+!i122 769
 L0 1 264
 R9
 R10
 r1
 !s85 0
 31
-R21
+R14
 !s107 C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/wallace_tree.v|
 !s90 -reportprogress|300|-work|work|-vopt|-stats=none|C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/wallace_tree.v|
 !i113 0

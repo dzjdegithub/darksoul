@@ -35,14 +35,17 @@ module mem_stage
     // input ex2mem_int_flag,
     output mem_exp_flag,
     output mem_int_flag,
-    output mem_exp_int_flag
+    output mem_exp_int_flag,
+    
+    input mem_is_wfi_inst_i,
+    input mem_is_wfi_inst_o
 );
 
     assign mem_int_flag = int_flag;
     assign mem_exp_flag = ex2mem_exp_flag; //mem阶段暂时不会产生异常
     assign mem_exp_int_flag = mem_int_flag | mem_exp_flag;
 
-
+    assign mem_is_wfi_inst_o = mem_is_wfi_inst_i & mem_valid;
 
     assign mem_fw_rd_addr = mem_rf_waddr_i;
     assign mem_fw_data = mem_wb_data;

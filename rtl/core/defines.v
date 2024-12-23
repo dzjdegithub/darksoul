@@ -49,6 +49,7 @@
 `define RD_BASE 11 : 7
 
 //OPCODE
+
 `define OPCODE_WIDTH 7
 `define OPCODE_BASE 6 : 0
 `define INST_TYPE_R `OPCODE_WIDTH'b0110011 //reg
@@ -103,9 +104,13 @@
 `define INST_BGEU `FUNCT3_WIDTH'b111 
 //e
 `define INST_E_TYPE `FUNCT3_WIDTH'b000
-`define INST_ECALL 25'b0
-`define INST_EBREAK {12'b1, 13'b0}
-`define INST_MRET {12'b0011000_00010, 13'b0}
+`define INST_TRAP_RET 5'b00010
+`define INST_ECALL    5'b00000
+`define INST_EBREAK   5'b00001
+`define INST_WFI      5'b00101
+`define INST_URET 7'b0000000
+`define INST_SRET 7'b0001000
+`define INST_MRET 7'b0011000
 //csr
 `define INST_CSRRW `FUNCT3_WIDTH'b001
 `define INST_CSRRS `FUNCT3_WIDTH'b010 

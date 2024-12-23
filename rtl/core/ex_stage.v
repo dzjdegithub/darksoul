@@ -90,7 +90,10 @@ module ex_stage
     input wb_exp_int_flag,
     
     input id2ex_is_mret_inst,
-    output ex_is_mret_inst
+    output ex_is_mret_inst,
+    
+    input ex_is_wfi_inst_i,
+    output ex_is_wfi_inst_o
 );
     
     // wire ex_exp_int_flag;
@@ -105,6 +108,7 @@ module ex_stage
                      
     assign ex_is_mret_inst = (id2ex_is_mret_inst & ex_ok & ex_valid);
 
+    assign ex_is_wfi_inst_o = (ex_is_wfi_inst_i & ex_ok & ex_valid);
     
     wire [`XLEN - 1 : 0] alu_src1, alu_src2;
     mux_alu mux_alu_inst

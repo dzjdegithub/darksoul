@@ -57,8 +57,8 @@ module id_ex
     input id_is_illg_inst,
     input id_is_ecall_inst,
     input id_is_ebreak_inst,
-    
     input id_is_mret_inst,
+    input id_is_wfi_inst,
 
     
     //ex
@@ -97,8 +97,9 @@ module id_ex
     output reg id2ex_is_illg_inst,
     output reg id2ex_is_ecall_inst,
     output reg id2ex_is_ebreak_inst,
-    output reg id2ex_is_mret_inst
+    output reg id2ex_is_mret_inst,
     
+    output reg ex_is_wfi_inst
 );
 
 
@@ -159,6 +160,7 @@ module id_ex
             id2ex_is_ecall_inst <= `FALSE;
             id2ex_is_ebreak_inst <= `FALSE; 
             id2ex_is_mret_inst <= `FALSE;
+            ex_is_wfi_inst <= `FALSE;
         end
         else if(pipe_flush == `FLUSH) begin
             ex_pc <= `ZEROWORD;
@@ -197,6 +199,7 @@ module id_ex
             id2ex_is_ecall_inst <= `FALSE;
             id2ex_is_ebreak_inst <= `FALSE; 
             id2ex_is_mret_inst <= `FALSE;
+            ex_is_wfi_inst <= `FALSE;
         end
         else if(id_ex_valid && ex_allowin) begin
             ex_pc <= id_pc;
@@ -235,6 +238,7 @@ module id_ex
             id2ex_is_ecall_inst  <= id_is_ecall_inst;
             id2ex_is_ebreak_inst <= id_is_ebreak_inst;
             id2ex_is_mret_inst <= id_is_mret_inst;
+            ex_is_wfi_inst <= id_is_wfi_inst;
         end
         else begin
             ex_pc <= ex_pc;
@@ -273,6 +277,7 @@ module id_ex
             id2ex_is_ecall_inst   <= id2ex_is_ecall_inst;
             id2ex_is_ebreak_inst  <= id2ex_is_ebreak_inst;
             id2ex_is_mret_inst <= id2ex_is_mret_inst;
+            ex_is_wfi_inst <= ex_is_wfi_inst;
         end
     end 
     

@@ -53,7 +53,9 @@ module decoder
     output reg is_ecall_inst,
     output reg is_ebreak_inst,
     
-    output reg is_mret_inst
+    output reg is_mret_inst,
+    
+    output reg is_wfi_inst
 );
 
     assign inst_o = inst_i;
@@ -117,6 +119,7 @@ module decoder
         is_ebreak_inst = `FALSE;
         is_mret_inst = `FALSE;
         req_mem = `FALSE;
+        is_wfi_inst = `FALSE;
         case(opcode) 
            
             
@@ -782,9 +785,66 @@ module decoder
                 case(funct3)
                     
                     `INST_E_TYPE : begin
-                        case(inst_i[31 : 7])
+                        case({inst_i[19 : 15], inst_i[11 : 7]})
                         
-                            `INST_ECALL : begin
+                            10'b0 : begin
+                            
+                                case(inst_i[24 : 20])
+                                
+                                    `INST_ECALL : begin
+                                        is_ecall_inst = `TRUE;
+                                        req_rf = `FALSE;
+                                    end
+                                    
+                                    `INST_EBREAK : begin
+                                        is_ebreak_inst = `TRUE;
+                                        req_rf = `FALSE;
+                                    end
+                                     
+                                    `INST_TRAP_RET : begin
+                                        case(inst_i[31 : 25])
+                                            
+                                            `INST_URET : begin
+                                                req_rf = `FALSE;
+                                            end
+                                            
+                                            `INST_SRET : begin
+                                                req_rf = `FALSE;
+                                            end
+                                            
+                                            `INST_MRET : begin
+                                                req_rf = `FALSE;
+                                                is_mret_inst = `TRUE;
+                                            end
+                                            
+                                            default : begin
+                                                req_rf = `FALSE;
+                                                is_illg_inst = `TRUE;
+                                            end
+                                        endcase
+                                    end
+                                    
+                                    `INST_WFI : begin
+                                        req_rf = `FALSE;
+                                        is_wfi_inst = `TRUE;
+                                    end 
+                                    
+                                    default : begin
+                                        req_rf = `FALSE;
+                                        is_illg_inst = `TRUE;
+                                    end
+                                    
+                                endcase
+                                
+                            end
+                            
+                            default : begin
+                                is_illg_inst = `TRUE;
+                                req_rf = `FALSE;
+                            end
+                        endcase
+                    end
+                    /*`INST_ECALL : begin
                                 is_ecall_inst = `TRUE;
                                 req_rf = `FALSE;
                             end
@@ -795,17 +855,14 @@ module decoder
                             end
                             
                             `INST_MRET : begin
-                                req_rf = `FALSE;
-                                is_mret_inst = `TRUE;
+                                
                             end
                             
                             default : begin
                                 is_illg_inst = `TRUE;
                                 req_rf = `FALSE;
                             end
-                        
-                        endcase
-                    end
+                      */
 
                     `INST_CSRRW : begin
                         is_csr_inst = `TRUE;

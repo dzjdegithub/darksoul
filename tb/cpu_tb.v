@@ -5,9 +5,9 @@ module cpu_tb;
     reg clk;
     reg rtc_clk;
     
+    wire clk_gate = cpu_top_inst.clk_gate;
     wire [31:0] wb_pc = cpu_top_inst.mem_wb_instance.wb_pc; 
-    wire [63:0] mcycle_64 = cpu_top_inst.csr_instance.mcycle_64;
-    wire [63:0] minstret_64 = cpu_top_inst.csr_instance.minstret_64;
+
     
     wire [31:0] zero_x0  = cpu_top_inst. regfile_instance. rf[0];
     wire [31:0] ra_x1    = cpu_top_inst. regfile_instance. rf[1];
@@ -42,7 +42,8 @@ module cpu_tb;
     wire [31:0] t5_x30   = cpu_top_inst. regfile_instance. rf[30];
     wire [31:0] t6_x31   = cpu_top_inst. regfile_instance. rf[31];
     
-
+    wire [63:0] mcycle_64 = cpu_top_inst.csr_instance.mcycle_64;
+    wire [63:0] minstret_64 = cpu_top_inst.csr_instance.minstret_64;
     
     cpu_top cpu_top_inst
     (

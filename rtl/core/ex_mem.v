@@ -36,6 +36,7 @@ module ex_mem
     input id2ex_is_illg_inst,
     input id2ex_is_ecall_inst,
     input id2ex_is_ebreak_inst,
+    input ex_is_wfi_inst,
     
     //mem
     output reg [`XLEN - 1 : 0] mem_pc,
@@ -51,7 +52,8 @@ module ex_mem
     output reg ex2mem_inst_addr_misal,
     output reg ex2mem_is_illg_inst,
     output reg ex2mem_is_ecall_inst,
-    output reg ex2mem_is_ebreak_inst
+    output reg ex2mem_is_ebreak_inst,
+    output reg mem_is_wfi_inst
 );
 
     wire ex_ready_go;
@@ -92,6 +94,7 @@ module ex_mem
             ex2mem_is_illg_inst <= `FALSE;
             ex2mem_is_ecall_inst <= `FALSE;
             ex2mem_is_ebreak_inst <= `FALSE;
+            mem_is_wfi_inst <= `FALSE;
         end
         else if(pipe_flush == `FLUSH) begin
             mem_pc <= `ZEROWORD;
@@ -108,6 +111,7 @@ module ex_mem
             ex2mem_is_illg_inst <= `FALSE;
             ex2mem_is_ecall_inst <= `FALSE;
             ex2mem_is_ebreak_inst <= `FALSE;
+            mem_is_wfi_inst <= `FALSE;
         end
         else if(ex_mem_valid && mem_allowin) begin
             mem_pc <= ex_pc;
@@ -124,6 +128,7 @@ module ex_mem
             ex2mem_is_illg_inst <= id2ex_is_illg_inst;
             ex2mem_is_ecall_inst <= id2ex_is_ecall_inst;
             ex2mem_is_ebreak_inst <= id2ex_is_ebreak_inst;
+            mem_is_wfi_inst <= ex_is_wfi_inst;
         end
         else begin
             mem_pc <= mem_pc;
@@ -140,6 +145,7 @@ module ex_mem
             ex2mem_is_illg_inst    <= ex2mem_is_illg_inst;
             ex2mem_is_ecall_inst   <= ex2mem_is_ecall_inst;
             ex2mem_is_ebreak_inst  <= ex2mem_is_ebreak_inst;
+            mem_is_wfi_inst <= mem_is_wfi_inst;
         end
       
     end
