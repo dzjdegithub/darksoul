@@ -129,10 +129,17 @@ module cpu_top
     wire mem_is_wfi_inst_o;
  
     wire clk_gate;
+    reg reg_m_tip; //将中断信号打一拍已防止时钟门控的时序问题
+    always @(posedge clk or negedge rst_n) begin
+        if(~rst_n)
+            reg_m_tip <= 1'b0;
+        else
+            reg_m_tip <= m_tip;
+    end
     wire int_flag = (csr_instance.mstatus_MIE & (   
                     (csr_instance.mie_MSIE & m_sip) |
                     (csr_instance.mie_MTIE & m_tip))); 
-    assign clk_gate = mem_is_wfi_inst_o ? (m_tip & clk) : clk; 
+    assign clk_gate = mem_is_wfi_inst_o ? (reg_m_tip & clk) : clk; 
     
     wire if_int_flag, if_exp_flag;
     wire if_inst_addr_misal;
@@ -507,7 +514,9 @@ module cpu_top
         .ex_is_mret_inst(ex_is_mret_inst),
         
         .ex_is_wfi_inst_i(ex_is_wfi_inst),
-        .ex_is_wfi_inst_o(ex_is_wfi_inst_o)
+        .ex_is_wfi_inst_o(ex_is_wfi_inst_o),
+        .mem_is_wfi_inst(mem_is_wfi_inst_o),
+        .cpu_mie(csr_instance.mstatus_MIE)
     );
     
     wire wb_valid;

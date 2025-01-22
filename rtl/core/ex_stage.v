@@ -93,7 +93,9 @@ module ex_stage
     output ex_is_mret_inst,
     
     input ex_is_wfi_inst_i,
-    output ex_is_wfi_inst_o
+    output ex_is_wfi_inst_o,
+    input mem_is_wfi_inst,
+    input cpu_mie
 );
     
     // wire ex_exp_int_flag;
@@ -102,9 +104,10 @@ module ex_stage
     // assign ex_int_flag = (int_flag | id2ex_int_flag);
     assign ex_exp_flag = id2ex_exp_flag; //ex阶段暂时不会产生异常
     // assign ex_exp_int_flag = ex_int_flag | ex_exp_flag;
-    assign ex_ok = ~(ex_exp_flag  | 
-                     mem_exp_int_flag | 
-                     wb_exp_int_flag  );   
+    assign ex_ok = ~(ex_exp_flag                  | 
+                     mem_exp_int_flag             | 
+                     wb_exp_int_flag              |
+                     (mem_is_wfi_inst & cpu_mie)  );   //全局中断使能打开则wfi能响应中断，后续指令不能执行，若全局中断未响应，则继续执行后面的指令流
                      
     assign ex_is_mret_inst = (id2ex_is_mret_inst & ex_ok & ex_valid);
 

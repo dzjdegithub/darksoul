@@ -71,13 +71,6 @@ Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
 Top level modules:
 	id_stage
 
-} {} {}} C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/ex_stage.v {1 {vlog -work work -vopt -stats=none C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/ex_stage.v
-Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
--- Compiling module ex_stage
-
-Top level modules:
-	ex_stage
-
 } {} {}} C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/utils/RAM.v {1 {vlog -work work -vopt -stats=none C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/utils/RAM.v
 Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
 -- Compiling module RAM
@@ -93,6 +86,13 @@ Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
 Top level modules:
 	LCA
 
+} {} {}} C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/ex_stage.v {1 {vlog -work work -vopt -stats=none {C:\Users\dzj0489\Desktop\fffff\project\darksoul\rtl\core\ex_stage.v}
+Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+-- Compiling module ex_stage
+
+Top level modules:
+	ex_stage
+
 } {} {}} C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/wallace_tree.v {1 {vlog -work work -vopt -stats=none C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/wallace_tree.v
 Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
 -- Compiling module wallace_tree
@@ -107,19 +107,19 @@ Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
 Top level modules:
 	pp_gen
 
-} {} {}} C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/mem_stage.v {1 {vlog -work work -vopt -stats=none C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/mem_stage.v
-Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
--- Compiling module mem_stage
-
-Top level modules:
-	mem_stage
-
 } {} {}} C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/cpu_top.v {1 {vlog -work work -vopt -stats=none C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/cpu_top.v
 Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
 -- Compiling module cpu_top
 
 Top level modules:
 	cpu_top
+
+} {} {}} C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/mem_stage.v {1 {vlog -work work -vopt -stats=none C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/mem_stage.v
+Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+-- Compiling module mem_stage
+
+Top level modules:
+	mem_stage
 
 } {} {}} C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/clint.v {1 {vlog -work work -vopt -stats=none C:/Users/dzj0489/Desktop/fffff/project/darksoul/rtl/core/clint.v
 Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
