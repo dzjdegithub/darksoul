@@ -7,11 +7,11 @@ module pipe_ctrl
     input id_is_bj_inst,
     output pipe_stall,
     
-    input ex_is_mul_inst,
-    input mul_done,
+    // input ex_is_mul_inst,
+    // input mul_done,
     
-    input ex_is_div_inst,
-    input div_done,
+    // input ex_is_div_inst,
+    // input div_done,
     
     //load_risk
     input id_is_j_inst,
@@ -28,7 +28,6 @@ module pipe_ctrl
     input id_fence_tp,
     input ex_is_store,
     
-    input mem_raw_risk,
     
     input id_is_mret_inst,
     
@@ -52,11 +51,10 @@ module pipe_ctrl
 
     assign pipe_stall = (id_is_bj_inst                                                | 
                          id_is_mret_inst                                              |
-                         ld_risk                                                      | 
-                         (ex_is_mul_inst & (~mul_done))                               |
-                         (ex_is_div_inst & (~div_done))                               |
-                         (ex_is_store & id_is_fence_inst & (id_fence_tp == `FENCE_I)) |
-                         mem_raw_risk
+                         ld_risk                                                      |     // 考虑是否不需要stall取指
+                         // (ex_is_mul_inst & (~mul_done))                               |     // 考虑是否不需要stall取指 
+                         // (ex_is_div_inst & (~div_done))                               |     // 考虑是否不需要stall取指
+                         (ex_is_store & id_is_fence_inst & (id_fence_tp == `FENCE_I)) 
                          );
 
     assign pipe_flush = wb_exp_int_flag;

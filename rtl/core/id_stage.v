@@ -36,6 +36,7 @@ module id_stage
     output [4 : 0] id_l_mask,
     output id_is_store,
     output [3 : 0] id_s_mask, 
+    output [1 : 0] size,
     
     //alu
     output [`ALU_OP_WIDTH - 1 : 0] id_alu_op,
@@ -48,6 +49,8 @@ module id_stage
     input [`XLEN - 1 : 0] ex_fw_data,
     //from mem
     input mem_req_rf,
+    input mem_wb_valid,
+    output mem_fw_valid,
     input [`RF_ADDR_WIDTH - 1 : 0] mem_fw_rd_addr,
     input [`XLEN - 1 : 0] mem_fw_data,
     //wb 阶段rf同时读写直接读出要写入的数据
@@ -158,6 +161,7 @@ module id_stage
         .l_mask(id_l_mask),
         .is_store(is_store),
         .s_mask(id_s_mask),
+        .size(size),
         .alu_op(id_alu_op),
         .alu_src_tp(id_alu_src_tp),
         .rf_raddr1(id_rf_raddr1),
@@ -190,6 +194,7 @@ module id_stage
     assign ex_fw_rs2_valid = ((ex_req_rf == `TRUE) && (ex_fw_rd_addr == id_rf_raddr2) && (~ld_risk)) ? `TRUE : `FALSE;
     assign mem_fw_rs1_valid = ((mem_req_rf == `TRUE) && (mem_fw_rd_addr == id_rf_raddr1)) ? `TRUE : `FALSE;
     assign mem_fw_rs2_valid = ((mem_req_rf == `TRUE) && (mem_fw_rd_addr == id_rf_raddr2)) ? `TRUE : `FALSE;
+    assign mem_fw_valid = (mem_fw_rs1_valid | mem_fw_rs2_valid) ? mem_wb_valid : 1'b1;
     
     assign id_rs1 = (id_rf_raddr1 == `X0) ? `ZEROWORD :
                     (ex_fw_rs1_valid == `TRUE) ? ex_fw_data :

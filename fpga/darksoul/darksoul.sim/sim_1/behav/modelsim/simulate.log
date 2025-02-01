@@ -1,0 +1,168 @@
+# //  ModelSim SE-64 2020.4 Oct 13 2020
+# //
+# //  Copyright 1991-2020 Mentor Graphics Corporation
+# //  All Rights Reserved.
+# //
+# //  ModelSim SE-64 and its associated documentation contain trade
+# //  secrets and commercial or financial information that are the property of
+# //  Mentor Graphics Corporation and are privileged, confidential,
+# //  and exempt from disclosure under the Freedom of Information Act,
+# //  5 U.S.C. Section 552. Furthermore, this information
+# //  is prohibited from disclosure under the Trade Secrets Act,
+# //  18 U.S.C. Section 1905.
+# //
+# do {cpu_tb_simulate.do}
+# vsim -voptargs=""+acc"" -L xil_defaultlib -L blk_mem_gen_v8_4_5 -L unisims_ver -L unimacro_ver -L secureip -L xpm -lib xil_defaultlib xil_defaultlib.cpu_tb xil_defaultlib.glbl 
+# Start time: 17:36:09 on Feb 01,2025
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# Loading work.cpu_tb(fast)
+# Loading work.soc_top(fast)
+# Loading work.cpu_top(fast)
+# Loading work.if_stage(fast)
+# Loading work.pc_reg(fast)
+# Loading work.if_id(fast)
+# Loading work.id_stage(fast)
+# Loading work.decoder(fast)
+# Loading work.imm_gen(fast)
+# Loading work.regfile(fast)
+# Loading work.id_ex(fast)
+# Loading work.ex_stage(fast)
+# Loading work.mux_alu(fast)
+# Loading work.alu(fast)
+# Loading work.bju(fast)
+# Loading work.agu(fast)
+# Loading work.mul(fast)
+# Loading work.booth_encoder(fast)
+# Loading work.pp_gen(fast)
+# Loading work.wallace_tree(fast)
+# Loading work.N_comp3_2(fast)
+# Loading work.comp3_2(fast)
+# Loading work.N_comp4_2(fast)
+# Loading work.comp4_2(fast)
+# Loading work.LCA(fast)
+# Loading work.LCA_4(fast)
+# Loading work.div(fast)
+# Loading work.csru(fast)
+# Loading work.csr(fast)
+# Loading work.csr_reg(fast)
+# Loading work.csr_reg(fast__1)
+# Loading work.csr_reg(fast__2)
+# Loading work.csr_reg(fast__3)
+# Loading work.csr_reg(fast__4)
+# Loading work.csr_reg(fast__5)
+# Loading work.ex_mem(fast)
+# Loading work.mem_stage(fast)
+# Loading work.mem_wb(fast)
+# Loading work.pipe_ctrl(fast)
+# Loading work.bus_if(fast)
+# Loading work.axi_xbar(fast)
+# Loading work.AXI2SRAM(fast)
+# Loading work.blk_mem_gen_0(fast)
+# Loading blk_mem_gen_v8_4_5.blk_mem_gen_v8_4_5(fast)
+# Loading blk_mem_gen_v8_4_5.blk_mem_gen_v8_4_5_mem_module(fast)
+# Loading blk_mem_gen_v8_4_5.blk_mem_gen_v8_4_5_output_stage(fast)
+# Loading blk_mem_gen_v8_4_5.blk_mem_gen_v8_4_5_softecc_output_reg_stage(fast)
+# Loading work.AXI2SRAM_1(fast)
+# Loading work.clint(fast)
+# Loading work.glbl(fast)
+# ** Warning: (vsim-3015) [PCDPC] - Port size (10) does not match connection size (32) for port 'addra'. The port definition is at: ../../../../darksoul.gen/sources_1/ip/blk_mem_gen_0/sim/blk_mem_gen_0.v(60).
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_tb/soc_top_inst/SRAM_inst File: ../../../../../../rtl/soc/soc_top.v Line: 337
+# ** Warning: (vsim-3015) [PCDPC] - Port size (10) does not match connection size (32) for port 'addrb'. The port definition is at: ../../../../darksoul.gen/sources_1/ip/blk_mem_gen_0/sim/blk_mem_gen_0.v(64).
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_tb/soc_top_inst/SRAM_inst File: ../../../../../../rtl/soc/soc_top.v Line: 337
+# 1
+# 1
+# .main_pane.wave.interior.cs.body.pw.wf
+# .main_pane.structure.interior.cs.body.struct
+# .main_pane.objects.interior.cs.body.tree
+#  Block Memory Generator module loading initial data...
+#  Block Memory Generator data initialization complete.
+# Block Memory Generator module cpu_tb.soc_top_inst.SRAM_inst.inst.native_mem_module.blk_mem_gen_v8_4_5_inst is using a behavioral model for simulation which will not precisely model memory collision behavior.
+add wave -position insertpoint sim:/cpu_tb/soc_top_inst/SRAM_inst/*
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# ** Note: (vsim-8009) Loading existing optimized design _opt
+# Loading work.cpu_tb(fast)
+# Loading work.soc_top(fast)
+# Loading work.cpu_top(fast)
+# Loading work.if_stage(fast)
+# Loading work.pc_reg(fast)
+# Loading work.if_id(fast)
+# Loading work.id_stage(fast)
+# Loading work.decoder(fast)
+# Loading work.imm_gen(fast)
+# Loading work.regfile(fast)
+# Loading work.id_ex(fast)
+# Loading work.ex_stage(fast)
+# Loading work.mux_alu(fast)
+# Loading work.alu(fast)
+# Loading work.bju(fast)
+# Loading work.agu(fast)
+# Loading work.mul(fast)
+# Loading work.booth_encoder(fast)
+# Loading work.pp_gen(fast)
+# Loading work.wallace_tree(fast)
+# Loading work.N_comp3_2(fast)
+# Loading work.comp3_2(fast)
+# Loading work.N_comp4_2(fast)
+# Loading work.comp4_2(fast)
+# Loading work.LCA(fast)
+# Loading work.LCA_4(fast)
+# Loading work.div(fast)
+# Loading work.csru(fast)
+# Loading work.csr(fast)
+# Loading work.csr_reg(fast)
+# Loading work.csr_reg(fast__1)
+# Loading work.csr_reg(fast__2)
+# Loading work.csr_reg(fast__3)
+# Loading work.csr_reg(fast__4)
+# Loading work.csr_reg(fast__5)
+# Loading work.ex_mem(fast)
+# Loading work.mem_stage(fast)
+# Loading work.mem_wb(fast)
+# Loading work.pipe_ctrl(fast)
+# Loading work.bus_if(fast)
+# Loading work.axi_xbar(fast)
+# Loading work.AXI2SRAM(fast)
+# Loading work.blk_mem_gen_0(fast)
+# Loading blk_mem_gen_v8_4_5.blk_mem_gen_v8_4_5(fast)
+# Loading blk_mem_gen_v8_4_5.blk_mem_gen_v8_4_5_mem_module(fast)
+# Loading blk_mem_gen_v8_4_5.blk_mem_gen_v8_4_5_output_stage(fast)
+# Loading blk_mem_gen_v8_4_5.blk_mem_gen_v8_4_5_softecc_output_reg_stage(fast)
+# Loading work.AXI2SRAM_1(fast)
+# Loading work.clint(fast)
+# Loading work.glbl(fast)
+# ** Warning: (vsim-3015) [PCDPC] - Port size (10) does not match connection size (32) for port 'addra'. The port definition is at: ../../../../darksoul.gen/sources_1/ip/blk_mem_gen_0/sim/blk_mem_gen_0.v(60).
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_tb/soc_top_inst/SRAM_inst File: ../../../../../../rtl/soc/soc_top.v Line: 337
+# ** Warning: (vsim-3015) [PCDPC] - Port size (10) does not match connection size (32) for port 'addrb'. The port definition is at: ../../../../darksoul.gen/sources_1/ip/blk_mem_gen_0/sim/blk_mem_gen_0.v(64).
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_tb/soc_top_inst/SRAM_inst File: ../../../../../../rtl/soc/soc_top.v Line: 337
+run
+#  Block Memory Generator module loading initial data...
+#  Block Memory Generator data initialization complete.
+# Block Memory Generator module cpu_tb.soc_top_inst.SRAM_inst.inst.native_mem_module.blk_mem_gen_v8_4_5_inst is using a behavioral model for simulation which will not precisely model memory collision behavior.
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+# End time: 17:39:07 on Feb 01,2025, Elapsed time: 0:02:58
+# Errors: 0, Warnings: 2

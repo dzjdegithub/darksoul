@@ -10,7 +10,7 @@ module decoder
     
     output reg is_bj_inst,
     output is_j_inst,
-    //判定是否需要中通的信号，不需要传递到下一级流水
+    //判定是否需要直通的信号，不需要传递到下一级流水
     output is_i_inst,
     output is_u_inst,
     
@@ -28,6 +28,7 @@ module decoder
     output reg [4 : 0] l_mask,       //最高位为符号位 ，1代表有符号，0代表无符号， 低四位1111为word 0011为半字 0001为字节
     output reg is_store,
     output reg [3 : 0] s_mask, 
+    output reg [1 : 0] size,
     
     output reg [`ALU_OP_WIDTH - 1 : 0] alu_op,
     output reg [`ALU_SRC_TYPE_WIDTH - 1 : 0] alu_src_tp, 
@@ -120,6 +121,7 @@ module decoder
         is_mret_inst = `FALSE;
         req_mem = `FALSE;
         is_wfi_inst = `FALSE;
+        size = 2'b10;
         case(opcode) 
            
             
@@ -562,6 +564,7 @@ module decoder
                         alu_src_tp = `ALU_NO_SRC;
                         req_rf = `TRUE;
                         l_mask = 5'b10001;
+                        size = 2'b00;
                     end
                     
                     `INST_LH : begin
@@ -571,6 +574,7 @@ module decoder
                         alu_src_tp = `ALU_NO_SRC;
                         req_rf = `TRUE;
                         l_mask = 5'b10011;
+                        size = 2'b01;
                     end
                     
                     `INST_LW : begin
@@ -580,6 +584,7 @@ module decoder
                         alu_src_tp = `ALU_NO_SRC;
                         req_rf = `TRUE;
                         l_mask = 5'b11111;
+                        size = 2'b10;
                     end
                     
                     `INST_LBU : begin
@@ -589,6 +594,7 @@ module decoder
                         alu_src_tp = `ALU_NO_SRC;
                         req_rf = `TRUE;
                         l_mask = 5'b00001;
+                        size = 2'b00;
                     end
                     
                     `INST_LHU : begin
@@ -598,6 +604,7 @@ module decoder
                         alu_src_tp = `ALU_NO_SRC;
                         req_rf = `TRUE;
                         l_mask = 5'b00011;
+                        size = 2'b01;
                     end
                 
                     default : begin
@@ -610,6 +617,7 @@ module decoder
                         is_load = `FALSE;
                         imm_gen_op = `IMM_GEN_NONE;
                         is_illg_inst = `TRUE;
+                        size = 2'b10;
                     end
                 
                 
@@ -635,6 +643,7 @@ module decoder
                         alu_src_tp = `ALU_NO_SRC;
                         req_rf = `FALSE;
                         s_mask = 4'b0001;
+                        size = 2'b00;
                     end
                     
                     `INST_SH : begin
@@ -644,6 +653,7 @@ module decoder
                         alu_src_tp = `ALU_NO_SRC;
                         req_rf = `FALSE;
                         s_mask = 4'b0011;
+                        size = 2'b01;
                     end
                     
                     `INST_SW : begin
@@ -653,6 +663,7 @@ module decoder
                         alu_src_tp = `ALU_NO_SRC;
                         req_rf = `FALSE;
                         s_mask = 4'b1111;
+                        size = 2'b10;
                     end
                 
                     default : begin
@@ -665,6 +676,7 @@ module decoder
                         imm_gen_op = `IMM_GEN_NONE;
                         is_store = `FALSE;
                         is_illg_inst = `TRUE;
+                        size = 2'b10;
                     end
                 
                 endcase 
@@ -993,6 +1005,7 @@ module decoder
                 csr_op = `CSR_NONE;
                 csr_src_tp = `CSR_RS1;
                 is_illg_inst = `TRUE;
+                size = 2'b10;
             end
         
         

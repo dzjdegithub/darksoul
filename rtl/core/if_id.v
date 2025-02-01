@@ -12,6 +12,10 @@ module if_id
     input ex_bj_flag,
     input ex_is_mret_inst,
     
+    input inst_valid,
+    input fetch_hand_suc,
+    input inst_useless,
+    
     //hand
     input id_allowin,
     output if_valid, //这个valid复位为有效
@@ -41,7 +45,7 @@ module if_id
 
     wire if_ready_go;
     assign if_valid = ((~pipe_stall) & (~ex_bj_flag) & (~ex_is_mret_inst));
-    assign if_ready_go = 1'b1;   // 加总线后一周期不能取到指令，需要修改
+    assign if_ready_go = (fetch_hand_suc & ~inst_useless) | inst_valid;
     assign if_id_valid = (if_valid & if_ready_go);
     
     

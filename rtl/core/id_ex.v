@@ -19,7 +19,7 @@ module id_ex
     output id_allowin,
     output id_ex_valid,
     
-    
+    input mem_fw_valid,
     
     //id
     input [`XLEN - 1 : 0] id_pc,
@@ -38,6 +38,7 @@ module id_ex
     input [4 : 0] id_l_mask,
     input id_is_store,
     input [3 : 0] id_s_mask,
+    input [1 : 0] id_size,
     input [`ALU_OP_WIDTH - 1 : 0] id_alu_op,
     input [`ALU_SRC_TYPE_WIDTH - 1 : 0] id_alu_src_tp,
     input [`XLEN - 1 : 0] id_rs1,
@@ -78,6 +79,7 @@ module id_ex
     output reg [4 : 0] ex_l_mask,
     output reg ex_is_store,
     output reg [3 : 0] ex_s_mask,
+    output reg [1 : 0] ex_size,
     output reg [`ALU_OP_WIDTH - 1 : 0] ex_alu_op,
     output reg [`ALU_SRC_TYPE_WIDTH - 1 : 0] ex_alu_src_tp,
     output reg [`XLEN - 1 : 0] ex_rs1,
@@ -105,7 +107,7 @@ module id_ex
 
     wire id_ready_go;
     
-    assign id_ready_go = (~ld_risk);
+    assign id_ready_go = (~ld_risk) & mem_fw_valid;
     assign id_allowin = (id_ready_go && ex_allowin);
     assign id_ex_valid = (id_valid && id_ready_go);
     
@@ -140,6 +142,7 @@ module id_ex
             ex_l_mask <= 5'b00000;
             ex_is_store <= `FALSE;
             ex_s_mask <= 4'b0000;
+            ex_size <= 2'b10;
             ex_alu_op <= `ALU_OP_NOP;
             ex_alu_src_tp <= `ALU_NO_SRC;
             ex_rs1 <= `ZEROWORD;
@@ -179,6 +182,7 @@ module id_ex
             ex_l_mask <= 5'b00000;
             ex_is_store <= `FALSE;
             ex_s_mask <= 4'b0000;
+            ex_size <= 2'b10;
             ex_alu_op <= `ALU_OP_NOP;
             ex_alu_src_tp <= `ALU_NO_SRC;
             ex_rs1 <= `ZEROWORD;
@@ -218,6 +222,7 @@ module id_ex
             ex_l_mask <= id_l_mask;
             ex_is_store <= id_is_store;
             ex_s_mask <= id_s_mask;
+            ex_size <= id_size;
             ex_alu_op <= id_alu_op;
             ex_alu_src_tp <= id_alu_src_tp;
             ex_rs1 <= id_rs1;
@@ -257,6 +262,7 @@ module id_ex
             ex_l_mask <= ex_l_mask;
             ex_is_store <= ex_is_store;
             ex_s_mask <= ex_s_mask;
+            ex_size <= ex_size;
             ex_alu_op <= ex_alu_op;
             ex_alu_src_tp <= ex_alu_src_tp;
             ex_rs1 <= ex_rs1;

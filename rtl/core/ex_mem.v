@@ -8,6 +8,11 @@ module ex_mem
     input rst_n,
 
     input pipe_flush,
+    
+    input ex_mem_re,
+    input ex_mem_we,
+    input store_req_ok,
+    input load_req_ok,
  
     //hand
     input id_ex_valid,
@@ -53,14 +58,19 @@ module ex_mem
     output reg ex2mem_is_illg_inst,
     output reg ex2mem_is_ecall_inst,
     output reg ex2mem_is_ebreak_inst,
-    output reg mem_is_wfi_inst
+    output reg mem_is_wfi_inst,
+    
+    output reg mem_we,
+    output reg mem_re
 );
 
     wire ex_ready_go;
     
-    assign ex_ready_go = ex_is_mul_inst ? ex_mul_done :
-                         ex_is_div_inst ? ex_div_done :
-                                          1'b1; 
+    assign ex_ready_go = ex_mem_we      ? store_req_ok :
+                         ex_mem_re      ? load_req_ok  :
+                         ex_is_mul_inst ? ex_mul_done  :
+                         ex_is_div_inst ? ex_div_done  :
+                         1'b1; 
     assign ex_allowin = (ex_ready_go && mem_allowin);
     assign ex_mem_valid = (ex_valid && ex_ready_go);
     
@@ -95,6 +105,8 @@ module ex_mem
             ex2mem_is_ecall_inst <= `FALSE;
             ex2mem_is_ebreak_inst <= `FALSE;
             mem_is_wfi_inst <= `FALSE;
+            mem_we <= `FALSE;
+            mem_re <= `FALSE;
         end
         else if(pipe_flush == `FLUSH) begin
             mem_pc <= `ZEROWORD;
@@ -112,6 +124,8 @@ module ex_mem
             ex2mem_is_ecall_inst <= `FALSE;
             ex2mem_is_ebreak_inst <= `FALSE;
             mem_is_wfi_inst <= `FALSE;
+            mem_we <= `FALSE;
+            mem_re <= `FALSE;
         end
         else if(ex_mem_valid && mem_allowin) begin
             mem_pc <= ex_pc;
@@ -129,6 +143,8 @@ module ex_mem
             ex2mem_is_ecall_inst <= id2ex_is_ecall_inst;
             ex2mem_is_ebreak_inst <= id2ex_is_ebreak_inst;
             mem_is_wfi_inst <= ex_is_wfi_inst;
+            mem_we <= ex_mem_we;
+            mem_re <= ex_mem_re;
         end
         else begin
             mem_pc <= mem_pc;
@@ -146,6 +162,8 @@ module ex_mem
             ex2mem_is_ecall_inst   <= ex2mem_is_ecall_inst;
             ex2mem_is_ebreak_inst  <= ex2mem_is_ebreak_inst;
             mem_is_wfi_inst <= mem_is_wfi_inst;
+            mem_we <= mem_we;
+            mem_re <= mem_re;
         end
       
     end

@@ -5,16 +5,58 @@
 module cpu_top
 (
     input clk,
-    input rtc_clk,
-    input rst_n
+    input rst_n,
+    output clk_gate,
+    
+    input m_sip,
+    input m_tip,
+    output mtime_cnt_en,
+    
+    output          axi_ar_valid,
+    input           axi_ar_ready,
+    output [3:0]    axi_ar_payload_id,
+    output [31:0]   axi_ar_payload_addr,
+    output [7:0]    axi_ar_payload_len,
+    output [2:0]    axi_ar_payload_size,
+    output [1:0]    axi_ar_payload_burst,
+    output [1:0]    axi_ar_payload_lock,
+    output [3:0]    axi_ar_payload_cache,
+    output [2:0]    axi_ar_payload_prot,
+    input           axi_r_valid,
+    output          axi_r_ready,
+    input  [3:0]    axi_r_payload_id,
+    input  [31:0]   axi_r_payload_data,
+    input  [1:0]    axi_r_payload_resp,
+    input           axi_r_payload_last,
+    output          axi_aw_valid,
+    input           axi_aw_ready,
+    output [3:0]    axi_aw_payload_id,
+    output [31:0]   axi_aw_payload_addr,
+    output [7:0]    axi_aw_payload_len,
+    output [2:0]    axi_aw_payload_size,
+    output [1:0]    axi_aw_payload_burst,
+    output [1:0]    axi_aw_payload_lock,
+    output [3:0]    axi_aw_payload_cache,
+    output [2:0]    axi_aw_payload_prot,
+    output          axi_w_valid,
+    input           axi_w_ready,
+    output [3:0]    axi_w_payload_id,
+    output [31:0]   axi_w_payload_data,
+    output [3:0]    axi_w_payload_strb,
+    output          axi_w_payload_last,
+    input           axi_b_valid,
+    output          axi_b_ready,
+    input  [3:0]    axi_b_payload_id,
+    input  [1:0]    axi_b_payload_resp
 );
 
 
     wire if_valid;
     wire pipe_stall;
     wire iram_en;
-    wire [`XLEN - 3 : 0] inst_raddr;
-    wire [`XLEN - 1 : 0] inst;
+    wire [`XLEN - 1 : 0] inst_raddr;
+    // wire [`XLEN - 1 : 0] inst;
+    wire [`XLEN - 1 : 0] inst_reg;
     wire [`XLEN - 1 : 0] if_pc;
     wire [`XLEN - 1 : 0] if_inst;
     wire ex_bj_flag;
@@ -96,7 +138,7 @@ module cpu_top
     wire [`XLEN - 1 : 0] ex_ls_addr;
     wire [4 : 0] ex_l_mask_o;
     wire [3 : 0] ex_byte_we;
-    wire [`XLEN - 1 : 0] mem_load_data;
+    // wire [`XLEN - 1 : 0] mem_load_data;
     wire [`XLEN - 1 : 0] ex_rs2_o;
     wire mem_allowin;
     wire ex_mem_valid;
@@ -123,13 +165,13 @@ module cpu_top
     wire ex_is_mret_inst;
     wire [`XLEN - 1 : 0] mret_addr;
     wire pipe_flush;
-    wire m_sip, m_tip;
+    // wire m_sip, m_tip;
     wire ex_is_wfi_inst_o;
     wire mem_is_wfi_inst;
     wire mem_is_wfi_inst_o;
+    wire mem_wb_valid;
  
-    wire clk_gate;
-    reg reg_m_tip; //将中断信号打一拍已防止时钟门控的时序问题
+    reg reg_m_tip; //将中断信号打一拍防止时钟门控的时序问题
     always @(posedge clk or negedge rst_n) begin
         if(~rst_n)
             reg_m_tip <= 1'b0;
@@ -141,8 +183,10 @@ module cpu_top
                     (csr_instance.mie_MTIE & m_tip))); 
     assign clk_gate = mem_is_wfi_inst_o ? (reg_m_tip & clk) : clk; 
     
-    wire if_int_flag, if_exp_flag;
+    wire if_exp_flag;
     wire if_inst_addr_misal;
+    wire fetch_hand_suc;
+    wire jump2exp;
     if_stage if_stage_instance
     (
         .if_valid(if_valid),
@@ -154,14 +198,16 @@ module cpu_top
         
         .pipe_stall(pipe_stall),
         
-        .wb_exp_int_flag(wb_exp_int_flag),
+        .fetch_hand_suc(fetch_hand_suc),
+        
+        .jump2exp(jump2exp),
         .meh_addr(meh_addr),
         .ex_is_mret_inst(ex_is_mret_inst),
         .mret_addr(mret_addr),
         
         .iram_en(iram_en),
         .inst_raddr(inst_raddr),
-        .inst(inst),
+        .inst(inst_reg),
         
         .if_pc(if_pc),
         .if_inst(if_inst),
@@ -175,8 +221,10 @@ module cpu_top
 
     
 
-    wire if2id_int_flag, if2id_exp_flag;
+    wire if2id_exp_flag;
     wire if2id_inst_addr_misal;
+    wire inst_valid;
+    wire inst_useless;
     if_id if_id_instance
     (
         .clk(clk_gate),
@@ -186,6 +234,10 @@ module cpu_top
         .pipe_flush(pipe_flush),
         .ex_bj_flag(ex_bj_flag),
         .ex_is_mret_inst(ex_is_mret_inst),
+        
+        .inst_valid(inst_valid),
+        .fetch_hand_suc(fetch_hand_suc),
+        .inst_useless(inst_useless),
         
         .id_allowin(id_allowin),
         .if_valid(if_valid),
@@ -212,12 +264,14 @@ module cpu_top
     wire id_is_fence_inst;
     wire id_fence_tp;
     wire id_exp_flag;
-    wire id_int_flag;
+    // wire id_int_flag;
     wire id_is_illg_inst;
     wire id_is_ecall_inst;
     wire id_is_ebreak_inst;
     wire id_is_mret_inst;
     wire id_is_wfi_inst;
+    wire mem_fw_valid;
+    wire [1 : 0] size;
     id_stage id_stage_instance
     (
         .id_valid(id_valid),
@@ -247,6 +301,7 @@ module cpu_top
         .id_l_mask(id_l_mask),
         .id_is_store(id_is_store),
         .id_s_mask(id_s_mask),
+        .size(size),
         
         .id_alu_op(id_alu_op),
         .id_alu_src_tp(id_alu_src_tp),
@@ -256,6 +311,8 @@ module cpu_top
         .ex_fw_data(ex_fw_data),
         
         .mem_req_rf(mem_req_rf_o),
+        .mem_wb_valid(mem_wb_valid),
+        .mem_fw_valid(mem_fw_valid),
         .mem_fw_rd_addr(mem_fw_rd_addr),
         .mem_fw_data(mem_fw_data),
         
@@ -316,13 +373,14 @@ module cpu_top
     wire ex_rd_is_x0;
     wire ex_rs1_is_x0;
     wire id2ex_exp_flag;
-    wire id2ex_int_flag;
+    // wire id2ex_int_flag;
     wire id2ex_inst_addr_misal;
     wire id2ex_is_illg_inst;
     wire id2ex_is_ecall_inst;
     wire id2ex_is_ebreak_inst;
     wire id2ex_is_mret_inst;
     wire ex_is_wfi_inst;
+    wire [1 : 0] ex_size;
     id_ex id_ex_instance
     (
         .clk(clk_gate),
@@ -337,6 +395,8 @@ module cpu_top
         .id_valid(id_valid),
         .id_allowin(id_allowin),
         .id_ex_valid(id_ex_valid),
+        
+        .mem_fw_valid(mem_fw_valid),
         
         .id_pc(id_pc_o),
         .id_inst(id_inst_o),
@@ -354,6 +414,7 @@ module cpu_top
         .id_l_mask(id_l_mask),
         .id_is_store(id_is_store),
         .id_s_mask(id_s_mask),
+        .id_size(size),
         .id_alu_op(id_alu_op),
         .id_alu_src_tp(id_alu_src_tp),
         .id_rs1(id_rs1),
@@ -393,6 +454,7 @@ module cpu_top
         .ex_l_mask(ex_l_mask),
         .ex_is_store(ex_is_store),
         .ex_s_mask(ex_s_mask),
+        .ex_size(ex_size),
         .ex_alu_op(ex_alu_op),
         .ex_alu_src_tp(ex_alu_src_tp),
         .ex_rs1(ex_rs1),
@@ -426,8 +488,9 @@ module cpu_top
     wire ex_csr_wen;
     wire [`XLEN - 1 : 0] ex_csr_wdata;
     wire ex_is_store_o;
-    wire ex_int_flag, ex_exp_flag;
+    wire ex_exp_flag;
     wire mem_exp_int_flag;
+    wire [1 : 0] ex_size_o;
 
     ex_stage ex_stage_instance
     (
@@ -485,6 +548,8 @@ module cpu_top
         .ex_l_mask_o(ex_l_mask_o),
         .ex_byte_we(ex_byte_we),
         .ex_rs2_o(ex_rs2_o),
+        .ex_size_i(ex_size),
+        .ex_size_o(ex_size_o),
         
         .ex_fw_rd_addr(ex_fw_rd_addr),
         .ex_fw_data(ex_fw_data),
@@ -559,62 +624,71 @@ module cpu_top
         .mtime_cnt_en(mtime_cnt_en)
     );
     
-    wire [`XLEN - 1 : 0] clint_rdata;
+    // wire [`XLEN - 1 : 0] clint_rdata;
 
-    clint clint_instance
-    (
-        .clk(clk),
-        .rtc_clk(rtc_clk),
-        .rst_n(rst_n),
-        .mtime_cnt_en(mtime_cnt_en),
+    // clint clint_instance
+    // (
+        // .clk(clk),
+        // .rtc_clk(rtc_clk),
+        // .rst_n(rst_n),
+        // .mtime_cnt_en(mtime_cnt_en),
         
-        .raddr(ex_ls_addr),
-        .re(ex_mem_re),
-        .rdata(clint_rdata),
-        .waddr(ex_ls_addr),
-        .byte_we(ex_byte_we),
-        .wdata(ex_rs2_o),
+        // .raddr(ex_ls_addr),
+        // .re(ex_mem_re),
+        // .rdata(clint_rdata),
+        // .waddr(ex_ls_addr),
+        // .byte_we(ex_byte_we),
+        // .wdata(ex_rs2_o),
         
-        .m_sip(m_sip),
-        .m_tip(m_tip)
-    );
+        // .m_sip(m_sip),
+        // .m_tip(m_tip)
+    // );
     
-    wire mem_raw_risk;
-    wire sram_cs = ex_ls_addr[31 : 24] == 8'h00;
-    SRAM sram_instance
-    (
-        .clk(clk_gate),
-        .rst_n(1'b1),
+    // wire mem_raw_risk;
+    // wire sram_cs = ex_ls_addr[31 : 24] == 8'h00;
+    // SRAM sram_instance
+    // (
+        // .clk(clk_gate),
+        // .rst_n(1'b1),
         
-        .cs(sram_cs),
+        // .cs(sram_cs),
         
-        .re1(iram_en),
-        .mem_raddr1(inst_raddr),
-        .mem_rdata1(inst),
+        // .re1(iram_en),
+        // .mem_raddr1(inst_raddr),
+        // .mem_rdata1(inst),
         
-        .re2(ex_mem_re),
-        .mem_raddr2(ex_ls_addr[31:2]),
-        .mem_rdata2(mem_load_data),
+        // .re2(ex_mem_re),
+        // .mem_raddr2(ex_ls_addr[31:2]),
+        // .mem_rdata2(mem_load_data),
         
-        .we(ex_mem_we),
-        .byte_we(ex_byte_we),
-        .mem_waddr(ex_ls_addr[31:2]),
-        .mem_wdata(ex_rs2_o),
+        // .we(ex_mem_we),
+        // .byte_we(ex_byte_we),
+        // .mem_waddr(ex_ls_addr[31:2]),
+        // .mem_wdata(ex_rs2_o),
         
-        .mem_raw_risk(mem_raw_risk)
-    );
+        // .mem_raw_risk(mem_raw_risk)
+    // );
     
-    wire ex2mem_exp_flag, ex2mem_int_flag;
+    wire ex2mem_exp_flag;
     wire ex2mem_inst_addr_misal;
     wire ex2mem_is_illg_inst;
     wire ex2mem_is_ecall_inst;
     wire ex2mem_is_ebreak_inst;
+    wire store_req_ok;
+    wire load_req_ok;
+    wire mem_we;
+    wire mem_re;
     ex_mem ex_mem_instance
     (
         .clk(clk_gate),
         .rst_n(rst_n),
         
         .pipe_flush(pipe_flush),
+        
+        .ex_mem_we(ex_mem_we),
+        .ex_mem_re(ex_mem_re),
+        .store_req_ok(store_req_ok),
+        .load_req_ok(load_req_ok),
         
         .id_ex_valid(id_ex_valid),
         .mem_allowin(mem_allowin),
@@ -657,13 +731,15 @@ module cpu_top
         .ex2mem_is_illg_inst(ex2mem_is_illg_inst),
         .ex2mem_is_ecall_inst(ex2mem_is_ecall_inst),
         .ex2mem_is_ebreak_inst(ex2mem_is_ebreak_inst),
-        .mem_is_wfi_inst(mem_is_wfi_inst)
+        .mem_is_wfi_inst(mem_is_wfi_inst),
+        .mem_we(mem_we),
+        .mem_re(mem_re)
     );
     
     
     wire mem_int_flag, mem_exp_flag;
-    wire [`XLEN - 1 : 0] mem_load_data_i;
-    assign mem_load_data_i = sram_cs ? mem_load_data : clint_rdata; //后面需要更改
+    wire [`XLEN - 1 : 0] axi_read_data;
+    // assign mem_load_data_i = sram_cs ? mem_load_data : clint_rdata; //后面需要更改
     mem_stage mem_stage
     (
         .mem_valid(mem_valid),
@@ -671,7 +747,7 @@ module cpu_top
         .mem_inst_i(mem_inst),
         
         .mem_is_load_i(mem_is_load),
-        .mem_load_data_i(mem_load_data_i),
+        .mem_load_data_i(axi_read_data),
         .mem_ls_addr_2low_i(mem_ls_addr_2low),
         .mem_l_mask_i(mem_l_mask),
         
@@ -700,6 +776,7 @@ module cpu_top
         .mem_is_wfi_inst_o(mem_is_wfi_inst_o)
     );
     
+
     mem_wb mem_wb_instance
     (
         .clk(clk_gate),
@@ -707,10 +784,16 @@ module cpu_top
         
         .pipe_flush(pipe_flush),
         
+        .mem_we(mem_we),
+        .mem_re(mem_re),
+        .store_hand_suc(store_hand_suc),
+        .load_hand_suc(load_hand_suc),
+        
         .ex_mem_valid(ex_mem_valid),
         
         .mem_valid(mem_valid),
         .mem_allowin(mem_allowin),
+        .mem_wb_valid(mem_wb_valid),
         
         // .int_flag(int_flag),
         
@@ -740,6 +823,7 @@ module cpu_top
         .wb_is_ecall_inst(wb_is_ecall_inst),
         .wb_is_ebreak_inst(wb_is_ebreak_inst),
         
+        
         .wb_valid(wb_valid)
     );
     
@@ -748,11 +832,11 @@ module cpu_top
         .id_is_bj_inst(id_is_bj_inst),
         .pipe_stall(pipe_stall),
         
-        .ex_is_mul_inst(ex_is_mul_inst_o),
-        .mul_done(ex_mul_done),
+        // .ex_is_mul_inst(ex_is_mul_inst_o),
+        // .mul_done(ex_mul_done),
         
-        .ex_is_div_inst(ex_is_div_inst_o),
-        .div_done(ex_div_done),
+        // .ex_is_div_inst(ex_is_div_inst_o),
+        // .div_done(ex_div_done),
         
         .id_is_j_inst(id_is_j_inst),
         .id_is_u_inst(id_is_u_inst),
@@ -767,12 +851,86 @@ module cpu_top
         .id_fence_tp(id_fence_tp),
         .ex_is_store(ex_is_store_o),
         
-        .mem_raw_risk(mem_raw_risk),
-        
         .id_is_mret_inst(id_is_mret_inst),
         
         .wb_exp_int_flag(wb_exp_int_flag),
         .pipe_flush(pipe_flush)
+    );
+    
+
+    bus_if bus_if_inst
+    (
+        .aclk(clk_gate),
+        .aresetn(rst_n),
+        .ex_mem_we(ex_mem_we),
+        .ex_mem_re(ex_mem_re),
+        .ex_mem_valid(ex_mem_valid),
+        .if_id_valid(if_id_valid),
+        .mem_allowin(mem_allowin),
+        .id_allowin(id_allowin),
+        .store_req_ok(store_req_ok),
+        .load_req_ok(load_req_ok),
+        .store_hand_suc(store_hand_suc),
+        .load_hand_suc(load_hand_suc),
+        .fetch_hand_suc(fetch_hand_suc),
+        .ex_ls_addr(ex_ls_addr),
+        .store_data(ex_rs2_o),
+        .axi_read_data(axi_read_data),
+        .ex_byte_we(ex_byte_we),
+        .size(ex_size_o),
+        .inst_req(iram_en),
+        .pc(inst_raddr),
+        .wb_exp_int_flag(wb_exp_int_flag),
+        .jump2exp(jump2exp),
+        .inst_useless(inst_useless),
+        .inst_valid(inst_valid),
+        .inst_reg(inst_reg),
+        
+        .axi_ar_payload_id(axi_ar_payload_id),
+        .axi_ar_payload_addr(axi_ar_payload_addr),
+        .axi_ar_payload_len(axi_ar_payload_len),
+        .axi_ar_payload_size(axi_ar_payload_size),
+        .axi_ar_payload_burst(axi_ar_payload_burst),
+        .axi_ar_payload_lock(axi_ar_payload_lock),
+        .axi_ar_payload_cache(axi_ar_payload_cache),
+        .axi_ar_payload_prot(axi_ar_payload_prot),
+        
+        .axi_ar_valid(axi_ar_valid),
+        .axi_ar_ready(axi_ar_ready),
+        
+        .axi_r_payload_id(axi_r_payload_id),
+        .axi_r_payload_data(axi_r_payload_data),
+        .axi_r_payload_resp(axi_r_payload_resp),
+        .axi_r_payload_last(axi_r_payload_last),
+        
+        .axi_r_valid(axi_r_valid),
+        .axi_r_ready(axi_r_ready),
+        
+        .axi_aw_payload_id(axi_aw_payload_id),
+        .axi_aw_payload_addr(axi_aw_payload_addr),
+        .axi_aw_payload_len(axi_aw_payload_len),
+        .axi_aw_payload_size(axi_aw_payload_size),
+        .axi_aw_payload_burst(axi_aw_payload_burst),
+        .axi_aw_payload_lock(axi_aw_payload_lock),
+        .axi_aw_payload_cache(axi_aw_payload_cache),
+        .axi_aw_payload_prot(axi_aw_payload_prot),
+        
+        .axi_aw_valid(axi_aw_valid),
+        .axi_aw_ready(axi_aw_ready),
+        
+        .axi_w_payload_id(axi_w_payload_id),
+        .axi_w_payload_data(axi_w_payload_data),
+        .axi_w_payload_strb(axi_w_payload_strb),
+        .axi_w_payload_last(axi_w_payload_last),
+        
+        .axi_w_valid(axi_w_valid),
+        .axi_w_ready(axi_w_ready),
+        
+        .axi_b_payload_id(axi_b_payload_id),
+        .axi_b_payload_resp(axi_b_payload_resp),
+        
+        .axi_b_valid(axi_b_valid),
+        .axi_b_ready(axi_b_ready)
     );
     
 endmodule 

@@ -61,6 +61,8 @@ module ex_stage
     output [4 : 0] ex_l_mask_o,
     output reg [3 : 0] ex_byte_we,
     output [`XLEN - 1 : 0] ex_rs2_o,
+    input [1 : 0] ex_size_i,
+    output [1 : 0] ex_size_o,
     
     //fwdata
     output [`RF_ADDR_WIDTH - 1 : 0] ex_fw_rd_addr,
@@ -112,6 +114,8 @@ module ex_stage
     assign ex_is_mret_inst = (id2ex_is_mret_inst & ex_ok & ex_valid);
 
     assign ex_is_wfi_inst_o = (ex_is_wfi_inst_i & ex_ok & ex_valid);
+    
+    assign ex_size_o = ex_size_i;
     
     wire [`XLEN - 1 : 0] alu_src1, alu_src2;
     mux_alu mux_alu_inst

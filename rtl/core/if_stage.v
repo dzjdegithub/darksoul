@@ -17,14 +17,16 @@ module if_stage
     //pipe
     input  pipe_stall,
     
-    input wb_exp_int_flag,
+    input fetch_hand_suc,
+    
+    input jump2exp,
     input [`XLEN - 1 : 0] meh_addr,
     input ex_is_mret_inst,
     input [`XLEN - 1 : 0] mret_addr,
     
     //iram_interface
     output iram_en,
-    output [`XLEN - 3 : 0] inst_raddr,
+    output [`XLEN - 1 : 0] inst_raddr,
     input [`XLEN - 1 : 0] inst,
 
     output [`XLEN - 1 : 0] if_pc,
@@ -59,7 +61,9 @@ module if_stage
         
         .pipe_stall(pipe_stall),
         
-        .wb_exp_int_flag(wb_exp_int_flag),
+        .fetch_hand_suc(fetch_hand_suc),
+        
+        .jump2exp(jump2exp),
         .meh_addr(meh_addr),
         .ex_is_mret_inst(ex_is_mret_inst),
         .mret_addr(mret_addr),
@@ -71,7 +75,7 @@ module if_stage
     
 
     
-    assign inst_raddr = pc_o[`IRAM_RADDR_BASE];
+    assign inst_raddr = pc_o;
     
     
     assign if_pc = pc_o;

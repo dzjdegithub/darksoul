@@ -8,11 +8,18 @@ module mem_wb
     input rst_n,
     
     input pipe_flush,
+    
+    input mem_we,
+    input mem_re,
+    input store_hand_suc,
+    input load_hand_suc,
+    
     //hand
     input ex_mem_valid,
 
     output reg mem_valid,
     output mem_allowin,
+    output mem_wb_valid,
 
     // input int_flag,
     
@@ -48,13 +55,15 @@ module mem_wb
 );
 
     wire mem_ready_go;
-    wire mem_wb_valid;
     wire wb_allowin;
     
     assign wb_allowin = 1'b1;
-    assign mem_ready_go = 1'b1; //目前一周期就能访存
+    assign mem_ready_go = mem_we ? store_hand_suc :
+                          mem_re ? load_hand_suc  :
+                          1'b1;
     assign mem_allowin = (mem_ready_go && wb_allowin);
     assign mem_wb_valid = (mem_valid && mem_ready_go);
+    
     
     always @(posedge clk or `RST_EDGE rst_n) begin
         if(rst_n == `DFF_RST_ENABLE)

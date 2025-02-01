@@ -1,0 +1,67 @@
+# do {cpu_tb_compile.do}
+# ** Warning: (vlib-34) Library already exists at "modelsim_lib/work".
+# Errors: 0, Warnings: 1
+# ** Warning: (vlib-34) Library already exists at "modelsim_lib/msim".
+# Errors: 0, Warnings: 1
+# ** Warning: (vlib-34) Library already exists at "modelsim_lib/msim/xil_defaultlib".
+# Errors: 0, Warnings: 1
+# Model Technology ModelSim SE-64 vmap 2020.4 Lib Mapping Utility 2020.10 Oct 13 2020
+# vmap xil_defaultlib modelsim_lib/msim/xil_defaultlib 
+# Modifying modelsim.ini
+# Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+# Start time: 17:36:04 on Feb 01,2025
+# vlog -incr -mfcu -work xil_defaultlib ../../../../darksoul.gen/sources_1/ip/blk_mem_gen_0/sim/blk_mem_gen_0.v ../../../../../../rtl/utils/AXI2SRAM.v ../../../../../../rtl/core/LCA.v ../../../../../../rtl/core/agu.v ../../../../../../rtl/core/alu.v ../../../../../../rtl/soc/axi_xbar.v ../../../../../../rtl/core/bju.v ../../../../../../rtl/core/booth_encoder.v ../../../../../../rtl/core/bus_if.v ../../../../../../rtl/perips/clint.v ../../../../../../rtl/core/compressor.v ../../../../../../rtl/core/cpu_top.v ../../../../../../rtl/core/csr.v ../../../../../../rtl/core/csru.v ../../../../../../rtl/core/decoder.v ../../../../../../rtl/core/div.v ../../../../../../rtl/core/ex_mem.v ../../../../../../rtl/core/ex_stage.v ../../../../../../rtl/core/id_ex.v ../../../../../../rtl/core/id_stage.v ../../../../../../rtl/core/if_id.v ../../../../../../rtl/core/if_stage.v ../../../../../../rtl/core/imm_gen.v ../../../../../../rtl/core/mem_stage.v ../../../../../../rtl/core/mem_wb.v ../../../../../../rtl/core/mul.v ../../../../../../rtl/core/mux_alu.v ../../../../../../rtl/core/pc_reg.v ../../../../../../rtl/core/pipe_ctrl.v ../../../../../../rtl/core/pp_gen.v ../../../../../../rtl/core/regfile.v ../../../../../../rtl/soc/soc_top.v ../../../../../../rtl/core/wallace_tree.v ../../../../../../tb/cpu_tb.v 
+# -- Compiling module blk_mem_gen_0
+# -- Skipping module AXI2SRAM_1
+# -- Skipping module AXI2SRAM
+# -- Skipping module LCA
+# -- Skipping module LCA_4
+# -- Skipping module agu
+# -- Skipping module alu
+# -- Skipping module axi_xbar
+# -- Skipping module bju
+# -- Skipping module booth_encoder
+# -- Skipping module bus_if
+# -- Skipping module clint
+# -- Skipping module comp3_2
+# -- Skipping module N_comp3_2
+# -- Skipping module comp4_2
+# -- Skipping module N_comp4_2
+# -- Skipping module cpu_top
+# -- Skipping module csr
+# -- Skipping module csr_reg
+# -- Skipping module csru
+# -- Skipping module decoder
+# -- Skipping module div
+# -- Skipping module ex_mem
+# -- Skipping module ex_stage
+# -- Skipping module id_ex
+# -- Skipping module id_stage
+# -- Skipping module if_id
+# -- Skipping module if_stage
+# -- Skipping module imm_gen
+# -- Skipping module mem_stage
+# -- Skipping module mem_wb
+# -- Skipping module mul
+# -- Skipping module mux_alu
+# -- Skipping module pc_reg
+# -- Skipping module pipe_ctrl
+# -- Skipping module pp_gen
+# -- Skipping module regfile
+# -- Skipping module soc_top
+# -- Skipping module wallace_tree
+# -- Skipping module cpu_tb
+# 
+# Top level modules:
+# 	cpu_tb
+# End time: 17:36:05 on Feb 01,2025, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+# Start time: 17:36:05 on Feb 01,2025
+# vlog -work xil_defaultlib glbl.v 
+# -- Compiling module glbl
+# 
+# Top level modules:
+# 	glbl
+# End time: 17:36:05 on Feb 01,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0

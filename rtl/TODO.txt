@@ -2,7 +2,7 @@ axi 总线
 
 I段有几个任务，更新nextpc，看情况发起总线请求，接受总线返回的指令
 如果读指令请求握手已经成功，则应该拉低请求信号（可通过状态机的busy状态实现），load冒险时pipeline stall，if阶段valid为0，不发起请求
-考虑指令的返回问题。什么时候才可以再发起总线请求。（调整if阶段的readygo信号，当数据从总线返回时（握手成功）才可以改nextpc，考虑nextpc的产生，stall和readygo都让他不变，优先级问题）
+考虑指令的返回问题。什么时候才可以再发起总线请求。（调整if阶段的readygo信号，当数据从总线返回时（握手成功）才可以改nextpc，考虑nextpc的产生，stall和readygo都让他不变,VALID信号最重要，优先级问题）
 
 
 
