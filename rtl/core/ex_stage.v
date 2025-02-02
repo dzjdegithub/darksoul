@@ -60,7 +60,8 @@ module ex_stage
     output [`XLEN - 1 : 0] ex_ls_addr,
     output [4 : 0] ex_l_mask_o,
     output reg [3 : 0] ex_byte_we,
-    output [`XLEN - 1 : 0] ex_rs2_o,
+    // output [`XLEN - 1 : 0] ex_rs2_o,
+    output reg [`XLEN - 1 : 0] ex_mem_wdata,
     input [1 : 0] ex_size_i,
     output [1 : 0] ex_size_o,
     
@@ -233,13 +234,28 @@ module ex_stage
     
     always @(*) begin
         case(ex_s_mask_i)
-            4'b0001 :   ex_byte_we = (ex_ls_addr[1 : 0] == 2'b00) ? 4'b0001 :
-                                   (ex_ls_addr[1 : 0] == 2'b01) ? 4'b0010 :
-                                   (ex_ls_addr[1 : 0] == 2'b10) ? 4'b0100 : 
-                                                                  4'b1000;
-            4'b0011 :   ex_byte_we = (ex_ls_addr[1 : 0] == 2'b00) ? 4'b0011 : 4'b1100;
-            4'b1111 :   ex_byte_we = 4'b1111;
-            default :   ex_byte_we = 4'b0000;
+            4'b0001 : begin
+                ex_byte_we = (ex_ls_addr[1 : 0] == 2'b00) ? 4'b0001 :
+                             (ex_ls_addr[1 : 0] == 2'b01) ? 4'b0010 :
+                             (ex_ls_addr[1 : 0] == 2'b10) ? 4'b0100 : 
+                                                            4'b1000 ;   
+                ex_mem_wdata = (ex_ls_addr[1 : 0] == 2'b00) ? ex_rs2_i :
+                               (ex_ls_addr[1 : 0] == 2'b01) ? {16'b0, ex_rs2_i[7 : 0], 8'b0}:
+                               (ex_ls_addr[1 : 0] == 2'b10) ? {8'b0, ex_rs2_i[7 : 0], 16'b0}: 
+                                                              {ex_rs2_i[7 : 0], 24'b0} ; 
+            end
+            4'b0011 : begin
+                ex_byte_we = (ex_ls_addr[1 : 0] == 2'b00) ? 4'b0011 : 4'b1100;
+                ex_mem_wdata = (ex_ls_addr[1 : 0] == 2'b00) ? ex_rs2_i : {ex_rs2_i[15 : 0], 16'b0};
+            end
+            4'b1111 : begin 
+                ex_byte_we = 4'b1111;
+                ex_mem_wdata = ex_rs2_i;
+            end
+            default : begin 
+                ex_byte_we = 4'b0000;
+                ex_mem_wdata = `ZEROWORD;
+            end
         endcase
     end
     
@@ -248,7 +264,7 @@ module ex_stage
     
     assign ex_loading = (ex_is_load && ex_valid);
     
-    assign ex_rs2_o = ex_rs2_i;
+    // assign ex_rs2_o = ex_rs2_i;
     
     assign ex_is_store_o = (ex_is_store && ex_valid);
     

@@ -11,7 +11,9 @@ module pc_reg
     
     input pipe_stall,
     
-    input fetch_hand_suc,
+    // input fetch_hand_suc,
+    input if_id_valid,
+    input id_allowin,
     
     input jump2exp,
     input [`XLEN - 1 : 0] meh_addr,
@@ -26,10 +28,10 @@ module pc_reg
     
     assign iram_en = (if_valid == `TRUE) ? rst_n : 1'b0;
     
-    assign pc_nxt = jump2exp        ?       meh_addr              :
-                    ex_is_mret_inst ?       mret_addr             :   
-                    bj_flag         ?       bj_addr               :     
-                    fetch_hand_suc  ?       pc_o + `INST_BYTE_NUM :
+    assign pc_nxt = jump2exp                    ?       meh_addr              :
+                    ex_is_mret_inst             ?       mret_addr             :   
+                    bj_flag                     ?       bj_addr               :     
+                    (if_id_valid & id_allowin)  ?       pc_o + `INST_BYTE_NUM :
                     pc_o; 
                 
               

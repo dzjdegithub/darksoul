@@ -58,8 +58,8 @@ module mem_wb
     wire wb_allowin;
     
     assign wb_allowin = 1'b1;
-    assign mem_ready_go = mem_we ? store_hand_suc :
-                          mem_re ? load_hand_suc  :
+    assign mem_ready_go = (mem_we & mem_valid) ? store_hand_suc :
+                          (mem_re & mem_valid) ? load_hand_suc  :
                           1'b1;
     assign mem_allowin = (mem_ready_go && wb_allowin);
     assign mem_wb_valid = (mem_valid && mem_ready_go);

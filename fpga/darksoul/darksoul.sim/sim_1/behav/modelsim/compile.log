@@ -9,9 +9,9 @@
 # vmap xil_defaultlib modelsim_lib/msim/xil_defaultlib 
 # Modifying modelsim.ini
 # Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
-# Start time: 17:36:04 on Feb 01,2025
+# Start time: 17:49:52 on Feb 02,2025
 # vlog -incr -mfcu -work xil_defaultlib ../../../../darksoul.gen/sources_1/ip/blk_mem_gen_0/sim/blk_mem_gen_0.v ../../../../../../rtl/utils/AXI2SRAM.v ../../../../../../rtl/core/LCA.v ../../../../../../rtl/core/agu.v ../../../../../../rtl/core/alu.v ../../../../../../rtl/soc/axi_xbar.v ../../../../../../rtl/core/bju.v ../../../../../../rtl/core/booth_encoder.v ../../../../../../rtl/core/bus_if.v ../../../../../../rtl/perips/clint.v ../../../../../../rtl/core/compressor.v ../../../../../../rtl/core/cpu_top.v ../../../../../../rtl/core/csr.v ../../../../../../rtl/core/csru.v ../../../../../../rtl/core/decoder.v ../../../../../../rtl/core/div.v ../../../../../../rtl/core/ex_mem.v ../../../../../../rtl/core/ex_stage.v ../../../../../../rtl/core/id_ex.v ../../../../../../rtl/core/id_stage.v ../../../../../../rtl/core/if_id.v ../../../../../../rtl/core/if_stage.v ../../../../../../rtl/core/imm_gen.v ../../../../../../rtl/core/mem_stage.v ../../../../../../rtl/core/mem_wb.v ../../../../../../rtl/core/mul.v ../../../../../../rtl/core/mux_alu.v ../../../../../../rtl/core/pc_reg.v ../../../../../../rtl/core/pipe_ctrl.v ../../../../../../rtl/core/pp_gen.v ../../../../../../rtl/core/regfile.v ../../../../../../rtl/soc/soc_top.v ../../../../../../rtl/core/wallace_tree.v ../../../../../../tb/cpu_tb.v 
-# -- Compiling module blk_mem_gen_0
+# -- Skipping module blk_mem_gen_0
 # -- Skipping module AXI2SRAM_1
 # -- Skipping module AXI2SRAM
 # -- Skipping module LCA
@@ -54,14 +54,14 @@
 # 
 # Top level modules:
 # 	cpu_tb
-# End time: 17:36:05 on Feb 01,2025, Elapsed time: 0:00:01
+# End time: 17:49:53 on Feb 02,2025, Elapsed time: 0:00:01
 # Errors: 0, Warnings: 0
 # Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
-# Start time: 17:36:05 on Feb 01,2025
+# Start time: 17:49:53 on Feb 02,2025
 # vlog -work xil_defaultlib glbl.v 
 # -- Compiling module glbl
 # 
 # Top level modules:
 # 	glbl
-# End time: 17:36:05 on Feb 01,2025, Elapsed time: 0:00:00
+# End time: 17:49:53 on Feb 02,2025, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0

@@ -17,7 +17,9 @@ module if_stage
     //pipe
     input  pipe_stall,
     
-    input fetch_hand_suc,
+    // input fetch_hand_suc,
+    input if_id_valid,
+    input id_allowin,
     
     input jump2exp,
     input [`XLEN - 1 : 0] meh_addr,
@@ -61,7 +63,9 @@ module if_stage
         
         .pipe_stall(pipe_stall),
         
-        .fetch_hand_suc(fetch_hand_suc),
+        // .fetch_hand_suc(fetch_hand_suc),
+        .if_id_valid(if_id_valid),
+        .id_allowin(id_allowin),
         
         .jump2exp(jump2exp),
         .meh_addr(meh_addr),

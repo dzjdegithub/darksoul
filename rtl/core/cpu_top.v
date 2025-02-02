@@ -198,7 +198,9 @@ module cpu_top
         
         .pipe_stall(pipe_stall),
         
-        .fetch_hand_suc(fetch_hand_suc),
+        // .fetch_hand_suc(fetch_hand_suc),
+        .if_id_valid(if_id_valid),
+        .id_allowin(id_allowin),
         
         .jump2exp(jump2exp),
         .meh_addr(meh_addr),
@@ -491,6 +493,7 @@ module cpu_top
     wire ex_exp_flag;
     wire mem_exp_int_flag;
     wire [1 : 0] ex_size_o;
+    wire [`XLEN - 1 : 0] ex_mem_wdata;
 
     ex_stage ex_stage_instance
     (
@@ -547,7 +550,8 @@ module cpu_top
         .ex_ls_addr(ex_ls_addr),
         .ex_l_mask_o(ex_l_mask_o),
         .ex_byte_we(ex_byte_we),
-        .ex_rs2_o(ex_rs2_o),
+        // .ex_rs2_o(ex_rs2_o),
+        .ex_mem_wdata(ex_mem_wdata),
         .ex_size_i(ex_size),
         .ex_size_o(ex_size_o),
         
@@ -874,7 +878,7 @@ module cpu_top
         .load_hand_suc(load_hand_suc),
         .fetch_hand_suc(fetch_hand_suc),
         .ex_ls_addr(ex_ls_addr),
-        .store_data(ex_rs2_o),
+        .store_data(ex_mem_wdata),
         .axi_read_data(axi_read_data),
         .ex_byte_we(ex_byte_we),
         .size(ex_size_o),

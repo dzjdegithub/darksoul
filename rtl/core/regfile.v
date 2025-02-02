@@ -20,11 +20,11 @@ module regfile
     reg [`XLEN - 1 : 0] rf [`REG_NUM - 1 : 0];
 
     assign rf_rdata1 = (rf_raddr1 == `X0) ? `ZEROWORD :
-                       (rf_raddr1 == rf_waddr) ? rf_wdata :
+                       (rf_raddr1 == rf_waddr & rf_wen) ? rf_wdata :
                        rf[rf_raddr1];
     
     assign rf_rdata2 = (rf_raddr2 == `X0) ? `ZEROWORD :
-                       (rf_raddr2 == rf_waddr) ? rf_wdata :
+                       (rf_raddr2 == rf_waddr & rf_wen) ? rf_wdata :
                        rf[rf_raddr2];
     
     integer i;

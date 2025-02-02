@@ -38,7 +38,7 @@ module mem_stage
     output mem_exp_int_flag,
     
     input mem_is_wfi_inst_i,
-    input mem_is_wfi_inst_o
+    output mem_is_wfi_inst_o
 );
 
     assign mem_int_flag = int_flag;
